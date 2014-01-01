@@ -16,4 +16,17 @@
 			<url>https://clojars.org/repo</url>
 		</repository>
 	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.clojure</groupId>
+			<artifactId>clojure</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.mikera</groupId>
+			<artifactId>cljunit</artifactId>
+			<version>0.3.0</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
