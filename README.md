@@ -1,11 +1,10 @@
-kiss
+Kiss
 ====
 
-EXPERIMENTAL
+**K**iss is **I**mmutable, **S**tatically compiled and **S**ymbiotic (with Clojure).
 
-This is an experiment in programming language design. Who knows where it will go?
+This is an EXPERIMENT in programming language design. Who knows where it will go?
 
-**K**iss is **I**mmutable **S**tatically compiled and **S**ymbiotic (with Clojure).
 
 ## Rationale
 
