@@ -7,7 +7,7 @@ This is an EXPERIMENT in programming language design. Who knows where it will go
 
 ## Objectives
 
- - Look and feel like **Clojure**
+ - Productive like **Clojure**
  - Perform like **Java**
  - Typecheck like **Haskell**
 
