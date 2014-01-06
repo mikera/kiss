@@ -68,6 +68,7 @@ Kiss aims to take the following approach:
 
 ### Implementation ideas
 
+ - Kiss is designed to be **embedded** in the Clojure runtime environment. Clojure code will be fully usable from Kiss and vice versa. In the first instance, Kiss will just use all of clojure.core directly, in addition to takinmg advantage of Clojure data structures, interfaces, abstractions etc.
  - Kiss environments will **look like maps to Clojure code**, specifically maps from symbols to values (internally the environment will maintain more data, e.g. the types of each value)
  - There will be a `kiss` macro to execute Kiss code easily within Clojure source. This will probably be the normal way of using Kiss
  - Kiss will keep a **dependency graph** between compiled code in immutable environments, If you redefine something, this will enable all dependent code in the environment to be updated. This will recreate the "dynamic redefinition" behaviour that is familiar to Clojure users, without requiring full recompilations
