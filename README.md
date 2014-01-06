@@ -5,17 +5,22 @@ Kiss
 
 This is an EXPERIMENT in programming language design. Who knows where it will go?
 
+## Example
+
+```clojure
+(TODO)
+```
 
 ## Rationale
 
 I've found Clojure to be a beautiful language to work with. In fact, it's probably my favourite language right now.
 
-However it has, in my opinion, two notable weaknesses:
+However it has, in my humble opinion, two notable weaknesses:
 
  - The lack of static typing
- - An ugly mutable namespace system
+ - A tricky mutable namespace system
 
-Kiss is an experiement to try and create a language that addresses these two issues, while otherwise being pretty much exactly like (and bootstrapped on top of!) the Clojure that we know and love.
+Kiss is an experiement to try and create a mini-language that addresses these two issues, while otherwise being pretty much exactly like (and bootstrapped on top of!) the Clojure that we know and love.
 
 ### Why we want static typing
 
@@ -24,7 +29,9 @@ There are many reasons to want the benefits of static typing, most notably:
  - **Performance** - with knowledge of static types, the compiler can eliminate runtime checks and produce more efficient code.
  - **Reliability** - static typing will tell you about many bugs at compile time. If your code doesn't type check, then it definitely isn't logically correct (the converse is of not true: code that type checks can still be very incorrect).
  - **Refactoring** - refactoring dynamically typed code is much harder. In part this is because you don't find out about errors until much later (at runtime or at least test time). In addition, static typing makes it much easier to create useful code analysis and refactoring tools.
- - **Less work** - To compensate for reliability and flexibility issues, programmers in dynamic langauges often write comprehensive test suites that do something equivalent to type checking of various cases (but still probably not exhaustive). There is also a tendency to create various schema lannguages / DSLs. With static typing, the compiler just does all this work for you, saving considerable effort.
+ - **Less work** - To compensate for reliability and flexibility issues, programmers in dynamic langauges often write large test suites that do something equivalent to type checking of various cases (but such tests are still probably nowhere near exhaustive). There is also a tendency to create various schema lannguages / DSLs. With static typing, the compiler just does all this work for you, saving considerable effort.
+
+All of the above can be worked around in various ways, but it's generally messy and unidiomatic to do so.
 
 ### Why we want immutable namespaces
 
