@@ -8,7 +8,12 @@ This is an EXPERIMENT in programming language design. Who knows where it will go
 ## Example
 
 ```clojure
-(TODO)
+(ns my.clojure.project
+  (:use kiss.core))
+  
+(defn call-kiss-from-clojure []
+  (kiss 
+    (str "Hello from Kiss!")))
 ```
 
 ## Rationale
@@ -56,7 +61,7 @@ Kiss aims to take the following approach:
 
 ### Implementation ideas
 
- - Kiss environments will **look like maps to Clojure code**, specifically maps from symbols to final values
+ - Kiss environments will **look like maps to Clojure code**, specifically maps from symbols to values (internally the environment will maintain more data, e.g. the types of each value)
  - There will be a `kiss` macro to execute Kiss code easily within Clojure source. This will probably be the normal way of using Kiss
  - Kiss will keep a **dependency graph** between compiled code in immutable environments, If you redefine something, this will enable all dependent code in the environment to be updated. This will recreate the "dynamic redefinition" behaviour that is familiar to Clojure users, without requiring full recompilations
  - It will be possible to define something with a missing dependency: this will create a **"deferred dependency"**. This will enable modules / units of code to be loaded independently, while still allowing circular references to be resolved later. Actually trying to evaluate something that is a deferred dependency will be an error of course.
