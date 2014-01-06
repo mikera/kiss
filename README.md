@@ -5,6 +5,13 @@ Kiss
 
 This is an EXPERIMENT in programming language design. Who knows where it will go?
 
+## Objectives
+
+ - Feel like **Clojure**
+ - Perform like **Java**
+ - Typecheck like **Haskell**
+
+
 ## Example
 
 ```clojure
