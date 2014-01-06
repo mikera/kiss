@@ -77,3 +77,14 @@ Kiss aims to take the following approach:
  - It should be possible to `fork` Kiss environments to create independent instances from the same base environment. Structural sharing should ensure that this is highly efficient
  - Restricted Kiss environments should work as an effective sandbox: there will be no escape from the sandbox except via definitions that already exist in the environment.
  - Kiss environments are independent, with no inherrent global state. This will make them practical for running e.g. isolated instances of applcation servers.
+
+### Differences from Typed Clojure
+
+Typed Clojure is a separate, and very interesting project.
+
+There are some fundamental differences between Typed Clojure and Kiss (as currently envisaged)
+
+ - Typed Clojure is a **static analysis tool** that analyses code given Clojure's *existing semantics and idioms*. Kiss is a **langauge** that copies Clojure's semantics wherever possible, but changes them where rerquired to implement its design goals of static typing and immutable environments
+ - Typed Clojure's **type system is very powerful**. Kiss doesn't need anything as sophisticated to meet its design goals, so will probably be somewhat simpler, at least in the early iterations. If Kiss could evolve to use Typed Clojure's type system effectively then that would be interesting, but this may or may not be feasible.
+ - Typed Clojure will type check code, but **doesn't provide a compiler** that actually produces optimised bytecode taking advantage of the static types. This is an explicit design goal for Kiss - we want to get the **performance benefits** of static types (as well as the type safety).
+ - Typed Clojure **exists**, and you can use it today. Kiss doesn't actually exist (yet).
