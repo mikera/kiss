@@ -7,9 +7,9 @@ This is an EXPERIMENT in programming language design. Who knows where it will go
 
 ## Objectives
 
- - Productive like **Clojure**
- - Perform like **Java**
- - Typecheck like **Haskell**
+ - Productivity like **Clojure**
+ - Performance like **Java**
+ - Type safety like **Haskell**
 
 
 ## Example
