@@ -1,4 +1,4 @@
-package kiss.lang.impl;
+package kiss.lang.type;
 
 import kiss.lang.Type;
 

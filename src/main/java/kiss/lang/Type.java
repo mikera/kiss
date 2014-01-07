@@ -1,7 +1,7 @@
 package kiss.lang;
 
-import kiss.lang.impl.JavaType;
-import kiss.lang.impl.NullType;
+import kiss.lang.type.JavaType;
+import kiss.lang.type.NullType;
 
 public abstract class Type {
 
