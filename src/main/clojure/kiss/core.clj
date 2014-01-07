@@ -1,6 +1,6 @@
 (ns kiss.core
   (:require [kiss.compiler :as compiler])
-  (:import [kiss.lang Environment])
+  (:import [kiss.lang Environment Analyser])
   (:use [mikera.cljutils error]))
 
 ;; EXPERIMENTAL - API subject to change!!!
@@ -11,6 +11,10 @@
   "Returns an empty kiss environment"
   ([]
     Environment/EMPTY))
+
+(defn analyse
+  ([form]
+    (Analyser/analyse form)))
 
 (defn kmerge
   "Merge kiss environments, returning a new environment"
