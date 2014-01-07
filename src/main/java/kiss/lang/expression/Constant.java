@@ -1,8 +1,9 @@
 package kiss.lang.expression;
 
+import kiss.lang.Expression;
 import kiss.lang.type.JavaType;
 
-public class Constant<T> {
+public class Constant<T> extends Expression {
 	private final T value;
 	private final JavaType<T> type;
 	
@@ -15,7 +16,8 @@ public class Constant<T> {
 		return value;
 	}
 	
-	public JavaType<T> gettype() {
+	@Override
+	public JavaType<T> getType() {
 		return type;
 	}
 	
