@@ -1,6 +1,7 @@
 package kiss.lang;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
@@ -63,7 +64,33 @@ public final class Environment extends APersistentMap {
 
 	@Override
 	public Iterator iterator() {
-		throw new UnsupportedOperationException("TODO");
+		return new EnvioronmentIterator(map.iterator());
+	}
+	
+	private static final class EnvioronmentIterator implements Iterator {
+		final Iterator source;
+		
+		private EnvioronmentIterator(Iterator vs) {
+			this.source=vs;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return source.hasNext();
+		}
+
+		@SuppressWarnings("rawtypes")
+		@Override
+		public Object next() {
+			Map.Entry entry=(Entry) source.next();
+			Mapping m=(Mapping)entry.getValue();
+			return m.toMapEntry(entry.getKey());
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException("Immutable!");
+		}		
 	}
 
 	@Override
@@ -90,7 +117,7 @@ public final class Environment extends APersistentMap {
 
 	@Override
 	public ISeq seq() {
-		return RT.seq(iterator());
+		return clojure.lang.IteratorSeq.create(iterator());
 	}
 
 	@Override
