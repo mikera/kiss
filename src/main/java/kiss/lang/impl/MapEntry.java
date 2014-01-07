@@ -14,6 +14,7 @@ public class MapEntry implements IMapEntry {
 		this.value=value;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Entry<Symbol, Object> create(Symbol sym, Object o) {
 		return new MapEntry(sym,o);
 	}
