@@ -19,7 +19,7 @@ import clojure.lang.RT;
  *
  */
 public final class Environment extends APersistentMap {
-	
+	private static final long serialVersionUID = -2048617052932290067L;
 	public static final Environment EMPTY = new Environment();
 	
 	public final IPersistentMap map;
@@ -43,9 +43,11 @@ public final class Environment extends APersistentMap {
 
 	@Override
 	public IPersistentMap assocEx(Object key, Object val) {
-		IPersistentMap m=map.assocEx(key, val);
-		if (m==map) return this;
-		return new Environment(m);
+		Mapping m=getMapping(key);
+		if (m!=null) {
+			if (m.getValue()==val) return this;
+		}
+		return new Environment(map.assoc(key, Mapping.create(val)));
 	}
 
 	@Override
