@@ -1,4 +1,4 @@
-package kiss;
+package kiss.lang;
 
 /**
  * A kiss environement mapping

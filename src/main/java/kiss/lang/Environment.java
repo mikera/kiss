@@ -1,4 +1,4 @@
-package kiss;
+package kiss.lang;
 
 import java.util.Iterator;
 

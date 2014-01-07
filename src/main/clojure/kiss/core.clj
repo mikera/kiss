@@ -1,6 +1,6 @@
 (ns kiss.core
   (:require [kiss.compiler :as compiler])
-  (:import [kiss Environment])
+  (:import [kiss.lang Environment])
   (:use [mikera.cljutils error]))
 
 ;; EXPERIMENTAL - API subject to change!!!
