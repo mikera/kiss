@@ -2,6 +2,12 @@ package kiss.lang.impl;
 
 import kiss.lang.Type;
 
+/**
+ * The type of the value null
+ * 
+ * @author Mike
+ *
+ */
 public class NullType extends Type {
 
 	public static final Type INSTANCE = new NullType();
@@ -12,7 +18,7 @@ public class NullType extends Type {
 	}
 
 	@Override
-	public Class getJavaType() {
+	public Class<?> getJavaType() {
 		return Void.TYPE;
 	}
 

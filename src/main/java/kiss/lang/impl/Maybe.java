@@ -2,6 +2,12 @@ package kiss.lang.impl;
 
 import kiss.lang.Type;
 
+/**
+ * Maybe type, represents the type of values that may be either null or non-null values of another type
+ * 
+ * @author Mike
+ *
+ */
 public class Maybe extends Type{	
 	private Type type;
 
@@ -22,7 +28,7 @@ public class Maybe extends Type{
 	}
 
 	@Override
-	public Class getJavaType() {
+	public Class<?> getJavaType() {
 		return type.getJavaType();
 	}
 }

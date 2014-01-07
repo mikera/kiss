@@ -2,6 +2,12 @@ package kiss.lang.impl;
 
 import kiss.lang.Type;
 
+/**
+ * JavaType represents the type of non-null values that are of a specific Java type.
+ * 
+ * @author Mike
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class JavaType extends Type {
 	private final Class klass;
@@ -16,7 +22,7 @@ public class JavaType extends Type {
 	}
 
 	@Override
-	public Class getJavaType() {
+	public Class<?> getJavaType() {
 		return klass;
 	}
 }
