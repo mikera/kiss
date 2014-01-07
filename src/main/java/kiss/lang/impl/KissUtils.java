@@ -1,4 +1,4 @@
-package kiss.lang;
+package kiss.lang.impl;
 
 import clojure.lang.IPersistentVector;
 import clojure.lang.Symbol;

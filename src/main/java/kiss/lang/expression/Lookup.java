@@ -4,8 +4,8 @@ import java.util.Map.Entry;
 
 import kiss.lang.Environment;
 import kiss.lang.Expression;
-import kiss.lang.KissException;
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 import clojure.lang.RT;
 import clojure.lang.Symbol;
 import clojure.lang.Var;

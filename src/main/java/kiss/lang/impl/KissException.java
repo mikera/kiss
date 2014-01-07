@@ -1,4 +1,4 @@
-package kiss.lang;
+package kiss.lang.impl;
 
 @SuppressWarnings("serial")
 public class KissException extends RuntimeException {

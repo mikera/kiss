@@ -4,6 +4,7 @@ import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
+import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
 import clojure.lang.RT;

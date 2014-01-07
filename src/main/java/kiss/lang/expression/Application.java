@@ -4,8 +4,8 @@ import clojure.lang.ArraySeq;
 import clojure.lang.IFn;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
-import kiss.lang.KissException;
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 import kiss.lang.type.AnyType;
 
 public class Application extends Expression {
