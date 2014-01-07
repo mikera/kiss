@@ -11,4 +11,9 @@ public class NullType extends Type {
 		return o==null;
 	}
 
+	@Override
+	public Class getJavaType() {
+		return Void.TYPE;
+	}
+
 }

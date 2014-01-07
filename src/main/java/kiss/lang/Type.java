@@ -11,5 +11,11 @@ public abstract class Type {
 	}
 	
 	public abstract boolean checkInstance(Object o);
+	
+	public abstract Class<?> getJavaType();
+	
+	public boolean isPrimitive() {
+		return false;
+	}
 
 }

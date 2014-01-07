@@ -20,4 +20,9 @@ public class Maybe extends Type{
 	public boolean checkInstance(Object o) {
 		return (o==null)||type.checkInstance(o);
 	}
+
+	@Override
+	public Class getJavaType() {
+		return type.getJavaType();
+	}
 }

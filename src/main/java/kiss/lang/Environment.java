@@ -10,6 +10,7 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.ISeq;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
+import clojure.lang.Symbol;
 
 /**
  * This is the immutable environment used by the Kiss compiler
@@ -67,10 +68,10 @@ public final class Environment extends APersistentMap {
 		return new EnvioronmentIterator(map.iterator());
 	}
 	
-	private static final class EnvioronmentIterator implements Iterator {
-		final Iterator source;
+	private static final class EnvioronmentIterator implements Iterator<Entry<Symbol,Object>> {
+		final Iterator<Entry<Symbol,Mapping>> source;
 		
-		private EnvioronmentIterator(Iterator vs) {
+		private EnvioronmentIterator(Iterator<Entry<Symbol,Mapping>> vs) {
 			this.source=vs;
 		}
 		
@@ -79,11 +80,10 @@ public final class Environment extends APersistentMap {
 			return source.hasNext();
 		}
 
-		@SuppressWarnings("rawtypes")
 		@Override
-		public Object next() {
-			Map.Entry entry=(Entry) source.next();
-			Mapping m=(Mapping)entry.getValue();
+		public Entry<Symbol,Object> next() {
+			Entry<Symbol,Mapping> entry=source.next();
+			Mapping m=entry.getValue();
 			return m.toMapEntry(entry.getKey());
 		}
 

@@ -14,4 +14,9 @@ public class JavaType extends Type {
 	public boolean checkInstance(Object o) {
 		return klass.isInstance(o);
 	}
+
+	@Override
+	public Class getJavaType() {
+		return klass;
+	}
 }
