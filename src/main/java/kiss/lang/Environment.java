@@ -9,38 +9,50 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.ISeq;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
-import clojure.lang.Symbol;
 
-public class Environment extends APersistentMap {
+public final class Environment extends APersistentMap {
 	
 	public static final Environment EMPTY = new Environment();
 	
-	public final PersistentHashMap map;
+	public final IPersistentMap map;
 
-	public Environment() {
-		map=PersistentHashMap.EMPTY;
+	private Environment() {
+		this(PersistentHashMap.EMPTY);
+	}
+	
+	private Environment(IPersistentMap map) {
+		this.map=map;
 	}
 	
 	@Override
 	public IPersistentMap assoc(Object key, Object val) {
-		throw new UnsupportedOperationException();
+		// TODO
+		IPersistentMap m=map.assoc(key, val);
+		if (m==map) return this;
+		return new Environment(m);
 	}
 
 	@Override
 	public IPersistentMap assocEx(Object key, Object val) {
-		throw new UnsupportedOperationException();
+		IPersistentMap m=map.assocEx(key, val);
+		if (m==map) return this;
+		return new Environment(m);
 	}
 
 	@Override
 	public IPersistentMap without(Object key) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
+		Mapping m=getMapping(key);
+		if (m==null) return this;
+		return new Environment(map.without(key));
+	}
+	
+	public Mapping getMapping(Object key) {
+		return (Mapping)map.valAt(key);
 	}
 
 	@Override
 	public Iterator iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("TODO");
 	}
 
 	@Override
@@ -50,7 +62,7 @@ public class Environment extends APersistentMap {
 
 	@Override
 	public IMapEntry entryAt(Object key) {
-		Mapping m=(Mapping) map.get(key);
+		Mapping m=getMapping(key);
 		if (m==null) return null;
 		return m.toMapEntry(key);
 	}
@@ -72,14 +84,14 @@ public class Environment extends APersistentMap {
 
 	@Override
 	public Object valAt(Object key) {
-		Mapping m=(Mapping) map.get(key);
+		Mapping m=getMapping(key);
 		if (m==null) return null;
 		return m.getValue();
 	}
 
 	@Override
 	public Object valAt(Object key, Object notFound) {
-		Mapping m=(Mapping) map.get(key);
+		Mapping m=getMapping(key);
 		if (m==null) return notFound;
 		return m.getValue();
 	}
