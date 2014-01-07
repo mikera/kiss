@@ -19,3 +19,10 @@
     (is (instance? Expression ex))
     (is (== 1 (.eval ex e)))))
 
+(deftest test-lookup
+  (let [^Environment e (empty-environment)
+        e (assoc e 'foo 10) 
+        ^Expression ex (analyse 'foo)]
+    (is (instance? Expression ex))
+    (is (== 10 (.eval ex e)))))
+
