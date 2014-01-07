@@ -1,7 +1,10 @@
 (ns kiss.core
   (:require [kiss.compiler :as compiler])
-  (:import [kiss.lang Environment Analyser])
+  (:import [kiss.lang Environment Analyser Expression])
   (:use [mikera.cljutils error]))
+
+(set! *warn-on-reflection* true)
+(set! *unchecked-math* true)
 
 ;; EXPERIMENTAL - API subject to change!!!
 ;;
@@ -13,7 +16,7 @@
     Environment/EMPTY))
 
 (defn analyse
-  ([form]
+  (^Expression [form]
     (Analyser/analyse form)))
 
 (defn kmerge
@@ -24,13 +27,12 @@
     (reduce kmerge (kmerge a b) more)))
 
 (defmacro kiss
-  "Compiles and executes kiss code in the given environment, returning an updated kiss environment"
-  [env & body]
-  (apply compiler/clojure-compile env body))
-
-(defn keval
-  "Evaluates kiss code in a given environment, returing the result."
-  ([code]
-    (keval (empty-environment) code))
-  ([env code]
-    (kiss env code)))
+  "Compiles and executes kiss code in the given environment, returning the result"
+  ([body]
+    `(let [env# Environment/EMPTY
+           ex# (analyse (quote ~body))]
+       (.eval ex# env#)))
+  ([env & body]
+    `(let [env# Environment/EMPTY
+           ex# (analyse ~body)]
+       (.eval ex# env#))))

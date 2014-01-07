@@ -5,7 +5,7 @@
 
 (deftest basic-tests
   (is (== 1 1))
-  (is (== 1 (keval 1))))
+  (is (== 1 (kiss 1))))
 
 (deftest environment-tests
   (let [e (empty-environment)]
@@ -28,6 +28,6 @@
 
 (deftest test-let
   (let [^Environment e (empty-environment)
-        ^Expression ex (analyse '(kiss.core/let [foo 13] foo))]
+        ^Expression ex (analyse '(let [foo 13] foo))]
     (is (instance? Expression ex))
     (is (== 13 (.eval ex e)))))
