@@ -7,6 +7,7 @@ import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
 import clojure.lang.ISeq;
+import clojure.lang.Symbol;
 
 public class Environment extends APersistentMap {
 	
