@@ -22,7 +22,7 @@ public class Constant<T> extends Expression {
 		return type;
 	}
 	
-	public Constant<T> create(T value) {
+	public static <T> Constant<T> create(T value) {
 		return new Constant<T>(value);
 	}
 
