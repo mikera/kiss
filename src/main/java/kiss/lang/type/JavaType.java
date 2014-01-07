@@ -8,13 +8,17 @@ import kiss.lang.Type;
  * @author Mike
  *
  */
-@SuppressWarnings("rawtypes")
-public class JavaType extends Type {
-	private final Class klass;
+public class JavaType<T> extends Type {
+	private final Class<T> klass;
 	
-	public JavaType(Class c) {
+	public JavaType(Class<T> c) {
 		klass=c;
 	}
+	
+	public static <T> JavaType<T> analyse(T val) {
+		return new JavaType<T>((Class<T>) val.getClass());
+	}
+	
 
 	@Override
 	public boolean checkInstance(Object o) {
@@ -22,7 +26,7 @@ public class JavaType extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<T> getJavaType() {
 		return klass;
 	}
 }

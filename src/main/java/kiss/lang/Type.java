@@ -1,15 +1,6 @@
 package kiss.lang;
 
-import kiss.lang.type.JavaType;
-import kiss.lang.type.NullType;
-
-public abstract class Type {
-
-	public static Type analyse(Object val) {
-		if (val==null) return NullType.INSTANCE;
-		return new JavaType(val.getClass());
-	}
-	
+public abstract class Type {	
 	/**
 	 * Check if an object is an instance of this type
 	 * 

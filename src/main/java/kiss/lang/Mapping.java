@@ -1,5 +1,6 @@
 package kiss.lang;
 
+import kiss.lang.type.JavaType;
 import clojure.lang.IMapEntry;
 
 /**
@@ -19,7 +20,7 @@ public class Mapping {
 	}
 	
 	private Mapping(Object val) {
-		this(val,Type.analyse(val));
+		this(val,JavaType.analyse(val));
 	}
 
 	public static Object create(Object val) {
