@@ -26,3 +26,8 @@
     (is (instance? Expression ex))
     (is (== 10 (.eval ex e)))))
 
+(deftest test-let
+  (let [^Environment e (empty-environment)
+        ^Expression ex (analyse '(kiss.core/let [foo 13] foo))]
+    (is (instance? Expression ex))
+    (is (== 13 (.eval ex e)))))

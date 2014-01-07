@@ -33,7 +33,7 @@ public final class Environment extends APersistentMap {
 	}
 	
 	@Override
-	public IPersistentMap assoc(Object key, Object val) {
+	public Environment assoc(Object key, Object val) {
 		Mapping m=getMapping(key);
 		if (m!=null) {
 			if (m.getValue()==val) return this;
@@ -42,7 +42,7 @@ public final class Environment extends APersistentMap {
 	}
 
 	@Override
-	public IPersistentMap assocEx(Object key, Object val) {
+	public Environment assocEx(Object key, Object val) {
 		Mapping m=getMapping(key);
 		if (m!=null) {
 			if (m.getValue()==val) return this;
