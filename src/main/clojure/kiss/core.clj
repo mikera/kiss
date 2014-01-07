@@ -33,6 +33,6 @@
            ex# (analyse (quote ~body))]
        (.eval ex# env#)))
   ([env & body]
-    `(let [env# Environment/EMPTY
-           ex# (analyse ~body)]
+    `(let [env# ~env
+           ex# (analyse (quote ~body))]
        (.eval ex# env#))))

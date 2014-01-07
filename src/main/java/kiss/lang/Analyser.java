@@ -1,5 +1,6 @@
 package kiss.lang;
 
+import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
@@ -39,8 +40,18 @@ public class Analyser {
 				
 				return Let.create(sym, analyse(v.nth(1)), analyse(RT.nth(form, 2)));
 			}
+		} 
+		
+		ISeq paramSeq=RT.next(form);
+		int n=RT.count(paramSeq);
+		Expression[] params=new Expression[n];
+		int i=0;
+		for (ISeq s=RT.seq(paramSeq); s!=null; s=s.next()) {
+			params[i++]=analyse(s.first());
 		}
 		
-		throw new KissException("Unexpected form: "+form);
+		return Application.create(analyse(first),params);
+		
+		// throw new KissException("Unexpected form: "+form);
 	}
 }

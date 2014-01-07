@@ -27,7 +27,7 @@
     (is (== 10 (.eval ex e)))))
 
 (deftest test-let
-  (let [^Environment e (empty-environment)
-        ^Expression ex (analyse '(let [foo 13] foo))]
-    (is (instance? Expression ex))
-    (is (== 13 (.eval ex e)))))
+  (is (== 13 (kiss (let [a 13] a)))))
+
+(deftest test-clojure-fn
+  (is (== 3 (kiss (clojure.core/+ 1 2)))))
