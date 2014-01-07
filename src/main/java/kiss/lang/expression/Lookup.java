@@ -6,7 +6,9 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.KissException;
 import kiss.lang.Type;
+import clojure.lang.RT;
 import clojure.lang.Symbol;
+import clojure.lang.Var;
 
 public class Lookup extends Expression {
 	private final Symbol sym;
@@ -27,8 +29,12 @@ public class Lookup extends Expression {
 	@Override
 	public Object eval(Environment e) {
 		Entry<Symbol, Object> o=e.entryAt(sym);
-		if (o==null) throw new KissException("Cannot lookup symbol "+sym+" in environment");
-		return o.getValue();
+		if (o!=null) return o.getValue();
+		 
+		Var v=RT.var(sym.getNamespace(),sym.getName());
+		if (v!=null) return v.deref();
+		
+		throw new KissException("Cannot lookup symbol "+sym+" in environment");
 	}
 
 }

@@ -1,11 +1,12 @@
 package kiss.lang;
 
+import kiss.lang.impl.MapEntry;
 import kiss.lang.type.JavaType;
 import clojure.lang.IMapEntry;
+import clojure.lang.Symbol;
 
 /**
- * A kiss environement mapping
- * 
+ * A kiss environment mapping
  * 
  * @author Mike
  *
@@ -32,43 +33,7 @@ public class Mapping {
 	}
 
 	public IMapEntry toMapEntry(Object key) {
-		return new Entry(key,value);
-	}
-	
-	public static class Entry implements IMapEntry {
-		private Object key;
-		private Object value;
-
-		public Entry(Object key, Object value) {
-			this.key=key;
-			this.value=value;
-		}
-
-		@Override
-		public Object getKey() {
-			return key;
-		}
-
-		@Override
-		public Object getValue() {
-			return value;
-		}
-
-		@Override
-		public Object setValue(Object value) {
-			throw new UnsupportedOperationException("Mapping entry is immutable!");
-		}
-
-		@Override
-		public Object key() {
-			return key;
-		}
-
-		@Override
-		public Object val() {
-			return value;
-		}
-		
+		return new MapEntry((Symbol)key,value);
 	}
 
 }
