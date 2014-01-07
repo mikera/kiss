@@ -1,5 +1,6 @@
 package kiss.lang.expression;
 
+import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.type.JavaType;
 
@@ -23,5 +24,10 @@ public class Constant<T> extends Expression {
 	
 	public Constant<T> create(T value) {
 		return new Constant<T>(value);
+	}
+
+	@Override
+	public Object eval(Environment e) {
+		return value;
 	}
 }
