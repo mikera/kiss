@@ -3,6 +3,10 @@
   (:import [kiss Environment])
   (:use [mikera.cljutils error]))
 
+;; EXPERIMENTAL - API subject to change!!!
+;;
+;; Don't rely on any of this stuff being here in the future
+
 (defn empty-environment
   "Returns an empty kiss environment"
   ([]
