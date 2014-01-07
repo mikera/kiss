@@ -10,6 +10,14 @@ import clojure.lang.ISeq;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
 
+/**
+ * This is the immutable environment used by the Kiss compiler
+ * 
+ * It is a first class object, but probably shouldn't be messed with outside of the kiss.core functions.
+ * 
+ * @author Mike
+ *
+ */
 public final class Environment extends APersistentMap {
 	
 	public static final Environment EMPTY = new Environment();
@@ -26,10 +34,11 @@ public final class Environment extends APersistentMap {
 	
 	@Override
 	public IPersistentMap assoc(Object key, Object val) {
-		// TODO
-		IPersistentMap m=map.assoc(key, val);
-		if (m==map) return this;
-		return new Environment(m);
+		Mapping m=getMapping(key);
+		if (m!=null) {
+			if (m.getValue()==val) return this;
+		}
+		return new Environment(map.assoc(key, Mapping.create(val)));
 	}
 
 	@Override

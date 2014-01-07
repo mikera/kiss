@@ -10,8 +10,21 @@ import clojure.lang.IMapEntry;
  *
  */
 public class Mapping {
-	Object type;
-	Object value;
+	final Object type;
+	final Object value;
+	
+	private Mapping(Object value, Type type) {
+		this.type=type;
+		this.value=value;
+	}
+	
+	private Mapping(Object val) {
+		this(val,Type.analyse(val));
+	}
+
+	public static Object create(Object val) {
+		return new Mapping(val);
+	}
 	
 	public Object getValue() {
 		return value;
@@ -56,4 +69,5 @@ public class Mapping {
 		}
 		
 	}
+
 }
