@@ -1,12 +1,10 @@
 package kiss.lang;
 
 /**
- * Kiss compiler
+ * Kiss language analyser
  * 
  * @author Mike
- *
  */
-public class Compiler {
-
+public class Analyser {
 	// TODO
 }

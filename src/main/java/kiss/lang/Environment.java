@@ -1,7 +1,6 @@
 package kiss.lang;
 
 import java.util.Iterator;
-import java.util.Map;
 
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
@@ -9,7 +8,6 @@ import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
 import clojure.lang.ISeq;
 import clojure.lang.PersistentHashMap;
-import clojure.lang.RT;
 import clojure.lang.Symbol;
 
 /**
