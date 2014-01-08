@@ -3,6 +3,18 @@ package kiss.lang;
 import clojure.lang.IPersistentMap;
 import clojure.lang.PersistentHashMap;
 
+/**
+ * Abstract base class for Kiss expression nodes
+ * 
+ * Design intent:
+ * - Represent Kiss AST
+ * - Can be optimised
+ * - Can be evaluated / interpreted given an execution environment
+ * - Can be compiled, given satisfaction of all external dependencies
+ * 
+ * @author Mike
+ *
+ */
 public abstract class Expression {
 
 	public abstract Type getType(); 

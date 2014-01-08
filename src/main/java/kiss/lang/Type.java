@@ -1,5 +1,11 @@
 package kiss.lang;
 
+/**
+ * Abstract base class for Kiss types
+ * 
+ * @author Mike
+ *
+ */
 public abstract class Type {	
 	/**
 	 * Check if an object is an instance of this type

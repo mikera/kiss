@@ -6,7 +6,7 @@ import clojure.lang.IMapEntry;
 import clojure.lang.Symbol;
 
 /**
- * A kiss environment mapping
+ * A kiss Environment mapping
  * 
  * @author Mike
  *

@@ -13,6 +13,10 @@ import clojure.lang.Symbol;
 /**
  * This is the immutable environment used by the Kiss compiler
  * 
+ * Design intent: 
+ *  - Behaves like an immutable map of Symbols -> Values
+ *  - Maintains a dependency graph for recompilation
+ *  
  * It is a first class object, but probably shouldn't be messed with outside of the kiss.core functions.
  * 
  * @author Mike

@@ -13,6 +13,9 @@ import clojure.lang.Symbol;
 /**
  * Kiss language analyser
  * 
+ * Design intent:
+ * - Converts Clojure forms to Kiss ASTs
+ * 
  * @author Mike
  */
 public class Analyser {
