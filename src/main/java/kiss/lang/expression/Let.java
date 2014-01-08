@@ -28,6 +28,7 @@ public class Let extends Expression {
 	
 	@Override
 	public Environment compute(Environment d) {
+		// TODO: this is obviously broken! need to separate out lexical environment...
 		d=value.compute(d);
 		Environment inner=d.assoc(sym, d.getResult());
 		return body.compute(inner);
