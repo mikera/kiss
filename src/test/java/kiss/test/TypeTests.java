@@ -1,7 +1,8 @@
 package kiss.test;
 
-import static org.junit.Assert.*;
-import kiss.lang.Type;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.NullType;

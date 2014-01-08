@@ -12,7 +12,7 @@ import clojure.lang.Symbol;
  *
  */
 public class Mapping {
-	final Object type;
+	final Type type;
 	final Object value;
 	
 	private Mapping(Object value, Type type) {
@@ -34,6 +34,10 @@ public class Mapping {
 
 	public IMapEntry toMapEntry(Object key) {
 		return new MapEntry((Symbol)key,value);
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 }
