@@ -32,7 +32,7 @@
     `(let [env# Environment/EMPTY
            ex# (analyse (quote ~body))]
        (.eval ex# env#)))
-  ([env & body]
+  ([env body]
     `(let [env# ~env
            ex# (analyse (quote ~body))]
        (.eval ex# env#))))

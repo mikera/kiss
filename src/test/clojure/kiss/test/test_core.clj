@@ -24,7 +24,9 @@
         e (assoc e 'foo 10) 
         ^Expression ex (analyse 'foo)]
     (is (instance? Expression ex))
-    (is (== 10 (.eval ex e)))))
+    (is (== 10 (.eval ex e)))
+    (is (== 10 (kiss e foo)))
+    (is (== 17 (kiss e (let [foo 17] foo))))))
 
 (deftest test-let
   (is (== 13 (kiss (let [a 13] a)))))
