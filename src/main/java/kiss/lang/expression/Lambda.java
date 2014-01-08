@@ -1,5 +1,7 @@
 package kiss.lang.expression;
 
+import java.util.Map.Entry;
+
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
@@ -7,6 +9,7 @@ import kiss.lang.Type;
 import kiss.lang.impl.LambdaFn;
 import kiss.lang.type.FunctionType;
 import clojure.lang.IPersistentMap;
+import clojure.lang.ISeq;
 import clojure.lang.Symbol;
 
 public class Lambda extends Expression {
@@ -36,7 +39,13 @@ public class Lambda extends Expression {
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		// TODO is this sensible? capture the dynamic environment at exact point of lambda creation?
-		KFn fn=LambdaFn.create(d,body,syms);
+		Environment e=d;
+		for (ISeq s= bindings.seq(); s!=null; s=s.next()) {
+			Entry<?, ?> me=(Entry<?, ?>)s.first();
+			e=e.assoc(me.getKey(),me.getValue());
+		}
+		
+		KFn fn=LambdaFn.create(e,body,syms);
 		return d.withResult(fn);
 	}
 }

@@ -39,7 +39,9 @@ public class Lookup extends Expression {
 			Var v=RT.var(sym.getNamespace(),sym.getName());
 			if (v!=null) return e.withResult(v.deref());
 		} catch (Throwable t) {
-			throw new KissException("Error trying to lookp var "+sym+".",t);
+			String err="Error trying to lookp var "+sym+"."; 
+			err+=" with Environment "+e.toString();
+			throw new KissException(err,t);
 		}
 		
 		throw new KissException("Cannot lookup symbol "+sym+" in environment");

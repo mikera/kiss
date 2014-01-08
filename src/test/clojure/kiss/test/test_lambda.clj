@@ -26,3 +26,8 @@
   (testing "Arity errors result in an exception"
     (is (error? (kiss ((fn [] 3) "foo"))))
     (is (error? (kiss ((fn [x] 3)))))))
+
+(deftest test-closure
+  (testing "Closing over a local param"
+    (let [kfn (kiss (let [a 3] (fn [x] a)))]
+      (is (== 3 (kfn 7))))))
