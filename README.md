@@ -23,17 +23,6 @@ This is an EXPERIMENT in programming language design. Who knows where it will go
     (str "Hello from Kiss!")))
 ```
 
-## Rationale
-
-I've found Clojure to be a beautiful language to work with. In fact, it's probably my favourite language right now.
-
-However it has, in my humble opinion, two notable weaknesses:
-
- - The lack of static typing
- - A tricky mutable namespace system
-
-I believe these issues can be addressed without compromising the otherwise excellent design of Clojure. So Kiss is an experiement to try and create a mini-language that addresses these two issues, while otherwise being pretty much exactly like (and bootstrapped on top of!) the Clojure that we know and love.
-
 ## Solution
 
 Kiss aims to take the following approach:
