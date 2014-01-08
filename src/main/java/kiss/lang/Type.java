@@ -29,4 +29,6 @@ public abstract class Type {
 		return false;
 	}
 
+	public abstract boolean contains(Type t);
+
 }

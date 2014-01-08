@@ -22,4 +22,9 @@ public class NullType extends Type {
 		return Void.TYPE;
 	}
 
+	@Override
+	public boolean contains(Type t) {
+		return t==INSTANCE;
+	}
+
 }

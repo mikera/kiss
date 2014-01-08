@@ -15,7 +15,7 @@ public class Maybe extends Type{
 		this.type=t;
 	}
 	
-	public Type create(Type t) {
+	public static Type create(Type t) {
 		if (t instanceof NullType) {
 			return NullType.INSTANCE;
 		}
@@ -30,5 +30,10 @@ public class Maybe extends Type{
 	@Override
 	public Class<?> getJavaType() {
 		return type.getJavaType();
+	}
+
+	@Override
+	public boolean contains(Type t) {
+		return NullType.INSTANCE.contains(t)||type.contains(t);
 	}
 }
