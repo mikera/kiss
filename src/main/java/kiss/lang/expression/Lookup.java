@@ -6,6 +6,7 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
+import clojure.lang.IPersistentMap;
 import clojure.lang.RT;
 import clojure.lang.Symbol;
 import clojure.lang.Var;
@@ -27,7 +28,10 @@ public class Lookup extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment e) {
+	public Environment compute(Environment e, IPersistentMap bindings) {
+		Entry<Symbol, Object> lb=bindings.entryAt(sym);
+		if (lb!=null) return e.withResult(lb.getValue());
+
 		Entry<Symbol, Object> o=e.entryAt(sym);
 		if (o!=null) return e.withResult(o.getValue());
 		 

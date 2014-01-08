@@ -1,5 +1,8 @@
 package kiss.lang;
 
+import clojure.lang.IPersistentMap;
+import clojure.lang.PersistentHashMap;
+
 public abstract class Expression {
 
 	public abstract Type getType(); 
@@ -11,11 +14,12 @@ public abstract class Expression {
 	 * @return
 	 */
 	public Object eval(Environment e) {
-		return compute(e).getResult();
+		return compute(e, PersistentHashMap.EMPTY).getResult();
 	}
 	
 	/**
 	 * Compute the effect of this expression, returning a new Environment
+	 * @param bindings TODO
 	 */
-	public abstract Environment compute(Environment d);
+	public abstract Environment compute(Environment d, IPersistentMap bindings);
 }

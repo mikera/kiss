@@ -1,5 +1,6 @@
 package kiss.lang.expression;
 
+import clojure.lang.IPersistentMap;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.type.JavaType;
@@ -32,8 +33,7 @@ public class Constant<T> extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d) {
-		// TODO Auto-generated method stub
+	public Environment compute(Environment d, IPersistentMap bindings) {
 		return d.withResult(value);
 	}
 }

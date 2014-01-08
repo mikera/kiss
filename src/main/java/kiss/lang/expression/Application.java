@@ -2,6 +2,7 @@ package kiss.lang.expression;
 
 import clojure.lang.ArraySeq;
 import clojure.lang.IFn;
+import clojure.lang.IPersistentMap;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
@@ -30,8 +31,8 @@ public class Application extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d) {
-		d=func.compute(d);
+	public Environment compute(Environment d, IPersistentMap bindings) {
+		d=func.compute(d, bindings);
 		Object o=d.getResult();
 		if (!(o instanceof IFn)) throw new KissException("Not a function!");
 		IFn fn=(IFn)o;
@@ -39,7 +40,7 @@ public class Application extends Expression {
 		int n=params.length;
 		Object[] args=new Object[n];
 		for (int i=0; i<n; i++) {
-			d=params[i].compute(d);
+			d=params[i].compute(d, bindings);
 			args[i]=d.getResult();
 		}
 		

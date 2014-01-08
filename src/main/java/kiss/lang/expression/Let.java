@@ -1,5 +1,6 @@
 package kiss.lang.expression;
 
+import clojure.lang.IPersistentMap;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
@@ -27,11 +28,11 @@ public class Let extends Expression {
 	}
 	
 	@Override
-	public Environment compute(Environment d) {
+	public Environment compute(Environment d, IPersistentMap bindings) {
 		// TODO: this is obviously broken! need to separate out lexical environment...
-		d=value.compute(d);
-		Environment inner=d.assoc(sym, d.getResult());
-		return body.compute(inner);
+		d=value.compute(d, bindings);
+		bindings=bindings.assoc(sym, d.getResult());
+		return body.compute(d, bindings);
 	}
 
 }
