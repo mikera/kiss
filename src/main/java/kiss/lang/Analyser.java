@@ -29,11 +29,11 @@ public class Analyser {
 	 */
 	public static Expression analyse(Object form) {
 		if (form instanceof Symbol) return Lookup.create((Symbol)form);
-		if (form instanceof ISeq) return analyseList((ISeq)form);
+		if (form instanceof ISeq) return analyseSeq((ISeq)form);
 		return Constant.create(form);
 	}
 
-	private static Expression analyseList(ISeq form) {
+	private static Expression analyseSeq(ISeq form) {
 		if (form.count()==0) return Constant.create(form);
 		Object first=form.first();
 		
