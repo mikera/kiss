@@ -80,5 +80,5 @@ Kiss aims to take the following approach:
 
 ## See the Wiki for more details
 
- - https://github.com/mikera/kiss/wiki/Differences-with-Typed-Clojure
+ - [Differences with Types Clojure](https://github.com/mikera/kiss/wiki/Differences-with-Typed-Clojure)
 
