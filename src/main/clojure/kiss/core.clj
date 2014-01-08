@@ -16,7 +16,7 @@
     Environment/EMPTY))
 
 (defn analyse
-  (^Expression [form]
+  ([form]
     (Analyser/analyse form)))
 
 (defn kmerge
