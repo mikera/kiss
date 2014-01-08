@@ -15,6 +15,13 @@
   ([]
     Environment/EMPTY))
 
+(defn environment
+  "Creates an environment with the given symbol / value mappings"
+  ([]
+    (empty-environment))
+  ([mappings]
+    (reduce (fn [e [k v]] (assoc e k v)) (empty-environment) mappings)))
+
 (defn analyse
   ([form]
     (Analyser/analyse form)))

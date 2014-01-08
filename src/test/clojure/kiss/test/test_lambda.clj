@@ -28,6 +28,13 @@
     (is (error? (kiss ((fn [x] 3)))))))
 
 (deftest test-closure
-  (testing "Closing over a local param"
+  (testing "Attempt to invoke function with undefined free variable is a runtime error"
+     (let [kfn (kiss (fn [x] a))]
+       (is (error? (kfn 4)))))
+  (testing "Closing over a lexically scoped value"
     (let [kfn (kiss (let [a 3] (fn [x] a)))]
-      (is (== 3 (kfn 7))))))
+      (is (== 3 (kfn 7)))))
+  (testing "Closing over a dynamically scoped value"
+    (let [e (environment {'a 4})
+          kfn (kiss e (fn [] a))]
+      (is (== 4 (kfn))))))
