@@ -9,7 +9,9 @@
 
 (deftest test-higher-order
   (testing "Higher order functions returning a lambda"
-    (is (== 4 (kiss (((fn [f] (fn [g] 4)) 5) 6))))))
+    (is (== 4 (kiss (((fn [f] (fn [g] 4)) 5) 6)))))
+  (testing "Higher order functions returning a lambda, overriding lexical params"
+    (is (== 4 (kiss (((fn [f] (fn [f] 4)) 5) 6))))))
 
 (deftest test-clojure-iterop
   (testing "Kiss lambdas produce Clojure fns"
