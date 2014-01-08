@@ -1,5 +1,6 @@
 (ns kiss.test.test-lambda
   (:use clojure.test)
+  (:use [mikera.cljutils error])
   (:use kiss.core))
 
 (deftest test-clojure-iterop
@@ -10,3 +11,7 @@
       (is (== 3 (kfn2 1 2)))))
   (testing "Clojure functions work in lambdas"
     (is (== 3 (kiss ((fn [] (clojure.core/+ 1 2))))))))
+
+(deftest test-arity-error
+  (is (error? (kiss ((fn [] 3) "foo"))))
+  (is (error? (kiss ((fn [x] 3))))))
