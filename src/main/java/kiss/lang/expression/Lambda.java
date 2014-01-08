@@ -12,6 +12,14 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.ISeq;
 import clojure.lang.Symbol;
 
+/**
+ * A lambda expression, equivalent to Clojure "fn" 
+ * 
+ * Notes:
+ * - only supports fixed arity at present 
+ * 
+ * @author Mike
+ */
 public class Lambda extends Expression {
 
 	private FunctionType type;

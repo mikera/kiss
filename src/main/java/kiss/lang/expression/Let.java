@@ -6,6 +6,11 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 
+/**
+ * A let expression, creates a local lexical binding
+ * 
+ * @author Mike
+ */
 public class Let extends Expression {
 
 	private final Symbol sym;
@@ -29,6 +34,7 @@ public class Let extends Expression {
 	
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
+		// TODO: figure out what should happen if the let body changes the environment???
 		d=value.compute(d, bindings);
 		bindings=bindings.assoc(sym, d.getResult());
 		return body.compute(d, bindings);

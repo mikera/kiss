@@ -7,6 +7,11 @@ import kiss.lang.Type;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.NullType;
 
+/**
+ * A typed constant value in an expression
+ * 
+ * @author Mike
+ */
 public class Constant<T> extends Expression {
 	private final T value;
 	private final Type type;
