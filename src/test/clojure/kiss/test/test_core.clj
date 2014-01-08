@@ -33,3 +33,6 @@
 
 (deftest test-clojure-fn
   (is (== 3 (kiss (clojure.core/+ 1 2)))))
+
+(deftest test-lambda
+  (is (== 3 (kiss ((fn [x] 3) 2)))))

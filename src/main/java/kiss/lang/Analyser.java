@@ -2,6 +2,7 @@ package kiss.lang;
 
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
+import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
 import kiss.lang.impl.KissUtils;
@@ -43,6 +44,22 @@ public class Analyser {
 				Symbol sym=KissUtils.expectSymbol(v.nth(0));
 				
 				return Let.create(sym, analyse(v.nth(1)), analyse(RT.nth(form, 2)));
+			}
+			
+			if (s.equals(Symbols.FN)) {
+				IPersistentVector v=KissUtils.expectVector(RT.second(form));
+				int arity=v.count();
+				Symbol[] syms=new Symbol[arity];
+				Type[] types=new Type[arity];
+				for (int i=0; i<arity; i++) {
+					Symbol paramSym=(Symbol)v.nth(i);
+					syms[i]=paramSym;
+					Type paramType=Type.resolveTag(s);
+					types[i]=paramType;
+				}
+				Expression body=analyse(RT.nth(form, 2));
+				
+				return Lambda.create(body,syms,types);
 			}
 		} 
 		

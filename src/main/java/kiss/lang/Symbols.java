@@ -11,4 +11,5 @@ import clojure.lang.Symbol;
 public class Symbols {
 
 	public static final Symbol LET=Symbol.intern("let");
+	public static final Symbol FN=Symbol.intern("fn");
 }

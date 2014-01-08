@@ -1,5 +1,8 @@
 package kiss.lang;
 
+import kiss.lang.type.AnyType;
+import clojure.lang.Symbol;
+
 /**
  * Abstract base class for Kiss types
  * 
@@ -30,5 +33,10 @@ public abstract class Type {
 	}
 
 	public abstract boolean contains(Type t);
+
+	public static Type resolveTag(Symbol s) {
+		// TODO: extract type hints from Clojure symbols
+		return AnyType.MAYBE;
+	}
 
 }

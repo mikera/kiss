@@ -24,6 +24,10 @@ public class Lambda extends Expression {
 		this.syms=syms;
 	}
 	
+	public static Lambda create(Expression body, Symbol[] syms, Type[] types) {
+		return new Lambda(body,syms,types);
+	}
+	
 	@Override
 	public Type getType() {
 		return type;
@@ -31,6 +35,7 @@ public class Lambda extends Expression {
 
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
+		// TODO is this sensible? capture the dynamic environment at exact point of lambda creation?
 		KFn fn=LambdaFn.create(d,body,syms);
 		return d.withResult(fn);
 	}

@@ -3,15 +3,21 @@ package kiss.lang.expression;
 import clojure.lang.IPersistentMap;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
+import kiss.lang.Type;
 import kiss.lang.type.JavaType;
+import kiss.lang.type.NullType;
 
 public class Constant<T> extends Expression {
 	private final T value;
-	private final JavaType<T> type;
+	private final Type type;
 	
 	private Constant(T value) {
 		this.value=value;
-		type=JavaType.analyse(value);
+		if (value==null) {
+			type=NullType.INSTANCE;
+		} else {
+			type=JavaType.analyse(value);
+		}
 	}
 	
 	public T getValue() {
@@ -19,7 +25,7 @@ public class Constant<T> extends Expression {
 	}
 	
 	@Override
-	public JavaType<T> getType() {
+	public Type getType() {
 		return type;
 	}
 	
