@@ -27,12 +27,12 @@ public class Lookup extends Expression {
 	}
 
 	@Override
-	public Object eval(Environment e) {
+	public Environment compute(Environment e) {
 		Entry<Symbol, Object> o=e.entryAt(sym);
-		if (o!=null) return o.getValue();
+		if (o!=null) return e.withResult(o.getValue());
 		 
 		Var v=RT.var(sym.getNamespace(),sym.getName());
-		if (v!=null) return v.deref();
+		if (v!=null) return e.withResult(v.deref());
 		
 		throw new KissException("Cannot lookup symbol "+sym+" in environment");
 	}

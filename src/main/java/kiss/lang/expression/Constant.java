@@ -30,4 +30,10 @@ public class Constant<T> extends Expression {
 	public Object eval(Environment e) {
 		return value;
 	}
+
+	@Override
+	public Environment compute(Environment d) {
+		// TODO Auto-generated method stub
+		return d.withResult(value);
+	}
 }

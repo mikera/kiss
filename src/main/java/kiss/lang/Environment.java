@@ -23,13 +23,24 @@ public final class Environment extends APersistentMap {
 	public static final Environment EMPTY = new Environment();
 	
 	public final IPersistentMap map;
+	public final Object result;
 
 	private Environment() {
 		this(PersistentHashMap.EMPTY);
 	}
 	
 	private Environment(IPersistentMap map) {
+		this(map,null);
+	}
+	
+	private Environment(IPersistentMap map, Object result) {
 		this.map=map;
+		this.result=result;
+	}
+	
+	public Environment withResult(Object value) {
+		if (value==result) return this;
+		return new Environment(map,value);
 	}
 	
 	@Override
@@ -130,6 +141,10 @@ public final class Environment extends APersistentMap {
 		Mapping m=getMapping(key);
 		if (m==null) return notFound;
 		return m.getValue();
+	}
+
+	public Object getResult() {
+		return result;
 	}
 
 }

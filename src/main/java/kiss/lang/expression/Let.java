@@ -25,12 +25,12 @@ public class Let extends Expression {
 	public Type getType() {
 		return body.getType();
 	}
-
+	
 	@Override
-	public Object eval(Environment e) {
-		Object t=value.eval(e);
-		Environment inner=e.assoc(sym, t);
-		return body.eval(inner);
+	public Environment compute(Environment d) {
+		d=value.compute(d);
+		Environment inner=d.assoc(sym, d.getResult());
+		return body.compute(inner);
 	}
 
 }

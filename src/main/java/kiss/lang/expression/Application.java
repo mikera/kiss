@@ -30,18 +30,20 @@ public class Application extends Expression {
 	}
 
 	@Override
-	public Object eval(Environment e) {
-		Object o=func.eval(e);
+	public Environment compute(Environment d) {
+		d=func.compute(d);
+		Object o=d.getResult();
 		if (!(o instanceof IFn)) throw new KissException("Not a function!");
 		IFn fn=(IFn)o;
 		
 		int n=params.length;
 		Object[] args=new Object[n];
 		for (int i=0; i<n; i++) {
-			args[i]=params[i].eval(e);
+			d=params[i].compute(d);
+			args[i]=d.getResult();
 		}
 		
-		return fn.applyTo(ArraySeq.create(args));
+		return d.withResult(fn.applyTo(ArraySeq.create(args)));
 	}
 
 
