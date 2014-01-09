@@ -7,7 +7,7 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
-import kiss.lang.type.AnyType;
+import kiss.lang.type.Something;
 
 public class Application extends Expression {
 	private final Expression func;
@@ -27,7 +27,7 @@ public class Application extends Expression {
 	public Type getType() {
 		Type ft=func.getType();
 		// TODO: specialise function return type
-		return AnyType.INSTANCE;
+		return Something.INSTANCE;
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.type.JavaType;
-import kiss.lang.type.NullType;
+import kiss.lang.type.Null;
 
 /**
  * A typed constant value in an expression
@@ -19,7 +19,7 @@ public class Constant<T> extends Expression {
 	private Constant(T value) {
 		this.value=value;
 		if (value==null) {
-			type=NullType.INSTANCE;
+			type=Null.INSTANCE;
 		} else {
 			type=JavaType.analyse(value);
 		}

@@ -16,8 +16,8 @@ public class Maybe extends Type{
 	}
 	
 	public static Type create(Type t) {
-		if (t instanceof NullType) {
-			return NullType.INSTANCE;
+		if (t instanceof Null) {
+			return Null.INSTANCE;
 		}
 		return new Maybe(t);
 	}
@@ -34,13 +34,15 @@ public class Maybe extends Type{
 
 	@Override
 	public boolean contains(Type t) {
-		return NullType.INSTANCE.contains(t)||type.contains(t);
+		return Null.INSTANCE.contains(t)||type.contains(t);
 	}
 
 	@Override
 	public Type intersection(Type t) {
+		if (t==this) return this;
+		
 		// handle possible null cases
-		if (t instanceof NullType) return NullType.INSTANCE;
+		if (t instanceof Null) return Null.INSTANCE;
 		if (t instanceof Maybe) {
 			Type mt=((Maybe)t).type;
 			Type it = type.intersection(mt);

@@ -91,6 +91,8 @@ public class FunctionType extends Type {
 
 	@Override
 	public Type intersection(Type t) {
+		if (t==this) return this;
+		
 		if (t instanceof FunctionType) {
 			FunctionType ft=(FunctionType)t;
 			if (ft.getArity()!=this.getArity()) return Nothing.INSTANCE;

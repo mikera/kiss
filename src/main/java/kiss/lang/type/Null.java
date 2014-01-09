@@ -8,9 +8,13 @@ import kiss.lang.Type;
  * @author Mike
  *
  */
-public class NullType extends Type {
+public class Null extends Type {
 
-	public static final Type INSTANCE = new NullType();
+	public static final Type INSTANCE = new Null();
+	
+	private Null() {
+		// nothing to do
+	}
 
 	@Override
 	public boolean checkInstance(Object o) {
@@ -29,8 +33,8 @@ public class NullType extends Type {
 
 	@Override
 	public Type intersection(Type t) {
+		if (t==this) return this;
 		if (t instanceof Maybe) return this;
-		if (t instanceof NullType) return this;
 		return Nothing.INSTANCE;
 	}
 

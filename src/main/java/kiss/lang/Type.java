@@ -1,6 +1,6 @@
 package kiss.lang;
 
-import kiss.lang.type.AnyType;
+import kiss.lang.type.Something;
 import clojure.lang.Symbol;
 
 /**
@@ -58,7 +58,7 @@ public abstract class Type {
 	 */
 	public static Type resolveTag(Symbol s) {
 		// TODO: extract type hints from Clojure symbols
-		return AnyType.MAYBE;
+		return Something.MAYBE;
 	}
 
 }

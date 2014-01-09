@@ -1,6 +1,6 @@
 package kiss.lang;
 
-import kiss.lang.type.AnyType;
+import kiss.lang.type.Something;
 import clojure.lang.AFn;
 
 /**
@@ -20,11 +20,11 @@ public class KFn extends AFn {
 	 * @return
 	 */
 	public Type getReturnType() {
-		return AnyType.INSTANCE;
+		return Something.INSTANCE;
 	}
 	
 	public Type getParamType(int n) {
 		// TODO: arity check?
-		return AnyType.INSTANCE;
+		return Something.INSTANCE;
 	}
 }

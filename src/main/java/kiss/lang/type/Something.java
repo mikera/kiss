@@ -7,8 +7,8 @@ import kiss.lang.Type;
  * 
  * @author Mike
  */
-public class AnyType extends Type {
-	public static final AnyType INSTANCE=new AnyType();
+public class Something extends Type {
+	public static final Something INSTANCE=new Something();
 	public static final Type MAYBE=Maybe.create(INSTANCE);
 	
 	@Override
@@ -25,13 +25,14 @@ public class AnyType extends Type {
 	public boolean contains(Type t) {
 		// we just need to eliminate null possibilities
 		if (t instanceof Maybe)	return false;
-		if (t instanceof NullType) return false;
+		if (t instanceof Null) return false;
 		return true;
 	}
 
 	@Override
 	public Type intersection(Type t) {
-		if (t instanceof NullType) return Nothing.INSTANCE;
+		if (t instanceof Something) return this;
+		if (t instanceof Null) return Nothing.INSTANCE;
 		if (t instanceof Maybe) return ((Maybe)t).type;
 		return t;
 	}
