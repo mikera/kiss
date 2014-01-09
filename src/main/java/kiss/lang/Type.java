@@ -61,4 +61,15 @@ public abstract class Type {
 		return Something.MAYBE;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Type)) return false;
+		Type t=(Type)o;
+		return t.contains(this)&&this.contains(t);
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 }

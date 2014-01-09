@@ -11,6 +11,10 @@ import kiss.lang.Type;
 public class Nothing extends Type {
 
 	public static final Type INSTANCE = new Nothing();
+	
+	private Nothing() {
+		// nothing to do, this is a singleton
+	}
 
 	@Override
 	public boolean checkInstance(Object o) {
@@ -27,7 +31,7 @@ public class Nothing extends Type {
 	@Override
 	public boolean contains(Type t) {
 		// nothing is an instance of this type
-		return false;
+		return t==this;
 	}
 
 	@Override

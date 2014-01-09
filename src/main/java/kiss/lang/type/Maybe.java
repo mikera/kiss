@@ -16,8 +16,11 @@ public class Maybe extends Type{
 	}
 	
 	public static Type create(Type t) {
-		if (t instanceof Null) {
+		if ((t instanceof Null)||(t instanceof Nothing)) {
 			return Null.INSTANCE;
+		}
+		if (t instanceof Maybe) {
+			return t;
 		}
 		return new Maybe(t);
 	}
@@ -34,6 +37,10 @@ public class Maybe extends Type{
 
 	@Override
 	public boolean contains(Type t) {
+		if (t==this) return true;
+		if (t instanceof Maybe) {
+			return type.contains(((Maybe)t).type);
+		}
 		return Null.INSTANCE.contains(t)||type.contains(t);
 	}
 
