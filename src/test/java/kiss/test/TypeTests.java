@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import kiss.lang.Type;
+import kiss.lang.type.Anything;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Maybe;
@@ -18,7 +19,7 @@ public class TypeTests {
 	static final Type[] testTypes={
 		Nothing.INSTANCE,
 		Something.INSTANCE,
-		Something.MAYBE,
+		Anything.INSTANCE,
 		JavaType.create(Integer.class),
 		JavaType.create(String.class),
 		JavaType.create(Number.class),

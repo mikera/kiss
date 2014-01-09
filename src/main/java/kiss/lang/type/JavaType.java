@@ -51,7 +51,8 @@ public class JavaType<T> extends Type {
 
 	@Override
 	public Type intersection(Type t) {
-		if (t==this) return this;
+		if ((t==this)||(t instanceof Anything)) return this;
+
 		if (t instanceof Null) return Nothing.INSTANCE;
 		if (t instanceof Maybe) {
 			return ((Maybe)t).intersection(this);

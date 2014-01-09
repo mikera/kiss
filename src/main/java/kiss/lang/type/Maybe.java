@@ -47,7 +47,7 @@ public class Maybe extends Type{
 
 	@Override
 	public Type intersection(Type t) {
-		if (t==this) return this;
+		if ((t==this)||(t instanceof Anything)) return this;
 		
 		// handle possible null cases
 		if (t instanceof Null) return Null.INSTANCE;
