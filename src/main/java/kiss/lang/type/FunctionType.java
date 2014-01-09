@@ -5,6 +5,14 @@ import kiss.lang.Mapping;
 import kiss.lang.Type;
 import clojure.lang.IFn;
 
+/**
+ * Type representing a fixed arity function
+ * 
+ * Covers both Kiss and Clojure functions
+ * 
+ * @author Mike
+ *
+ */
 public class FunctionType extends Type {
 
 	private final Type returnType;

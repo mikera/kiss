@@ -2,6 +2,11 @@ package kiss.lang.type;
 
 import kiss.lang.Type;
 
+/**
+ * Type that represents any non-null reference
+ * 
+ * @author Mike
+ */
 public class AnyType extends Type {
 	public static final AnyType INSTANCE=new AnyType();
 	public static final Type MAYBE=Maybe.create(INSTANCE);
