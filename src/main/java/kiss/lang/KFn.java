@@ -15,8 +15,10 @@ import clojure.lang.AFn;
  */
 public class KFn extends AFn {
 
-	
-	
+	/**
+	 * Return type of the function
+	 * @return
+	 */
 	public Type getReturnType() {
 		return AnyType.INSTANCE;
 	}
