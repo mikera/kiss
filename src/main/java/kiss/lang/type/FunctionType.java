@@ -49,6 +49,10 @@ public class FunctionType extends Type {
 	public int getArity() {
 		return paramTypes.length;
 	}
+	
+	private Type getReturnType() {
+		return returnType;
+	}
 
 	@Override
 	public boolean checkInstance(Object o) {
@@ -84,4 +88,17 @@ public class FunctionType extends Type {
 			return false;
 		}
 	}
+
+	@Override
+	public Type intersection(Type t) {
+		if (t instanceof FunctionType) {
+			FunctionType ft=(FunctionType)t;
+			if (ft.getArity()!=this.getArity()) return Nothing.INSTANCE;
+			
+			Type rt=getReturnType().intersection(ft.returnType);
+			if (rt instanceof Nothing) return Nothing.INSTANCE;
+		}
+		return t.intersection(this);
+	}
+
 }

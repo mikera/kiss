@@ -27,4 +27,11 @@ public class NullType extends Type {
 		return t==INSTANCE;
 	}
 
+	@Override
+	public Type intersection(Type t) {
+		if (t instanceof Maybe) return this;
+		if (t instanceof NullType) return this;
+		return Nothing.INSTANCE;
+	}
+
 }

@@ -9,7 +9,7 @@ import kiss.lang.Type;
  *
  */
 public class Maybe extends Type{	
-	private Type type;
+	Type type;
 
 	private Maybe(Type t) {
 		this.type=t;
@@ -35,5 +35,20 @@ public class Maybe extends Type{
 	@Override
 	public boolean contains(Type t) {
 		return NullType.INSTANCE.contains(t)||type.contains(t);
+	}
+
+	@Override
+	public Type intersection(Type t) {
+		// handle possible null cases
+		if (t instanceof NullType) return NullType.INSTANCE;
+		if (t instanceof Maybe) {
+			Type mt=((Maybe)t).type;
+			Type it = type.intersection(mt);
+			if (it==type) return this;
+			if (it==mt) return t;
+			return Maybe.create(it);
+		}
+		
+		return type.intersection(t);
 	}
 }

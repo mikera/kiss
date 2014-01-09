@@ -10,6 +10,8 @@ import kiss.lang.Type;
  */
 public class Nothing extends Type {
 
+	public static final Type INSTANCE = new Nothing();
+
 	@Override
 	public boolean checkInstance(Object o) {
 		// nothing is an instance of this type
@@ -26,6 +28,11 @@ public class Nothing extends Type {
 	public boolean contains(Type t) {
 		// nothing is an instance of this type
 		return false;
+	}
+
+	@Override
+	public Type intersection(Type t) {
+		return Nothing.INSTANCE;
 	}
 
 }

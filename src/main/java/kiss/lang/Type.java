@@ -45,6 +45,13 @@ public abstract class Type {
 	public abstract boolean contains(Type t);
 
 	/**
+	 * Returns the intersection of this type with another type
+	 * @param t
+	 * @return
+	 */
+	public abstract Type intersection(Type t);
+	
+	/**
 	 * Resolves a Clojure tag symbol into a type
 	 * @param s
 	 * @return

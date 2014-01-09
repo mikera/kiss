@@ -29,4 +29,11 @@ public class AnyType extends Type {
 		return true;
 	}
 
+	@Override
+	public Type intersection(Type t) {
+		if (t instanceof NullType) return Nothing.INSTANCE;
+		if (t instanceof Maybe) return ((Maybe)t).type;
+		return t;
+	}
+
 }
