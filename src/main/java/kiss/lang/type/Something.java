@@ -11,6 +11,10 @@ public class Something extends Type {
 	public static final Something INSTANCE=new Something();
 	public static final Type MAYBE=Maybe.create(INSTANCE);
 	
+	private Something() {
+		// nothing to do, this is a singleton
+	}
+	
 	@Override
 	public boolean checkInstance(Object o) {
 		return (o!=null);
@@ -31,7 +35,7 @@ public class Something extends Type {
 
 	@Override
 	public Type intersection(Type t) {
-		if (t instanceof Something) return this;
+		if (t ==this) return this;
 		if (t instanceof Null) return Nothing.INSTANCE;
 		if (t instanceof Maybe) return ((Maybe)t).type;
 		return t;

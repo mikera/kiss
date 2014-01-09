@@ -36,6 +36,8 @@ public class JavaType<T> extends Type {
 
 	@Override
 	public boolean contains(Type t) {
+		if (t==this) return true;
+
 		if (t instanceof JavaType) {
 			JavaType<?> jt=(JavaType<?>)t;
 			if (klass==jt.klass) return true;

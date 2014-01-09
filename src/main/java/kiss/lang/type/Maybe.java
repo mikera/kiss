@@ -38,6 +38,7 @@ public class Maybe extends Type{
 	@Override
 	public boolean contains(Type t) {
 		if (t==this) return true;
+		
 		if (t instanceof Maybe) {
 			return type.contains(((Maybe)t).type);
 		}

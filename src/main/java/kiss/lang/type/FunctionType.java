@@ -72,6 +72,8 @@ public class FunctionType extends Type {
 
 	@Override
 	public boolean contains(Type t) {
+		if (t==this) return true;
+		
 		if (t instanceof FunctionType) {
 			FunctionType ft=(FunctionType)t;
 			
