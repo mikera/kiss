@@ -18,12 +18,17 @@ public class FunctionType extends Type {
 	private final Type returnType;
 	private final Type[] paramTypes;
 	
+	private FunctionType(Type returnType) {
+		this.returnType=returnType;
+		this.paramTypes=Type.EMPTY_TYPE_ARRAY;
+	}
+	
 	private FunctionType(Type returnType, Type[] paramTypes) {
 		this.returnType=returnType;
 		this.paramTypes=paramTypes;
 	}
 	
-	public static FunctionType create(Type returnType, Mapping... params) {
+	public static FunctionType create(Type returnType, Mapping[] params) {
 		int n=params.length;
 		Type[] ptypes=new Type[n];
 		for (int i=0; i<n; i++) {
@@ -97,11 +102,33 @@ public class FunctionType extends Type {
 		
 		if (t instanceof FunctionType) {
 			FunctionType ft=(FunctionType)t;
-			if (ft.getArity()!=this.getArity()) return Nothing.INSTANCE;
+			int n=getArity();
+			if (ft.getArity()!=n) return Nothing.INSTANCE;
 			
 			Type rt=getReturnType().intersection(ft.returnType);
 			if (rt instanceof Nothing) return Nothing.INSTANCE;
+			boolean match=(rt==returnType);
+			
+			Type[] ips=new Type[n];
+			for (int i=0; i<n ; i++) {
+				Type it=paramTypes[i].intersection(ft.paramTypes[i]);
+				ips[i]=it;
+				match &= (it==paramTypes[i]);
+			}
+			if (match) return this;
+			return create(rt,ips);
 		}
+		if (t instanceof JavaType) {
+			JavaType<?> jt = (JavaType<?>) t;
+			if (jt.klass.isAssignableFrom(KFn.class)) {
+				return this;
+			} else if (KFn.class.isAssignableFrom(jt.klass)) {
+				return jt;
+			} else {
+				return Nothing.INSTANCE;
+			}
+		}
+		
 		return t.intersection(this);
 	}
 

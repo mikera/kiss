@@ -9,7 +9,7 @@ import kiss.lang.Type;
  *
  */
 public class JavaType<T> extends Type {
-	private final Class<T> klass;
+	final Class<T> klass;
 	
 	public JavaType(Class<T> c) {
 		klass=c;

@@ -24,7 +24,10 @@ public class TypeTests {
 		JavaType.create(Number.class),
 		Null.INSTANCE,
 		Maybe.create(JavaType.create(Integer.class)),
-		Maybe.create(JavaType.create(String.class))
+		Maybe.create(JavaType.create(String.class)),
+		FunctionType.create(Something.INSTANCE, Something.INSTANCE),
+		FunctionType.create(Something.INSTANCE),
+		FunctionType.create(Something.INSTANCE, JavaType.create(Number.class))
 	}; 
 
 	@Test public void testFnType() {

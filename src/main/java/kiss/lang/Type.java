@@ -10,6 +10,8 @@ import clojure.lang.Symbol;
  *
  */
 public abstract class Type {	
+	public static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
+
 	/**
 	 * Check if an object is an instance of this type
 	 * 
