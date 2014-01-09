@@ -32,8 +32,23 @@ public abstract class Type {
 		return false;
 	}
 
+	/**
+	 * Returns true if another type t is contained within this type.
+	 * 
+	 * Equivalently this means:
+	 * - t is a subtype of this type
+	 * - every instance of t is an instance of this type
+	 *  
+	 * @param t
+	 * @return
+	 */
 	public abstract boolean contains(Type t);
 
+	/**
+	 * Resolves a Clojure tag symbol into a type
+	 * @param s
+	 * @return
+	 */
 	public static Type resolveTag(Symbol s) {
 		// TODO: extract type hints from Clojure symbols
 		return AnyType.MAYBE;
