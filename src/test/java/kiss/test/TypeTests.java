@@ -1,9 +1,10 @@
 package kiss.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import kiss.lang.Type;
+import kiss.lang.expression.Cast;
+import kiss.lang.expression.Constant;
+import kiss.lang.impl.KissException;
 import kiss.lang.type.Anything;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.JavaType;
@@ -46,5 +47,15 @@ public class TypeTests {
 				assertEquals(c,b.intersection(a));
 			}
 		}
+	}
+	
+	@Test public void testCast() {
+		try {
+			Cast cast=Cast.create(String.class, Constant.create(10));
+			fail();
+		} catch (KissException ke) {
+			// OK!
+		}
+		
 	}
 }
