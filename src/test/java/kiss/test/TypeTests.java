@@ -6,6 +6,7 @@ import kiss.lang.expression.Cast;
 import kiss.lang.expression.Constant;
 import kiss.lang.impl.KissException;
 import kiss.lang.type.Anything;
+import kiss.lang.type.ExactValue;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Maybe;
@@ -24,6 +25,8 @@ public class TypeTests {
 		JavaType.create(Integer.class),
 		JavaType.create(String.class),
 		JavaType.create(Number.class),
+		ExactValue.create("foo"),
+		ExactValue.create(1),
 		Null.INSTANCE,
 		Maybe.create(JavaType.create(Integer.class)),
 		Maybe.create(JavaType.create(String.class)),
@@ -38,6 +41,10 @@ public class TypeTests {
 		
 		assertTrue(t.contains(FunctionType.create(Null.INSTANCE,JavaType.create(Number.class))));
 		assertFalse(t.contains(FunctionType.create(Null.INSTANCE,JavaType.create(String.class))));
+	}
+	
+	@Test public void testExactValue() {
+		assertTrue(Null.INSTANCE==ExactValue.create(null));
 	}
 	
 	@Test public void testIntersections() {
