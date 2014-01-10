@@ -39,4 +39,19 @@ public class Nothing extends Type {
 		return Nothing.INSTANCE;
 	}
 
+	@Override
+	public boolean maybeNull() {
+		return false;
+	}
+
+	@Override
+	public boolean maybeTruthy() {
+		return false;
+	}
+
+	@Override
+	public boolean maybeFalsey() {
+		return false;
+	}
+
 }

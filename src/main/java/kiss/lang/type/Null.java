@@ -33,10 +33,23 @@ public class Null extends Type {
 
 	@Override
 	public Type intersection(Type t) {
-		if ((t==this)||(t instanceof Anything)) return this;
-
-		if (t instanceof Maybe) return this;
+		if (t.maybeNull()) return this;
 		return Nothing.INSTANCE;
+	}
+
+	@Override
+	public boolean maybeNull() {
+		return true;
+	}
+
+	@Override
+	public boolean maybeTruthy() {
+		return false;
+	}
+
+	@Override
+	public boolean maybeFalsey() {
+		return true;
 	}
 
 }

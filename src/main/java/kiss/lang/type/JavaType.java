@@ -67,5 +67,20 @@ public class JavaType<T> extends Type {
 		return t.intersection(this);
 	}
 
+	@Override
+	public boolean maybeNull() {
+		return false;
+	}
+
+	@Override
+	public boolean maybeTruthy() {
+		return true;
+	}
+
+	@Override
+	public boolean maybeFalsey() {
+		return true;
+	}
+
 
 }

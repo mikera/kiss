@@ -41,4 +41,19 @@ public class Something extends Type {
 		return t;
 	}
 
+	@Override
+	public boolean maybeNull() {
+		return false;
+	}
+
+	@Override
+	public boolean maybeTruthy() {
+		return true;
+	}
+
+	@Override
+	public boolean maybeFalsey() {
+		return true;
+	}
+
 }

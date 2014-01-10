@@ -33,6 +33,10 @@ public abstract class Type {
 	public boolean isPrimitive() {
 		return false;
 	}
+	
+	public abstract boolean maybeNull();
+	public abstract boolean maybeTruthy();
+	public abstract boolean maybeFalsey();
 
 	/**
 	 * Returns true if another type t is contained within this type.

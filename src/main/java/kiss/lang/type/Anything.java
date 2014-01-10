@@ -30,4 +30,19 @@ public class Anything extends Type {
 		return t;
 	}
 
+	@Override
+	public boolean maybeNull() {
+		return true;
+	}
+
+	@Override
+	public boolean maybeTruthy() {
+		return true;
+	}
+
+	@Override
+	public boolean maybeFalsey() {
+		return true;
+	}
+
 }
