@@ -20,7 +20,7 @@ public abstract class Expression {
 	public abstract Type getType(); 
 	
 	/**
-	 * Specialises an expression to guarantee returning the given type
+	 * Specialises an expression to guarantee returning the given type, or a strict subset
 	 * 
 	 * Returns null if this specialisation is impossible
 	 * 
