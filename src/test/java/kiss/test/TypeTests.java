@@ -47,6 +47,13 @@ public class TypeTests {
 				assertEquals(c,b.intersection(a));
 			}
 		}
+		
+		for (Type a:testTypes) {
+			assertTrue(a==a.intersection(Anything.INSTANCE));
+			assertTrue(a==Anything.INSTANCE.intersection(a));
+			assertTrue(Nothing.INSTANCE==a.intersection(Nothing.INSTANCE));
+			assertTrue(Nothing.INSTANCE==Nothing.INSTANCE.intersection(a));
+		}
 	}
 	
 	@SuppressWarnings("unused")
