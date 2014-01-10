@@ -16,14 +16,24 @@ public class Constant<T> extends Expression {
 	private final T value;
 	private final Type type;
 	
-	private Constant(T value) {
+	private Constant(Type type, T value) {
 		this.value=value;
-		if (value==null) {
-			type=Null.INSTANCE;
-		} else {
-			type=JavaType.analyse(value);
-		}
+		this.type=type;
 	}
+	
+	private Constant(T value) {
+		this ((value==null)?Null.INSTANCE:JavaType.analyse(value),value);
+	}
+	
+	public static <T> Constant<T> create(T value) {
+		return new Constant<T>(value);
+	}
+
+	
+	public static <T> Constant<T> create(Type type, T value) {
+		return new Constant<T>(value);
+	}
+
 	
 	public T getValue() {
 		return value;
@@ -32,10 +42,6 @@ public class Constant<T> extends Expression {
 	@Override
 	public Type getType() {
 		return type;
-	}
-	
-	public static <T> Constant<T> create(T value) {
-		return new Constant<T>(value);
 	}
 
 	@Override
@@ -46,5 +52,12 @@ public class Constant<T> extends Expression {
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		return d.withResult(value);
+	}
+
+	@Override
+	public Expression specialise(Type type) {
+		if (type==this.type) return this;
+		if (type.checkInstance(value)) return Constant.create(type.intersection(this.type),value); 
+ 		return null;
 	}
 }

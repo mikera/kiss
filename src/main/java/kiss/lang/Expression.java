@@ -20,6 +20,16 @@ public abstract class Expression {
 	public abstract Type getType(); 
 	
 	/**
+	 * Specialises an expression to guarantee returning the given type
+	 * 
+	 * Returns null if this specialisation is impossible
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public abstract Expression specialise(Type type);
+	
+	/**
 	 * Evaluate an expression within an environment, interpreter style
 	 * 
 	 * @param e

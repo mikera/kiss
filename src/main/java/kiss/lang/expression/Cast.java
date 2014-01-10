@@ -23,7 +23,7 @@ public class Cast extends Expression {
 		if (bt.intersection(type)==Nothing.INSTANCE) {
 			throw new KissException("Can't cast type "+bt+" to "+type);
 		}
-		return new Cast(type,body);
+		return new Cast(type,body.specialise(type));
 	}
 	
 	public static Cast create(Class<?> klass, Expression body) {
@@ -44,6 +44,16 @@ public class Cast extends Expression {
 			
 		}
 		return ev;
+	}
+
+	@Override
+	public Expression specialise(Type type) {
+		if (type==this.type) return this;
+		if (type.contains(this.type)) return this;
+		Type it = type.intersection(this.type);
+		if (it==Nothing.INSTANCE) return null;
+		
+		return create(it,body.specialise(it));
 	}
 
 

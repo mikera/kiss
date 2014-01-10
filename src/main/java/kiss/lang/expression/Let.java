@@ -39,5 +39,12 @@ public class Let extends Expression {
 		bindings=bindings.assoc(sym, d.getResult());
 		return body.compute(d, bindings);
 	}
+	
+	@Override
+	public Expression specialise(Type type) {
+		Expression newBody=body.specialise(type);
+		if (body==newBody) return this;
+		return new Let(sym,value,body);
+	}
 
 }

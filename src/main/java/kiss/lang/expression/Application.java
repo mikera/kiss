@@ -47,5 +47,11 @@ public class Application extends Expression {
 		return d.withResult(fn.applyTo(ArraySeq.create(args)));
 	}
 
+	@Override
+	public Expression specialise(Type type) {
+		// TODO Better specialisation of lambda application
+		return Cast.create(type, this);
+	}
+
 
 }

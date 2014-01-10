@@ -47,4 +47,9 @@ public class Lookup extends Expression {
 		throw new KissException("Cannot lookup symbol "+sym+" in environment");
 	}
 
+	@Override
+	public Expression specialise(Type type) {
+		return Cast.create(type, this);
+	}
+
 }

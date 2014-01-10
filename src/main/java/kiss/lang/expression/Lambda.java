@@ -56,4 +56,11 @@ public class Lambda extends Expression {
 		KFn fn=LambdaFn.create(e,body,syms);
 		return d.withResult(fn);
 	}
+
+	@Override
+	public Expression specialise(Type type) {
+		if (this.type==type) return this;
+		if (type.contains(this.type)) return this;
+		return Cast.create(type, this);
+	}
 }
