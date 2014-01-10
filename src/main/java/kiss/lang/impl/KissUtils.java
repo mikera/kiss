@@ -21,4 +21,9 @@ public class KissUtils {
 		}
 	}
 
+	public static String typeName(Object result) {
+		if (result==null) return "Null";
+		return result.getClass().toString();
+	}
+
 }

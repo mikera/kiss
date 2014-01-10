@@ -49,10 +49,11 @@ public class TypeTests {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	@Test public void testCast() {
 		try {
 			Cast cast=Cast.create(String.class, Constant.create(10));
-			fail();
+			fail("Cast should throw exception if cast is not possible");
 		} catch (KissException ke) {
 			// OK!
 		}
