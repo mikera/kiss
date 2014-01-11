@@ -26,4 +26,8 @@ public class KissUtils {
 		return result.getClass().toString();
 	}
 
+	public static boolean truthy(Object o) {
+		return (o!=null)&&(o!=Boolean.FALSE);
+	}
+
 }

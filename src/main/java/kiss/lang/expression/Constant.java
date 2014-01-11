@@ -16,6 +16,8 @@ public class Constant<T> extends Expression {
 	private final T value;
 	private final Type type;
 	
+	public static final Constant<?> NULL=new Constant<Object>(Null.INSTANCE,null);
+	
 	private Constant(Type type, T value) {
 		this.value=value;
 		this.type=type;
@@ -25,13 +27,16 @@ public class Constant<T> extends Expression {
 		this ((value==null)?Null.INSTANCE:JavaType.analyse(value),value);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> Constant<T> create(T value) {
+		if (value==null) return (Constant<T>) NULL;
 		return new Constant<T>(value);
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	public static <T> Constant<T> create(Type type, T value) {
-		return new Constant<T>(value);
+		if ((value==null)&&(type instanceof Null)) return (Constant<T>) NULL;
+		return new Constant<T>(type,value);
 	}
 
 	
