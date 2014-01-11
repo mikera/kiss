@@ -15,6 +15,7 @@ import kiss.lang.type.Not;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Null;
 import kiss.lang.type.Something;
+import kiss.lang.type.Union;
 
 import org.junit.Test;
 
@@ -72,6 +73,10 @@ public class TypeTests {
 	@Test public void testOddIntersections() {
 		assertTrue(Intersection.create(Null.INSTANCE).checkInstance(null));
 		assertFalse(Intersection.create(Null.INSTANCE,JavaType.create(Integer.class)).checkInstance(null));
+	}
+	
+	@Test public void testMiscUnions() {
+		assertEquals(Null.INSTANCE,Union.create(Null.INSTANCE));
 	}
 	
 	@SuppressWarnings("unused")

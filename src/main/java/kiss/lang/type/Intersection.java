@@ -30,7 +30,9 @@ public class Intersection extends ACompoundType {
 		return new Intersection(nts);
 	}
 	
-	public static Intersection create(Type... types) {
+	public static Type create(Type... types) {
+		if (types.length==0) return Anything.INSTANCE;
+		if (types.length==1) return types[0];
 		return new Intersection(types);
 	}
 
