@@ -40,7 +40,7 @@ public class Reference extends Type {
 
 	@Override
 	public Type intersection(Type t) {
-		// TODO filer out primitives?
+		// TODO filter out primitives?
 		return t;
 	}
 
@@ -48,6 +48,12 @@ public class Reference extends Type {
 	public Type inverse() {
 		// TODO what about primitives?
 		return Nothing.INSTANCE;
+	}
+
+	@Override
+	public Type union(Type t) {
+		// TODO what about primitives?
+		return this;
 	}
 
 }

@@ -1,6 +1,8 @@
 package kiss.lang;
 
 import kiss.lang.type.Anything;
+import kiss.lang.type.Nothing;
+import kiss.lang.type.Union;
 import clojure.lang.Symbol;
 
 /**
@@ -70,6 +72,16 @@ public abstract class Type {
 	 * @return
 	 */
 	public abstract Type intersection(Type t);
+	
+	/**
+	 * Returns the union of this type with another type
+	 * @param t
+	 * @return
+	 */
+	public Type union(Type t) {
+		if (t instanceof Nothing) return this;
+		return Union.create(this,t);
+	}
 	
 	/**
 	 * Resolves a Clojure tag symbol into a type

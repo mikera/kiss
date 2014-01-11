@@ -63,4 +63,15 @@ public class ExactValue<T> extends Type {
 		return Not.createNew(this);
 	}
 
+	@Override
+	public Type union(Type t) {
+		if (t==this) return t;
+		if (t.checkInstance(value)) return t;
+		if (t instanceof ExactValue) {
+			if (((ExactValue<?>)t).value.equals(this.value)) return this;
+		}
+		if (t instanceof Nothing) return t;
+		return super.union(t);
+	}
+
 }

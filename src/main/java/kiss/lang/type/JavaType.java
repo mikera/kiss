@@ -92,4 +92,19 @@ public class JavaType<T> extends Type {
 		return "(JavaType "+klass.toString()+")";
 	}
 
+	@Override
+	public Type union(Type t) {
+		if (t==this) return this;
+		if (t instanceof JavaType) {
+			JavaType<?> jt=(JavaType<?>) t;
+			if (jt.klass==this.klass) return this;
+			if (jt.klass.isAssignableFrom(this.klass)) return jt;
+			if (this.klass.isAssignableFrom(jt.klass)) return this;
+		}
+		if (t instanceof Null) {
+			return Maybe.create(this);
+		}
+		return super.union(t);
+	}
+
 }

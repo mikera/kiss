@@ -152,4 +152,10 @@ public class FunctionType extends Type {
 		return Not.createNew(this);
 	}
 
+	@Override
+	public Type union(Type t) {
+		if (t==this) return t;
+		return Union.create(this,t);
+	}
+
 }

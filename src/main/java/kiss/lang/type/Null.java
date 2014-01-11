@@ -58,4 +58,10 @@ public class Null extends Type {
 		return Something.INSTANCE;
 	}
 
+	@Override
+	public Type union(Type t) {
+		if (t.checkInstance(null)) return t;
+		return Maybe.create(t);
+	}
+
 }

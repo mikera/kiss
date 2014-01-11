@@ -50,4 +50,9 @@ public class Anything extends Type {
 		return Nothing.INSTANCE;
 	}
 
+	@Override
+	public Type union(Type t) {
+		return this;
+	}
+
 }

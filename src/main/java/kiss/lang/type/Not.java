@@ -65,4 +65,10 @@ public class Not extends Type {
 		// not a well behaved type
 		return false;
 	}
+
+	@Override
+	public Type union(Type t) {
+		// TODO any applicable optimisations here?
+		return super.union(t);
+	}
 }

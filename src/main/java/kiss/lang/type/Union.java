@@ -46,6 +46,19 @@ public class Union extends ACompoundType {
 		return nts;		
 	}
 	
+	private Type include(Type t) {
+		int n=types.length;
+		for (int i=0; i<n; i++) {
+			Type ct=types[i];
+			if (ct.contains(t)) return this;
+		}
+		// TODO: smarter union, then t contains current union members
+		Type[] nts=new Type[n+1];
+		System.arraycopy(types, 0, nts, 0, n);
+		nts[n]=t;
+		return new Union(nts);
+	}
+	
 	public static Type create(Type... types) {
 		types=compress(types);
 		if (types.length==0) return Nothing.INSTANCE;
@@ -119,5 +132,12 @@ public class Union extends ACompoundType {
 		}
 		return Intersection.create(invs);
 	}
+
+	@Override
+	public Type union(Type t) {
+		return include(t);
+	}
+
+
 
 }

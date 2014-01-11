@@ -24,6 +24,9 @@ public class Maybe extends Type{
 		if (t instanceof Maybe) {
 			return t;
 		}
+		if (t instanceof Something) {
+			return Reference.INSTANCE;
+		}
 		return new Maybe(t.intersection(Reference.INSTANCE));
 	}
 
@@ -52,7 +55,7 @@ public class Maybe extends Type{
 		if ((t==this)||(t instanceof Anything)||(t instanceof Reference)) return this;
 		
 		// handle possible null cases
-		if (t instanceof Null) return Null.INSTANCE;
+		if (t instanceof Null) return t;
 		if (t instanceof Maybe) {
 			Type mt=((Maybe)t).type;
 			Type it = type.intersection(mt);
@@ -82,5 +85,20 @@ public class Maybe extends Type{
 	@Override
 	public Type inverse() {
 		return Not.createNew(this);
+	}
+
+	@Override
+	public Type union(Type t) {
+		// handle optimisable Null cases
+		if (t instanceof Null) return this;
+		if (t instanceof Maybe) {
+			Type ot=((Maybe)t).type;
+			if (ot==type) return this;
+			if (ot.contains(type)) return t;
+			if (type.contains(ot)) return this;
+		}
+		if (type.contains(t)) return this;
+		
+		return super.union(t);
 	}
 }

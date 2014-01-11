@@ -62,4 +62,11 @@ public class Something extends Type {
 		return Null.INSTANCE;
 	}
 
+	@Override
+	public Type union(Type t) {
+		// TODO what about primitives?
+		if (t.canBeNull()) return Reference.INSTANCE;
+		return t;
+	}
+
 }

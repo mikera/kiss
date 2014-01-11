@@ -112,4 +112,9 @@ public class Intersection extends ACompoundType {
 		return false;
 	}
 
+	@Override
+	public Type union(Type t) {
+		return super.union(t);
+	}
+
 }
