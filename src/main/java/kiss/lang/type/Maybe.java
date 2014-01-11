@@ -78,4 +78,9 @@ public class Maybe extends Type{
 	public boolean maybeFalsey() {
 		return true;
 	}
+
+	@Override
+	public Type inverse() {
+		return Not.createNew(this);
+	}
 }

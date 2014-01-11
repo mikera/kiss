@@ -10,6 +10,7 @@ import kiss.lang.type.ExactValue;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Maybe;
+import kiss.lang.type.Not;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Null;
 import kiss.lang.type.Something;
@@ -30,6 +31,8 @@ public class TypeTests {
 		Null.INSTANCE,
 		Maybe.create(JavaType.create(Integer.class)),
 		Maybe.create(JavaType.create(String.class)),
+		Not.create(JavaType.create(Integer.class)),
+		Not.create(ExactValue.create("foo")),
 		FunctionType.create(Something.INSTANCE, Something.INSTANCE),
 		FunctionType.create(Something.INSTANCE),
 		FunctionType.create(Something.INSTANCE, JavaType.create(Number.class))
@@ -50,8 +53,10 @@ public class TypeTests {
 	@Test public void testIntersections() {
 		for (Type a:testTypes) {
 			for (Type b: testTypes) {
+				if (!(a.isWellBehaved()&&b.isWellBehaved())) continue;
 				Type c=a.intersection(b);
-				assertEquals(c,b.intersection(a));
+				if (!c.equals(b.intersection(a))) throw new KissException(a+ " x "+b);
+ 				assertEquals(c,b.intersection(a));
 			}
 		}
 		

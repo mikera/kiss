@@ -54,4 +54,10 @@ public class Nothing extends Type {
 		return false;
 	}
 
+	@Override
+	public Type inverse() {
+		// TODO Auto-generated method stub
+		return Anything.INSTANCE;
+	}
+
 }

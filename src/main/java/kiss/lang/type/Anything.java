@@ -45,4 +45,9 @@ public class Anything extends Type {
 		return true;
 	}
 
+	@Override
+	public Type inverse() {
+		return Nothing.INSTANCE;
+	}
+
 }

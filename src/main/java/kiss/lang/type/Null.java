@@ -52,4 +52,10 @@ public class Null extends Type {
 		return true;
 	}
 
+	@Override
+	public Type inverse() {
+		// TODO: what about primitives?
+		return Something.INSTANCE;
+	}
+
 }

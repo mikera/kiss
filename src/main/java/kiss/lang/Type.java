@@ -93,4 +93,10 @@ public abstract class Type {
 	public int hashCode() {
 		return super.hashCode();
 	}
+
+	public abstract Type inverse();
+
+	public boolean isWellBehaved() {
+		return true;
+	}
 }

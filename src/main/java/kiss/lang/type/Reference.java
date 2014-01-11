@@ -44,4 +44,10 @@ public class Reference extends Type {
 		return t;
 	}
 
+	@Override
+	public Type inverse() {
+		// TODO what about primitives?
+		return Nothing.INSTANCE;
+	}
+
 }

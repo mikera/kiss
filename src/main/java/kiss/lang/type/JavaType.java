@@ -82,5 +82,10 @@ public class JavaType<T> extends Type {
 		return true;
 	}
 
+	@Override
+	public Type inverse() {
+		return Not.createNew(this);
+	}
+
 
 }

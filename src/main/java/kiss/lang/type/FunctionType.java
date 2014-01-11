@@ -147,4 +147,9 @@ public class FunctionType extends Type {
 		return false;
 	}
 
+	@Override
+	public Type inverse() {
+		return Not.createNew(this);
+	}
+
 }

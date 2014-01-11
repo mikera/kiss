@@ -58,4 +58,9 @@ public class ExactValue<T> extends Type {
 		return Nothing.INSTANCE;
 	}
 
+	@Override
+	public Type inverse() {
+		return Not.createNew(this);
+	}
+
 }
