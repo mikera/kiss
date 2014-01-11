@@ -39,6 +39,9 @@ public class TypeTests {
 		FunctionType.create(Something.INSTANCE),
 		FunctionType.create(Something.INSTANCE, JavaType.create(Number.class))
 	}; 
+	
+	static final Object[] testObjects={null,0,1,true,false,"Foo",1.0,new Object(),Anything.INSTANCE};
+
 
 	@Test public void testFnType() {
 		FunctionType t=FunctionType.create(Null.INSTANCE,JavaType.create(Integer.class));
@@ -74,7 +77,13 @@ public class TypeTests {
 	public void testProperties() {
 		for (Type a:testTypes) {
 			if (a.canBeNull()) assertTrue(a.checkInstance(null));
-			if (a.canBeFalsey()) assertTrue("Issue with: "+a, a.checkInstance(null)||a.checkInstance(Boolean.FALSE));
+			if (a.canBeFalsey()) assertTrue("Issue with canBeFalsey with: "+a, 
+					a.checkInstance(null)||a.checkInstance(Boolean.FALSE));
+			
+			for (Object o: testObjects) {
+				assertTrue(a.checkInstance(o)!=a.inverse().checkInstance(o));
+			}
+			
 		}
 		
 	}
