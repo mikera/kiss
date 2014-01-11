@@ -8,6 +8,7 @@ import kiss.lang.impl.KissException;
 import kiss.lang.type.Anything;
 import kiss.lang.type.ExactValue;
 import kiss.lang.type.FunctionType;
+import kiss.lang.type.Intersection;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Maybe;
 import kiss.lang.type.Not;
@@ -66,6 +67,11 @@ public class TypeTests {
 			assertTrue(Nothing.INSTANCE==a.intersection(Nothing.INSTANCE));
 			assertTrue(Nothing.INSTANCE==Nothing.INSTANCE.intersection(a));
 		}
+	}
+	
+	@Test public void testOddIntersections() {
+		assertTrue(Intersection.create(Null.INSTANCE).checkInstance(null));
+		assertFalse(Intersection.create(Null.INSTANCE,JavaType.create(Integer.class)).checkInstance(null));
 	}
 	
 	@SuppressWarnings("unused")
