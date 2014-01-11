@@ -96,9 +96,10 @@ public class Maybe extends Type{
 			if (ot==type) return this;
 			if (ot.contains(type)) return t;
 			if (type.contains(ot)) return this;
+			t=ot; // fall through, just consider the non-null case
 		}
 		if (type.contains(t)) return this;
 		
-		return super.union(t);
+		return Union.create(Null.INSTANCE,type,t);
 	}
 }
