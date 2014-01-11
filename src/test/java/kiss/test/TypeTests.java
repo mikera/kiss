@@ -92,6 +92,8 @@ public class TypeTests {
 	public void testProperties() {
 		for (Type a:testTypes) {
 			if (a.canBeNull()) assertTrue(a.checkInstance(null));
+			if (a.cantBeNull()) assertFalse(a.checkInstance(null));	
+			
 			if (a.canBeFalsey()) assertTrue("Issue with canBeFalsey with: "+a, 
 					a.checkInstance(null)||a.checkInstance(Boolean.FALSE));
 			
