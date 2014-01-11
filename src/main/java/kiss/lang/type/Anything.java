@@ -31,17 +31,17 @@ public class Anything extends Type {
 	}
 
 	@Override
-	public boolean maybeNull() {
+	public boolean canBeNull() {
 		return true;
 	}
 
 	@Override
-	public boolean maybeTruthy() {
+	public boolean canBeTruthy() {
 		return true;
 	}
 
 	@Override
-	public boolean maybeFalsey() {
+	public boolean canBeFalsey() {
 		return true;
 	}
 

@@ -67,25 +67,25 @@ public class Union extends ACompoundType {
 	}
 
 	@Override
-	public boolean maybeNull() {
+	public boolean canBeNull() {
 		for (int i=0; i<types.length; i++) {
-			if (types[i].maybeNull()) return true;
+			if (types[i].canBeNull()) return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean maybeTruthy() {
+	public boolean canBeTruthy() {
 		for (int i=0; i<types.length; i++) {
-			if (types[i].maybeTruthy()) return true;
+			if (types[i].canBeTruthy()) return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean maybeFalsey() {
+	public boolean canBeFalsey() {
 		for (int i=0; i<types.length; i++) {
-			if (types[i].maybeFalsey()) return true;
+			if (types[i].canBeFalsey()) return true;
 		}
 		return false;
 	}

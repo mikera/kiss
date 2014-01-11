@@ -68,17 +68,17 @@ public class JavaType<T> extends Type {
 	}
 
 	@Override
-	public boolean maybeNull() {
+	public boolean canBeNull() {
 		return false;
 	}
 
 	@Override
-	public boolean maybeTruthy() {
+	public boolean canBeTruthy() {
 		return true;
 	}
 
 	@Override
-	public boolean maybeFalsey() {
+	public boolean canBeFalsey() {
 		return true;
 	}
 

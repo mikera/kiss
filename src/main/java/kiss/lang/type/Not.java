@@ -29,18 +29,18 @@ public class Not extends Type {
 	}
 
 	@Override
-	public boolean maybeNull() {
-		return !(type.maybeNull());
+	public boolean canBeNull() {
+		return !(type.canBeNull());
 	}
 
 	@Override
-	public boolean maybeTruthy() {
+	public boolean canBeTruthy() {
 		return false;
 	}
 
 	@Override
-	public boolean maybeFalsey() {
-		return maybeNull();
+	public boolean canBeFalsey() {
+		return canBeNull();
 	}
 
 	@Override

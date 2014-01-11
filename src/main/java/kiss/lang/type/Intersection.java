@@ -50,25 +50,25 @@ public class Intersection extends ACompoundType {
 	}
 
 	@Override
-	public boolean maybeNull() {
+	public boolean canBeNull() {
 		for (int i=0; i<types.length; i++) {
-			if (!types[i].maybeNull()) return false;
+			if (!types[i].canBeNull()) return false;
 		}
 		return true;
 	}
 
 	@Override
-	public boolean maybeTruthy() {
+	public boolean canBeTruthy() {
 		for (int i=0; i<types.length; i++) {
-			if (!types[i].maybeTruthy()) return false;
+			if (!types[i].canBeTruthy()) return false;
 		}
 		return true;
 	}
 
 	@Override
-	public boolean maybeFalsey() {
+	public boolean canBeFalsey() {
 		for (int i=0; i<types.length; i++) {
-			if (!types[i].maybeFalsey()) return false;
+			if (!types[i].canBeFalsey()) return false;
 		}
 		return true;
 	}

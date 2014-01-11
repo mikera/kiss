@@ -26,17 +26,17 @@ public class ExactValue<T> extends Type {
 		return klass;
 	}
 	@Override
-	public boolean maybeNull() {
+	public boolean canBeNull() {
 		return false;
 	}
 	
 	@Override
-	public boolean maybeTruthy() {
+	public boolean canBeTruthy() {
 		return value!=Boolean.FALSE;
 	}
 	
 	@Override
-	public boolean maybeFalsey() {
+	public boolean canBeFalsey() {
 		return value==Boolean.FALSE;
 	}
 	

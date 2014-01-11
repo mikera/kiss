@@ -38,19 +38,19 @@ public abstract class Type {
 	 * Return true if this type provably contains the null value
 	 * @return
 	 */
-	public abstract boolean maybeNull();
+	public abstract boolean canBeNull();
 	
 	/**
 	 * Returns true if this type provably contains at least one truthy value
 	 * @return
 	 */
-	public abstract boolean maybeTruthy();
+	public abstract boolean canBeTruthy();
 	
 	/**
 	 * Returns true if this type provably contains at least one falsey value
 	 * @return
 	 */
-	public abstract boolean maybeFalsey();
+	public abstract boolean canBeFalsey();
 
 	/**
 	 * Returns true if another type t is provably contained within this type.

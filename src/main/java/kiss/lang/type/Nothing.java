@@ -40,17 +40,17 @@ public class Nothing extends Type {
 	}
 
 	@Override
-	public boolean maybeNull() {
+	public boolean canBeNull() {
 		return false;
 	}
 
 	@Override
-	public boolean maybeTruthy() {
+	public boolean canBeTruthy() {
 		return false;
 	}
 
 	@Override
-	public boolean maybeFalsey() {
+	public boolean canBeFalsey() {
 		return false;
 	}
 
