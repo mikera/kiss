@@ -1,6 +1,10 @@
 package kiss.lang.impl;
 
+import java.util.ArrayList;
+
 import clojure.lang.IPersistentVector;
+import clojure.lang.ISeq;
+import clojure.lang.RT;
 import clojure.lang.Symbol;
 
 public class KissUtils {
@@ -28,6 +32,14 @@ public class KissUtils {
 
 	public static boolean truthy(Object o) {
 		return (o!=null)&&(o!=Boolean.FALSE);
+	}
+
+	public static ISeq createSeq(Object... vals) {
+		ArrayList<Object> al=new ArrayList<Object>();
+		for (Object o: vals) {
+			al.add(o);
+		}
+		return RT.seq(al);
 	}
 
 }

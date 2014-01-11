@@ -2,9 +2,11 @@ package kiss.lang;
 
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
+import kiss.lang.expression.If;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
+import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
@@ -28,13 +30,19 @@ public class Analyser {
 	 * @return
 	 */
 	public static Expression analyse(Object form) {
-		if (form instanceof Symbol) return Lookup.create((Symbol)form);
+		if (form instanceof Symbol) return analyseSymbol((Symbol)form);
 		if (form instanceof ISeq) return analyseSeq((ISeq)form);
 		return Constant.create(form);
 	}
+	
+	public static Expression analyseSymbol(Symbol sym) {
+		if (sym.equals(Symbols.NIL)) return Constant.create(null);
+		return Lookup.create(sym);
+	}
 
 	private static Expression analyseSeq(ISeq form) {
-		if (form.count()==0) return Constant.create(form);
+		int n=form.count();
+		if (n==0) return Constant.create(form);
 		Object first=form.first();
 		
 		if (first instanceof Symbol) {
@@ -45,6 +53,19 @@ public class Analyser {
 				
 				return Let.create(sym, analyse(v.nth(1)), analyse(RT.nth(form, 2)));
 			}
+			
+			if (s.equals(Symbols.IF)) {
+				switch (n) {
+				case 4:
+					return If.create(analyse(RT.nth(form, 1)), analyse(RT.nth(form, 2)), analyse(RT.nth(form, 3)));
+				case 3:
+					return If.create(analyse(RT.nth(form, 1)), analyse(RT.nth(form, 2)),Constant.NULL);
+				default:
+					throw new KissException("Wrong number of forms in if expression: "+n);
+				}
+				
+			}
+
 			
 			if (s.equals(Symbols.FN)) {
 				IPersistentVector v=KissUtils.expectVector(RT.second(form));
@@ -64,8 +85,8 @@ public class Analyser {
 		} 
 		
 		ISeq paramSeq=RT.next(form);
-		int n=RT.count(paramSeq);
-		Expression[] params=new Expression[n];
+		int paramCount=RT.count(paramSeq);
+		Expression[] params=new Expression[paramCount];
 		int i=0;
 		for (ISeq s=RT.seq(paramSeq); s!=null; s=s.next()) {
 			params[i++]=analyse(s.first());

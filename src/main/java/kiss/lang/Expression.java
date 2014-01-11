@@ -39,9 +39,15 @@ public abstract class Expression {
 		return compute(e, PersistentHashMap.EMPTY).getResult();
 	}
 	
+	public Object eval() {
+		return compute(Environment.EMPTY, PersistentHashMap.EMPTY).getResult();
+	}
+	
 	/**
 	 * Compute the effect of this expression, returning a new Environment
 	 * @param bindings TODO
 	 */
 	public abstract Environment compute(Environment d, IPersistentMap bindings);
+
+
 }

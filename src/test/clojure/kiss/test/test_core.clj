@@ -3,10 +3,6 @@
   (:use kiss.core)
   (:import [kiss.lang Expression Environment] ))
 
-(deftest basic-tests
-  (is (== 1 1))
-  (is (== 1 (kiss 1))))
-
 (deftest environment-tests
   (let [e (empty-environment)]
     (is (empty? (seq e)))
@@ -28,11 +24,22 @@
     (is (== 10 (kiss e foo)))
     (is (== 17 (kiss e (let [foo 17] foo))))))
 
+(deftest test-constants
+  (is (= nil (kiss nil)))
+  (is (= 1 (kiss 1))))
+
 (deftest test-let
   (is (== 13 (kiss (let [a 13] a)))))
 
+(deftest test-if 
+  (is (== 4 (kiss (if true 4 5))))
+  (is (== 5 (kiss (if false 9 5))))
+  (is (== 5 (kiss (if nil 9 5))))
+  (is (= "foo" (kiss (if false 9 "foo")))))
+
 (deftest test-clojure-fn
-  (is (== 3 (kiss (clojure.core/+ 1 2)))))
+  (is (== 3 (kiss (clojure.core/+ 1 2))))
+  (is (nil? (kiss ({} 2)))))
 
 (deftest test-lambda
   (is (== 3 (kiss ((fn [x] 3) 2)))))
