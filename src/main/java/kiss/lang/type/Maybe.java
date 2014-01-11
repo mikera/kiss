@@ -5,6 +5,8 @@ import kiss.lang.Type;
 /**
  * Maybe type, represents the type of values that may be either null or non-null values of another type
  * 
+ * Specialises Reference to a specific subset of non-null types
+ * 
  * @author Mike
  *
  */
@@ -47,7 +49,7 @@ public class Maybe extends Type{
 
 	@Override
 	public Type intersection(Type t) {
-		if ((t==this)||(t instanceof Anything)) return this;
+		if ((t==this)||(t instanceof Anything)||(t instanceof Reference)) return this;
 		
 		// handle possible null cases
 		if (t instanceof Null) return Null.INSTANCE;

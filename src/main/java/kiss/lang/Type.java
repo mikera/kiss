@@ -34,12 +34,26 @@ public abstract class Type {
 		return false;
 	}
 	
+	/**
+	 * Return true if this type provably contains the null value
+	 * @return
+	 */
 	public abstract boolean maybeNull();
+	
+	/**
+	 * Returns true if this type provably contains at least one truthy value
+	 * @return
+	 */
 	public abstract boolean maybeTruthy();
+	
+	/**
+	 * Returns true if this type provably contains at least one falsey value
+	 * @return
+	 */
 	public abstract boolean maybeFalsey();
 
 	/**
-	 * Returns true if another type t is contained within this type.
+	 * Returns true if another type t is provably contained within this type.
 	 * 
 	 * Equivalently this means:
 	 * - t is a subtype of this type
@@ -69,6 +83,7 @@ public abstract class Type {
 
 	@Override
 	public boolean equals(Object o) {
+		if (o==this) return true;
 		if (!(o instanceof Type)) return false;
 		Type t=(Type)o;
 		return t.contains(this)&&this.contains(t);
