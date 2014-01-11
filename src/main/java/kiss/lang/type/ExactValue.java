@@ -2,6 +2,13 @@ package kiss.lang.type;
 
 import kiss.lang.Type;
 
+/**
+ * The type of a specific non-null value
+ * 
+ * @author Mike
+ *
+ * @param <T>
+ */
 public class ExactValue<T> extends Type {
 	private final T value;
 	private final Class<T> klass;
@@ -28,6 +35,11 @@ public class ExactValue<T> extends Type {
 	@Override
 	public boolean canBeNull() {
 		return false;
+	}
+	
+	@Override
+	public boolean cantBeNull() {
+		return true;
 	}
 	
 	@Override
@@ -70,7 +82,6 @@ public class ExactValue<T> extends Type {
 		if (t instanceof ExactValue) {
 			if (((ExactValue<?>)t).value.equals(this.value)) return this;
 		}
-		if (t instanceof Nothing) return t;
 		return super.union(t);
 	}
 

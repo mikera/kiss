@@ -73,6 +73,21 @@ public class TypeTests {
 		}
 	}
 	
+	@Test public void testUnions() {
+		for (Type a:testTypes) {
+			for (Type b: testTypes) {
+				Type c=a.union(b);
+				
+				for (Object o:testObjects) {
+					if (a.checkInstance(o) || b.checkInstance(o)) {
+						assertTrue("Union of "+a+" and "+b+" = "+c+ " should include "+o,c.checkInstance(o));
+					}
+				}
+			}
+		}
+
+	}
+	
 	@Test 
 	public void testProperties() {
 		for (Type a:testTypes) {

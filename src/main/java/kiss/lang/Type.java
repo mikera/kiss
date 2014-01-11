@@ -111,4 +111,8 @@ public abstract class Type {
 	public boolean isWellBehaved() {
 		return true;
 	}
+
+	public boolean cantBeNull() {
+		return false;
+	}
 }

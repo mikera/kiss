@@ -30,7 +30,12 @@ public class Not extends Type {
 
 	@Override
 	public boolean canBeNull() {
-		return !(type.canBeNull());
+		return (type.cantBeNull());
+	}
+	
+	@Override
+	public boolean cantBeNull() {
+		return (type.canBeNull());
 	}
 
 	@Override
