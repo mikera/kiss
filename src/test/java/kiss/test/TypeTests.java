@@ -70,6 +70,15 @@ public class TypeTests {
 		}
 	}
 	
+	@Test 
+	public void testProperties() {
+		for (Type a:testTypes) {
+			if (a.canBeNull()) assertTrue(a.checkInstance(null));
+			if (a.canBeFalsey()) assertTrue("Issue with: "+a, a.checkInstance(null)||a.checkInstance(Boolean.FALSE));
+		}
+		
+	}
+	
 	@Test public void testOddIntersections() {
 		assertTrue(Intersection.create(Null.INSTANCE).checkInstance(null));
 		assertFalse(Intersection.create(Null.INSTANCE,JavaType.create(Integer.class)).checkInstance(null));

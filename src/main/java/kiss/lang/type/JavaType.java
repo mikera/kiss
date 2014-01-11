@@ -79,7 +79,7 @@ public class JavaType<T> extends Type {
 
 	@Override
 	public boolean canBeFalsey() {
-		return true;
+		return klass.isAssignableFrom(Boolean.class);
 	}
 
 	@Override
@@ -87,5 +87,9 @@ public class JavaType<T> extends Type {
 		return Not.createNew(this);
 	}
 
+	@Override
+	public String toString() {
+		return "(JavaType "+klass.toString()+")";
+	}
 
 }
