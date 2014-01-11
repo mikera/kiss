@@ -22,7 +22,7 @@ public class Maybe extends Type{
 		if (t instanceof Maybe) {
 			return t;
 		}
-		return new Maybe(t);
+		return new Maybe(t.intersection(Reference.INSTANCE));
 	}
 
 	@Override
