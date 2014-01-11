@@ -77,6 +77,8 @@ public class TypeTests {
 	
 	@Test public void testMiscUnions() {
 		assertEquals(Null.INSTANCE,Union.create(Null.INSTANCE));
+		assertEquals(JavaType.create(Number.class),Union.create(JavaType.create(Number.class),JavaType.create(Integer.class)));
+		assertEquals(JavaType.create(String.class),Union.create(Nothing.INSTANCE,JavaType.create(String.class)));
 	}
 	
 	@SuppressWarnings("unused")
