@@ -84,5 +84,10 @@ public class ExactValue<T> extends Type {
 		}
 		return super.union(t);
 	}
+	
+	@Override
+	public String toString() {
+		return "(Value "+value.toString()+")";
+	}
 
 }
