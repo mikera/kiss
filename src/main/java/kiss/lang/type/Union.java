@@ -146,6 +146,7 @@ public class Union extends ACompoundType {
 			sb.append(' ');
 			sb.append(types[i].toString());
 		}
+		sb.append(')');
 		return sb.toString();
 	}
 
