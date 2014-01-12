@@ -138,6 +138,15 @@ public class Union extends ACompoundType {
 		return include(t);
 	}
 
-
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		sb.append("(U");
+		for (int i=0; i<types.length; i++) {
+			sb.append(' ');
+			sb.append(types[i].toString());
+		}
+		return sb.toString();
+	}
 
 }

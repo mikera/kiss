@@ -116,5 +116,16 @@ public class Intersection extends ACompoundType {
 	public Type union(Type t) {
 		return super.union(t);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		sb.append("(I");
+		for (int i=0; i<types.length; i++) {
+			sb.append(' ');
+			sb.append(types[i].toString());
+		}
+		return sb.toString();
+	}
 
 }
