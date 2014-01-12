@@ -9,18 +9,18 @@ import kiss.lang.Type;
  *
  * @param <T>
  */
-public class ExactValue<T> extends Type {
+public class Value<T> extends Type {
 	private final T value;
 	private final Class<T> klass;
 	
-	private ExactValue(T value) {
+	private Value(T value) {
 		this.value=value;
 		this.klass=(Class<T>) value.getClass();
 	}
 	
 	public static <T> Type create(T value) {
 		if (value==null) return Null.INSTANCE;
-		return new ExactValue<T>(value);
+		return new Value<T>(value);
 	}
 	
 	@Override
@@ -56,8 +56,8 @@ public class ExactValue<T> extends Type {
 	public boolean contains(Type t) {
 		if (t==this) return true;
 		if (t instanceof Nothing) return true;
-		if (t instanceof ExactValue) {
-			ExactValue<?> ev=(ExactValue<?>) t;
+		if (t instanceof Value) {
+			Value<?> ev=(Value<?>) t;
 			if (ev.klass!=this.klass) return false;
 			return ev.value.equals(this.value);
 		}
@@ -79,8 +79,8 @@ public class ExactValue<T> extends Type {
 	public Type union(Type t) {
 		if (t==this) return t;
 		if (t.checkInstance(value)) return t;
-		if (t instanceof ExactValue) {
-			if (((ExactValue<?>)t).value.equals(this.value)) return this;
+		if (t instanceof Value) {
+			if (((Value<?>)t).value.equals(this.value)) return this;
 		}
 		return super.union(t);
 	}
