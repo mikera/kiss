@@ -10,7 +10,7 @@ import kiss.lang.Type;
  * @author Mike
  *
  */
-public class Maybe extends Type{	
+public class Maybe extends Type {	
 	Type type;
 
 	private Maybe(Type t) {
@@ -21,7 +21,7 @@ public class Maybe extends Type{
 		if ((t instanceof Null)||(t instanceof Nothing)) {
 			return Null.INSTANCE;
 		}
-		if (t instanceof Maybe) {
+		if (t.checkInstance(null)) {
 			return t;
 		}
 		if (t instanceof Something) {

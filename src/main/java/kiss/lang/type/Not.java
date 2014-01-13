@@ -2,6 +2,11 @@ package kiss.lang.type;
 
 import kiss.lang.Type;
 
+/**
+ * Represents the inverse of a given type
+ * 
+ * @author Mike
+ */
 public class Not extends Type {
 
 	private Type type;
@@ -55,6 +60,9 @@ public class Not extends Type {
 
 	@Override
 	public Type intersection(Type t) {
+		if (t instanceof Not) {
+			return Union.create(((Not)t).type,type).inverse();
+		}
 		if (t instanceof Anything) return this;
 		// TODO: better specialisation via Intersection?
 		return t;
