@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Def;
+import kiss.lang.expression.Do;
 import kiss.lang.expression.If;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
@@ -89,6 +90,13 @@ public class Analyser {
 				return Def.create(sym,analyse(RT.nth(form, 2)));		
 			}
 
+			if (s.equals(Symbols.DO)) {
+				Expression[] exps=new Expression[n-1];
+				for (int i=1; i<n; i++) {
+					exps[i-1]=analyse(RT.nth(form, i));
+				}
+				return Do.create(exps);
+			}
 			
 			if (s.equals(Symbols.FN)) {
 				IPersistentVector v=KissUtils.expectVector(RT.second(form));
