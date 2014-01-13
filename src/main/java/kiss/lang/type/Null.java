@@ -48,7 +48,7 @@ public class Null extends Type {
 	}
 
 	@Override
-	public boolean cantBeTruthy() {
+	public boolean cannotBeTruthy() {
 		return true;
 	}
 	

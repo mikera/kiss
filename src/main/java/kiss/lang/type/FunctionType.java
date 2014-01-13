@@ -148,7 +148,7 @@ public class FunctionType extends Type {
 	}
 	
 	@Override
-	public boolean cantBeFalsey() {
+	public boolean cannotBeFalsey() {
 		return true;
 	}
 

@@ -116,11 +116,11 @@ public abstract class Type {
 		return false;
 	}
 
-	public boolean cantBeFalsey() {
+	public boolean cannotBeFalsey() {
 		return false;
 	}
 
-	public boolean cantBeTruthy() {
+	public boolean cannotBeTruthy() {
 		return false;
 	}
 }
