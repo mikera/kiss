@@ -90,8 +90,10 @@ public class Intersection extends ACompoundType {
 		int cc=0;
 		int rep=-1;
 		for (int i=0; i<n; i++) {
-			if (t==types[i]) return this;
-			if (types[i].contains(t)) {
+			Type ti=types[i];
+			if (t==ti) return this;
+			if (t.contains(ti)) return this;
+			if (ti.contains(t)) {
 				cc++;
 				rep=i;
 			}
