@@ -16,7 +16,7 @@ public class Anything extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		return Object.class;
 	}
 

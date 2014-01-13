@@ -31,7 +31,7 @@ public class Value<T> extends Type {
 	}
 	
 	@Override
-	public Class<T> getJavaType() {
+	public Class<T> getJavaClass() {
 		return klass;
 	}
 	@Override

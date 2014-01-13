@@ -23,7 +23,7 @@ public class Nothing extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		// TODO figure out if this is correct?
 		return Void.TYPE;
 	}

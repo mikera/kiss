@@ -22,7 +22,7 @@ public class Null extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		return Void.TYPE;
 	}
 

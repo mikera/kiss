@@ -20,7 +20,7 @@ public class Something extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		return Object.class;
 	}
 

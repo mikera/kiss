@@ -26,7 +26,7 @@ public abstract class Type {
 	 * Returns the most specific Java class or interface that can represent all instances of this type
 	 * @return
 	 */
-	public abstract Class<?> getJavaType();
+	public abstract Class<?> getJavaClass();
 	
 	/**
 	 * Returns true if this is a JVM primitive type

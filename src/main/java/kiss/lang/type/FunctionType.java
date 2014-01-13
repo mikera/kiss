@@ -71,7 +71,7 @@ public class FunctionType extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		return IFn.class;
 	}
 

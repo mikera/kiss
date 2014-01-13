@@ -29,7 +29,7 @@ public class Not extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		return Object.class;
 	}
 

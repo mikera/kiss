@@ -75,7 +75,7 @@ public class Union extends ACompoundType {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		return Object.class;
 	}
 

@@ -36,8 +36,8 @@ public class Maybe extends Type {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
-		return type.getJavaType();
+	public Class<?> getJavaClass() {
+		return type.getJavaClass();
 	}
 
 	@Override

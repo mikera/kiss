@@ -45,7 +45,7 @@ public class Intersection extends ACompoundType {
 	}
 
 	@Override
-	public Class<?> getJavaType() {
+	public Class<?> getJavaClass() {
 		return Object.class;
 	}
 
