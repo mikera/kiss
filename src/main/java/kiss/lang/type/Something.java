@@ -47,7 +47,7 @@ public class Something extends Type {
 	}
 	
 	@Override
-	public boolean cantBeNull() {
+	public boolean cannotBeNull() {
 		return true;
 	}
 
@@ -70,7 +70,7 @@ public class Something extends Type {
 	@Override
 	public Type union(Type t) {
 		// TODO what about primitives?
-		if (t.cantBeNull()) return this;
+		if (t.cannotBeNull()) return this;
 		return Reference.INSTANCE;
 	}
 

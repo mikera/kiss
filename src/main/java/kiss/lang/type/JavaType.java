@@ -74,7 +74,7 @@ public class JavaType<T> extends Type {
 	}
 	
 	@Override
-	public boolean cantBeNull() {
+	public boolean cannotBeNull() {
 		return true;
 	}
 

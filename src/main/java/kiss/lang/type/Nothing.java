@@ -40,6 +40,11 @@ public class Nothing extends Type {
 	}
 
 	@Override
+	public boolean canBeFalsey() {
+		return false;
+	}
+	
+	@Override
 	public boolean canBeNull() {
 		return false;
 	}
@@ -50,13 +55,23 @@ public class Nothing extends Type {
 	}
 
 	@Override
-	public boolean canBeFalsey() {
-		return false;
+	public boolean cannotBeFalsey() {
+		return true;
+	}
+	
+	@Override
+	public boolean cannotBeNull() {
+		return true;
 	}
 
 	@Override
+	public boolean cannotBeTruthy() {
+		return true;
+	}
+
+
+	@Override
 	public Type inverse() {
-		// TODO Auto-generated method stub
 		return Anything.INSTANCE;
 	}
 

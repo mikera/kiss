@@ -40,7 +40,7 @@ public class Value<T> extends Type {
 	}
 	
 	@Override
-	public boolean cantBeNull() {
+	public boolean cannotBeNull() {
 		return true;
 	}
 	

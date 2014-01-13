@@ -112,7 +112,7 @@ public abstract class Type {
 		return true;
 	}
 
-	public boolean cantBeNull() {
+	public boolean cannotBeNull() {
 		return false;
 	}
 
