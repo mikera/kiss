@@ -48,13 +48,17 @@ public final class Environment extends APersistentMap {
 		return new Environment(map,value);
 	}
 	
+	public Environment withAssoc(Symbol key, Object value) {
+		return new Environment(map.assoc(key, Mapping.create(value)));
+	}
+	
 	@Override
 	public Environment assoc(Object key, Object val) {
 		Mapping m=getMapping(key);
 		if (m!=null) {
 			if (m.getValue()==val) return this;
 		}
-		return new Environment(map.assoc(key, Mapping.create(val)));
+		return withAssoc((Symbol) key,val);
 	}
 
 	@Override
@@ -63,7 +67,7 @@ public final class Environment extends APersistentMap {
 		if (m!=null) {
 			if (m.getValue()==val) return this;
 		}
-		return new Environment(map.assoc(key, Mapping.create(val)));
+		return withAssoc((Symbol) key,val);
 	}
 
 	@Override
