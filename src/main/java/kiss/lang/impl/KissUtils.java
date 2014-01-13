@@ -2,6 +2,8 @@ package kiss.lang.impl;
 
 import java.util.ArrayList;
 
+import kiss.lang.KFn;
+import clojure.lang.IFn;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
 import clojure.lang.RT;
@@ -40,6 +42,14 @@ public class KissUtils {
 			al.add(o);
 		}
 		return RT.seq(al);
+	}
+
+	public static boolean isPureFn(IFn fn) {
+		if (fn instanceof KFn) {
+			return ((KFn)fn).isPure();
+		}
+		// TODO: handle marking pure vs impure Clojure functions
+		return true;
 	}
 
 }

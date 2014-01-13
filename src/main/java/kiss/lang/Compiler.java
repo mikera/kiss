@@ -8,5 +8,8 @@ package kiss.lang;
  */
 public class Compiler {
 
-	// TODO
+	public static Expression compile(Object form) {
+		Expression ex=Analyser.analyse(form);
+		return ex.optimise();
+	}
 }

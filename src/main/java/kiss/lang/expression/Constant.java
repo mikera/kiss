@@ -50,6 +50,11 @@ public class Constant<T> extends Expression {
 	public Type getType() {
 		return type;
 	}
+	
+	@Override
+	public boolean isConstant() {
+		return true;
+	}
 
 	@Override
 	public Object eval(Environment e) {

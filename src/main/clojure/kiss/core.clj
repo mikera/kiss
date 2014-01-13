@@ -26,6 +26,10 @@
   ([form]
     (Analyser/analyse form)))
 
+(defn optimise
+  ([form]
+    (kiss.lang.Compiler/compile form)))
+
 (defn kmerge
   "Merge kiss environments, returning a new environment"
   (^Environment [^Environment a] a)
@@ -37,9 +41,9 @@
   "Compiles and executes kiss code in the given environment, returning the result"
   ([body]
     `(let [env# Environment/EMPTY
-           ex# (analyse (quote ~body))]
+           ex# (optimise (quote ~body))]
        (.eval ex# env#)))
   ([env body]
     `(let [env# ~env
-           ex# (analyse (quote ~body))]
+           ex# (optimise (quote ~body))]
        (.eval ex# env#))))

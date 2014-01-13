@@ -30,6 +30,14 @@ public abstract class Expression {
 	public abstract Expression specialise(Type type);
 	
 	/**
+	 * Optimises this expression. Performs constant folding, etc.
+	 * @return
+	 */
+	public Expression optimise() {
+		return this;
+	}
+	
+	/**
 	 * Evaluate an expression within an environment, interpreter style
 	 * 
 	 * @param e
@@ -48,6 +56,10 @@ public abstract class Expression {
 	 * @param bindings TODO
 	 */
 	public abstract Environment compute(Environment d, IPersistentMap bindings);
+
+	public boolean isConstant() {
+		return false;
+	}
 
 
 }

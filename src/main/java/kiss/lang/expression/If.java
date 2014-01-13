@@ -24,6 +24,19 @@ public class If extends Expression {
 		this.type=doThen.getType().union(doElse.getType());
 	}
 	
+	public Expression optimise() {
+		Expression cond=this.cond.optimise();
+		Expression doThen=this.doThen.optimise();
+		Expression doElse=this.doElse.optimise();
+		Type t=cond.getType();
+		if (cond.isConstant()) {
+			return (KissUtils.truthy(cond.eval()))?doThen:doElse;
+		} 
+		
+		if ((cond==this.cond)&&(doThen==this.doThen)&&(doElse==this.doElse)) return this;
+		return new If(cond,doThen,doElse);
+	}
+	
 	public static Expression create(Expression cond,Expression doThen, Expression doElse) {
 		return new If(cond,doThen,doElse);
 	}
