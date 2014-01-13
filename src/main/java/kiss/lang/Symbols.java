@@ -14,4 +14,6 @@ public class Symbols {
 	public static final Symbol FN= Symbol.intern("fn");
 	public static final Symbol IF = Symbol.intern("if");
 	public static final Symbol NIL = Symbol.intern("nil");
+	public static final Symbol TRUE = Symbol.intern("true");
+	public static final Symbol FALSE = Symbol.intern("false");
 }

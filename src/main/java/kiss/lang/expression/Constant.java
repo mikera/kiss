@@ -17,6 +17,8 @@ public class Constant<T> extends Expression {
 	private final Type type;
 	
 	public static final Constant<?> NULL=new Constant<Object>(Null.INSTANCE,null);
+	public static final Constant<Boolean> FALSE =new Constant<Boolean>(Boolean.FALSE);
+	public static final Constant<Boolean> TRUE =new Constant<Boolean>(Boolean.TRUE);
 	
 	private Constant(Type type, T value) {
 		this.value=value;

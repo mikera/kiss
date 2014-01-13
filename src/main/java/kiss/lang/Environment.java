@@ -16,6 +16,7 @@ import clojure.lang.Symbol;
  * Design intent: 
  *  - Behaves like an immutable map of Symbols -> Values
  *  - Maintains a dependency graph for recompilation
+ *  - Maintains a "result" value, so it can include an expression return value
  *  
  * It is a first class object, but probably shouldn't be messed with outside of the kiss.core functions.
  * 

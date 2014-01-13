@@ -36,7 +36,9 @@ public class Analyser {
 	}
 	
 	public static Expression analyseSymbol(Symbol sym) {
-		if (sym.equals(Symbols.NIL)) return Constant.create(null);
+		if (sym.equals(Symbols.NIL)) return Constant.NULL;
+		if (sym.equals(Symbols.TRUE)) return Constant.TRUE;
+		if (sym.equals(Symbols.FALSE)) return Constant.FALSE;
 		return Lookup.create(sym);
 	}
 
