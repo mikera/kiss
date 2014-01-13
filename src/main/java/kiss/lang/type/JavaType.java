@@ -86,6 +86,11 @@ public class JavaType<T> extends Type {
 	public boolean canBeFalsey() {
 		return klass.isAssignableFrom(Boolean.class);
 	}
+	
+	@Override
+	public boolean cantBeFalsey() {
+		return !klass.isAssignableFrom(Boolean.class);
+	}
 
 	@Override
 	public Type inverse() {

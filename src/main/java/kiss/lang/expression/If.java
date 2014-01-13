@@ -32,7 +32,10 @@ public class If extends Expression {
 		if (cond.isConstant()) {
 			return (KissUtils.truthy(cond.eval()))?doThen:doElse;
 		} 
-		
+		if (cond.isPure()) {
+			if (t.cantBeFalsey()) return doThen;
+			if (t.cantBeTruthy()) return doElse;
+		}
 		if ((cond==this.cond)&&(doThen==this.doThen)&&(doElse==this.doElse)) return this;
 		return new If(cond,doThen,doElse);
 	}

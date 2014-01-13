@@ -115,4 +115,12 @@ public abstract class Type {
 	public boolean cantBeNull() {
 		return false;
 	}
+
+	public boolean cantBeFalsey() {
+		return false;
+	}
+
+	public boolean cantBeTruthy() {
+		return false;
+	}
 }

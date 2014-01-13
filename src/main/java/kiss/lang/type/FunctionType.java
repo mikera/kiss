@@ -146,6 +146,11 @@ public class FunctionType extends Type {
 	public boolean canBeFalsey() {
 		return false;
 	}
+	
+	@Override
+	public boolean cantBeFalsey() {
+		return true;
+	}
 
 	@Override
 	public Type inverse() {

@@ -87,5 +87,4 @@ public class Application extends Expression {
 		return Cast.create(type, this);
 	}
 
-
 }

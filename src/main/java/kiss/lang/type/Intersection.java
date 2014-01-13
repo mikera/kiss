@@ -58,19 +58,19 @@ public class Intersection extends ACompoundType {
 	}
 
 	@Override
-	public boolean canBeTruthy() {
+	public boolean cantBeTruthy() {
 		for (int i=0; i<types.length; i++) {
-			if (!types[i].canBeTruthy()) return false;
+			if (types[i].cantBeTruthy()) return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
-	public boolean canBeFalsey() {
+	public boolean cantBeFalsey() {
 		for (int i=0; i<types.length; i++) {
-			if (!types[i].canBeFalsey()) return false;
+			if (types[i].cantBeFalsey()) return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
@@ -127,6 +127,16 @@ public class Intersection extends ACompoundType {
 		}
 		sb.append(')');
 		return sb.toString();
+	}
+
+	@Override
+	public boolean canBeTruthy() {
+		return checkInstance(Boolean.TRUE);
+	}
+
+	@Override
+	public boolean canBeFalsey() {
+		return (checkInstance(null)||(checkInstance(Boolean.FALSE)));
 	}
 
 }

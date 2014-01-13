@@ -48,6 +48,11 @@ public class Null extends Type {
 	}
 
 	@Override
+	public boolean cantBeTruthy() {
+		return true;
+	}
+	
+	@Override
 	public boolean canBeFalsey() {
 		return true;
 	}

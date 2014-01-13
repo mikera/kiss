@@ -61,5 +61,9 @@ public abstract class Expression {
 		return false;
 	}
 
+	public boolean isPure() {
+		return true;
+	}
+
 
 }
