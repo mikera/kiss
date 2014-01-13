@@ -61,6 +61,10 @@ public abstract class Expression {
 	 */
 	public abstract Environment compute(Environment d, IPersistentMap bindings);
 
+	public Environment compute(Environment e) {
+		return compute(e,PersistentHashMap.EMPTY);
+	}
+	
 	public boolean isConstant() {
 		return false;
 	}
@@ -75,6 +79,7 @@ public abstract class Expression {
 	 * @return
 	 */
 	public abstract IPersistentSet getFreeSymbols(IPersistentSet s);
+
 
 
 }

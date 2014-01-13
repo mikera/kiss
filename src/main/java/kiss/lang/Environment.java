@@ -65,7 +65,7 @@ public final class Environment extends APersistentMap {
 		Object value=newEnv.getResult();
 		
 		newEnv= newEnv.withAssoc(key,value);
-		return newEnv.withResult(newEnv);
+		return newEnv;
 	}
 	
 	@Override

@@ -47,3 +47,14 @@
     `(let [env# ~env
            ex# (optimise (quote ~body))]
        (.eval ex# env#))))
+
+(defmacro kisse
+  "Compiles and executes kiss code in the given environment, returning the updated environment"
+  ([body]
+    `(let [env# Environment/EMPTY
+           ex# (optimise (quote ~body))]
+       (.compute ex# env#)))
+  ([env body]
+    `(let [env# ~env
+           ex# (optimise (quote ~body))]
+       (.compute ex# env#))))

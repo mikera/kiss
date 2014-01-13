@@ -16,7 +16,8 @@ public class EnvironmentTests {
 		Expression x=Def.create(Symbol.intern("foo"),Constant.create(1));
 		Environment e=Environment.EMPTY;
 		
-		Environment e2=(Environment)x.eval(e);
+		Environment e2=x.compute(e);
 		assertEquals(1,e2.get(Symbol.intern("foo")));
+		assertEquals(1,e2.getResult());
 	}
 }

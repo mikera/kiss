@@ -38,7 +38,7 @@
   (is (= "foo" (kiss (if false 9 "foo")))))
 
 (deftest test-def
-  (let [e (kiss (def kiss.core/a 1))]
+  (let [e (kisse (def kiss.core/a 1))]
     (is (instance? Environment e))
     (is (= 1 (e 'kiss.core/a)))))
 
