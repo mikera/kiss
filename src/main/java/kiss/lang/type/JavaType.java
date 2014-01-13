@@ -15,6 +15,7 @@ public class JavaType<T> extends Type {
 		klass=c;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> JavaType<T> analyse(T val) {
 		return new JavaType<T>((Class<T>) val.getClass());
 	}

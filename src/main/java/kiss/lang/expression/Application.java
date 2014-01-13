@@ -40,11 +40,11 @@ public class Application extends Expression {
 			}
 		}
 		if ((maybeApply)&&nFunc instanceof Constant) {
-			IFn fn=(IFn) ((Constant)nFunc).getValue();
+			IFn fn=(IFn) ((Constant<?>)nFunc).getValue();
 			if (KissUtils.isPureFn(fn)) {
 				Object[] ps=new Object[arity];
 				for (int i=0; i<arity; i++) {
-					ps[i]=((Constant)nParams[i]).getValue();
+					ps[i]=((Constant<?>)nParams[i]).getValue();
 				}
 				return Constant.create(fn.applyTo(RT.seq(ps)));
 			}
