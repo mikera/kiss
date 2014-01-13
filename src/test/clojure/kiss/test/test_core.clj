@@ -40,6 +40,7 @@
 (deftest test-def
   (let [e (kisse (def kiss.core/a 1))]
     (is (instance? Environment e))
+    (is (= 1 (result e)))
     (is (= 1 (e 'kiss.core/a)))))
 
 (deftest test-vectors

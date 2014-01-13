@@ -37,6 +37,11 @@
   (^Environment [^Environment a ^Environment b & more ]
     (reduce kmerge (kmerge a b) more)))
 
+(defn result 
+  "Returns the latest evaluation result from a given kiss Environment"
+  ([^Environment e]
+    (.getResult e)))
+
 (defmacro kiss
   "Compiles and executes kiss code in the given environment, returning the result"
   ([body]
