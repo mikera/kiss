@@ -1,5 +1,7 @@
 package kiss.lang;
 
+import java.util.Set;
+
 import kiss.lang.impl.MapEntry;
 import kiss.lang.type.JavaType;
 import clojure.lang.IMapEntry;
@@ -14,6 +16,7 @@ import clojure.lang.Symbol;
 public class Mapping {
 	final Type type;
 	final Object value;
+	public Set<Symbol> dependencies;
 	
 	private Mapping(Object value, Type type) {
 		this.type=type;

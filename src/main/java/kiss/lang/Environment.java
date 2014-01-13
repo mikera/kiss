@@ -1,13 +1,16 @@
 package kiss.lang;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import clojure.lang.ISeq;
 import clojure.lang.PersistentHashMap;
+import clojure.lang.PersistentHashSet;
 import clojure.lang.Symbol;
 
 /**
@@ -49,7 +52,22 @@ public final class Environment extends APersistentMap {
 	}
 	
 	public Environment withAssoc(Symbol key, Object value) {
-		return new Environment(map.assoc(key, Mapping.create(value)));
+		return new Environment(map.assoc(key, Mapping.create(value)),value);
+	}
+	
+	public Environment withAssocResult(Symbol key, Object value, Object result) {
+		return new Environment(map.assoc(key, Mapping.create(value)),result);
+	}
+	
+	public Environment define(Symbol key, Expression body, IPersistentMap bindings) {
+		@SuppressWarnings("unused")
+		IPersistentSet free=body.getFreeSymbols(PersistentHashSet.EMPTY);
+		
+		// TODO: dependencies on free vars
+		
+		Object value=body.compute(this, bindings);
+		
+		return withAssocResult(key,value,this);
 	}
 	
 	@Override
@@ -60,6 +78,7 @@ public final class Environment extends APersistentMap {
 		}
 		return withAssoc((Symbol) key,val);
 	}
+	
 
 	@Override
 	public Environment assocEx(Object key, Object val) {
@@ -157,5 +176,6 @@ public final class Environment extends APersistentMap {
 	public Object getResult() {
 		return result;
 	}
+
 
 }

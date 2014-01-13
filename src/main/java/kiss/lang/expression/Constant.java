@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
@@ -72,5 +73,10 @@ public class Constant<T> extends Expression {
 		if (type==this.type) return this;
 		if (type.checkInstance(value)) return Constant.create(type.intersection(this.type),value); 
  		return null;
+	}
+	
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		return s;
 	}
 }

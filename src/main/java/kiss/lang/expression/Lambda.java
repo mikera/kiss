@@ -9,6 +9,7 @@ import kiss.lang.Type;
 import kiss.lang.impl.LambdaFn;
 import kiss.lang.type.FunctionType;
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import clojure.lang.ISeq;
 import clojure.lang.Symbol;
 
@@ -62,5 +63,14 @@ public class Lambda extends Expression {
 		if (this.type==type) return this;
 		if (type.contains(this.type)) return this;
 		return Cast.create(type, this);
+	}
+	
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		s=body.getFreeSymbols(s);
+		for (Symbol sym:syms) {
+			s=s.disjoin(sym);
+		}
+		return s;
 	}
 }

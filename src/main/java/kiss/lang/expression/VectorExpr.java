@@ -5,6 +5,7 @@ import java.util.List;
 
 import clojure.lang.APersistentVector;
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentVector;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
@@ -40,6 +41,14 @@ public class VectorExpr extends Expression {
 			al.add(d.getResult());
 		}
 		return d.withResult(PersistentVector.create(al));
+	}
+	
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		for (Expression e:vals) {
+			s=e.getFreeSymbols(s);
+		}
+		return s;
 	}
 
 }

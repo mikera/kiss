@@ -16,4 +16,5 @@ public class Symbols {
 	public static final Symbol NIL = Symbol.intern("nil");
 	public static final Symbol TRUE = Symbol.intern("true");
 	public static final Symbol FALSE = Symbol.intern("false");
+	public static final Symbol DEF = Symbol.intern("def");
 }

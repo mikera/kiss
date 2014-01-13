@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
@@ -56,5 +57,9 @@ public class Cast extends Expression {
 		return create(it,body.specialise(it));
 	}
 
-
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		s=body.getFreeSymbols(s);
+		return s;
+	}
 }

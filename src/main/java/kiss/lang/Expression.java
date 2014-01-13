@@ -1,7 +1,11 @@
 package kiss.lang;
 
+import java.util.Set;
+
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentHashMap;
+import clojure.lang.Symbol;
 
 /**
  * Abstract base class for Kiss expression nodes
@@ -64,6 +68,13 @@ public abstract class Expression {
 	public boolean isPure() {
 		return true;
 	}
+
+	/**
+	 * Gets the free symbols in an Expression, conjing them onto a given persistent set
+	 * @param s
+	 * @return
+	 */
+	public abstract IPersistentSet getFreeSymbols(IPersistentSet s);
 
 
 }

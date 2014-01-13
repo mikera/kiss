@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
@@ -45,6 +46,13 @@ public class Let extends Expression {
 		Expression newBody=body.specialise(type);
 		if (body==newBody) return this;
 		return new Let(sym,value,body);
+	}
+	
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		s=body.getFreeSymbols(s);
+		s=s.disjoin(sym);
+		return s;
 	}
 
 }

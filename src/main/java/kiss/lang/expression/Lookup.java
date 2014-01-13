@@ -6,7 +6,9 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
+import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import clojure.lang.RT;
 import clojure.lang.Symbol;
 import clojure.lang.Var;
@@ -51,6 +53,12 @@ public class Lookup extends Expression {
 	@Override
 	public Expression specialise(Type type) {
 		return Cast.create(type, this);
+	}
+	
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		s=(IPersistentSet) ((IPersistentCollection)s).cons(sym);
+		return s;
 	}
 
 }

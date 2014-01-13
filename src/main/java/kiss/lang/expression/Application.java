@@ -1,9 +1,13 @@
 package kiss.lang.expression;
 
+import java.util.Set;
+
 import clojure.lang.ArraySeq;
 import clojure.lang.IFn;
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import clojure.lang.RT;
+import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
@@ -85,6 +89,15 @@ public class Application extends Expression {
 	public Expression specialise(Type type) {
 		// TODO Better specialisation of lambda application
 		return Cast.create(type, this);
+	}
+
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		s=func.getFreeSymbols(s);
+		for (int i=0; i<arity; i++) {
+			s=params[i].getFreeSymbols(s);
+		}
+		return s;
 	}
 
 }

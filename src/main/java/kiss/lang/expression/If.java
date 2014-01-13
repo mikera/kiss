@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
@@ -66,6 +67,14 @@ public class If extends Expression {
 		} else {
 			return doElse.compute(d, bindings);
 		}
+	}
+	
+	@Override
+	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+		s=cond.getFreeSymbols(s);
+		s=doThen.getFreeSymbols(s);
+		s=doElse.getFreeSymbols(s);
+		return s;
 	}
 
 }
