@@ -105,6 +105,17 @@ public class TypeTests {
 		
 	}
 	
+	@Test public void testBooleans() {
+		assertTrue(Constant.TRUE.getType().canBeTruthy());
+		assertTrue(Constant.FALSE.getType().canBeFalsey());
+		assertFalse(Constant.TRUE.getType().cannotBeTruthy());
+		assertFalse(Constant.FALSE.getType().cannotBeFalsey());
+		assertTrue(Constant.TRUE.getType().cannotBeFalsey());
+		assertTrue(Constant.FALSE.getType().cannotBeTruthy());
+		assertFalse(Constant.TRUE.getType().canBeFalsey());
+		assertFalse(Constant.FALSE.getType().canBeTruthy());
+	}
+	
 	@Test public void testOddIntersections() {
 		assertTrue(Intersection.create(Null.INSTANCE).checkInstance(null));
 		assertFalse(Intersection.create(Null.INSTANCE,JavaType.create(Integer.class)).checkInstance(null));

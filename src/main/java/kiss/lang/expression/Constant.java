@@ -6,6 +6,7 @@ import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Null;
+import kiss.lang.type.Value;
 
 /**
  * A typed constant value in an expression
@@ -26,7 +27,7 @@ public class Constant<T> extends Expression {
 	}
 	
 	private Constant(T value) {
-		this ((value==null)?Null.INSTANCE:JavaType.analyse(value),value);
+		this ((value==null)?Null.INSTANCE:Value.create(value),value);
 	}
 	
 	@SuppressWarnings("unchecked")

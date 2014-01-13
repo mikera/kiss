@@ -54,6 +54,16 @@ public class Value<T> extends Type {
 	}
 	
 	@Override
+	public boolean cannotBeTruthy() {
+		return value==Boolean.FALSE;
+	}
+	
+	@Override
+	public boolean cannotBeFalsey() {
+		return value!=Boolean.FALSE;
+	}
+	
+	@Override
 	public boolean contains(Type t) {
 		if (t==this) return true;
 		if (t instanceof Nothing) return true;
