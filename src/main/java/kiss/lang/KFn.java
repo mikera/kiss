@@ -27,4 +27,8 @@ public class KFn extends AFn {
 		// TODO: arity check?
 		return Something.INSTANCE;
 	}
+	
+	public boolean isPure() {
+		return true;
+	}
 }
