@@ -1,11 +1,14 @@
 package kiss.lang;
 
+import java.util.ArrayList;
+
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.If;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
+import kiss.lang.expression.VectorExpr;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentVector;
@@ -32,6 +35,7 @@ public class Analyser {
 	public static Expression analyse(Object form) {
 		if (form instanceof Symbol) return analyseSymbol((Symbol)form);
 		if (form instanceof ISeq) return analyseSeq((ISeq)form);
+		if (form instanceof IPersistentVector) return analyseVector((IPersistentVector)form);
 		return Constant.create(form);
 	}
 	
@@ -42,6 +46,16 @@ public class Analyser {
 		return Lookup.create(sym);
 	}
 
+	private static Expression analyseVector(IPersistentVector form) {
+		ArrayList<Expression> al=new ArrayList<Expression>();
+		int n=form.count();
+		for (int i=0; i<n; i++) {
+			al.add(analyse(form.nth(i)));
+		}
+		return new VectorExpr(al);
+	}
+
+	
 	private static Expression analyseSeq(ISeq form) {
 		int n=form.count();
 		if (n==0) return Constant.create(form);

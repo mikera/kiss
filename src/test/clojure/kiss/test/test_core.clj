@@ -37,6 +37,11 @@
   (is (== 5 (kiss (if nil 9 5))))
   (is (= "foo" (kiss (if false 9 "foo")))))
 
+(deftest test-vectors
+  (is (= [] (kiss [])))
+  (is (= [1] (kiss [1])))
+  (is (= [3 5 nil] (kiss [(clojure.core/+ 1 2) (clojure.core/inc 4) nil]))))
+
 (deftest test-clojure-fn
   (is (== 3 (kiss (clojure.core/+ 1 2))))
   (is (nil? (kiss ({} 2)))))
