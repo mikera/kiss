@@ -48,8 +48,7 @@ public class KissUtils {
 		if (fn instanceof KFn) {
 			return ((KFn)fn).isPure();
 		}
-		// TODO: handle marking pure vs impure Clojure functions
-		return true;
+		return false;
 	}
 
 }
