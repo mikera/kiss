@@ -55,19 +55,17 @@ public final class Environment extends APersistentMap {
 		return new Environment(map.assoc(key, Mapping.create(value)),value);
 	}
 	
-	public Environment withAssocResult(Symbol key, Object value, Object result) {
-		return new Environment(map.assoc(key, Mapping.create(value)),result);
-	}
-	
 	public Environment define(Symbol key, Expression body, IPersistentMap bindings) {
 		@SuppressWarnings("unused")
 		IPersistentSet free=body.getFreeSymbols(PersistentHashSet.EMPTY);
 		
 		// TODO: dependencies on free vars
 		
-		Object value=body.compute(this, bindings);
+		Environment newEnv=body.compute(this, bindings);
+		Object value=newEnv.getResult();
 		
-		return withAssocResult(key,value,this);
+		newEnv= newEnv.withAssoc(key,value);
+		return newEnv.withResult(newEnv);
 	}
 	
 	@Override

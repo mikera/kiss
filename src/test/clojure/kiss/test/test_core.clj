@@ -37,6 +37,11 @@
   (is (== 5 (kiss (if nil 9 5))))
   (is (= "foo" (kiss (if false 9 "foo")))))
 
+(deftest test-def
+  (let [e (kiss (def kiss.core/a 1))]
+    (is (instance? Environment e))
+    (is (= 1 (e 'kiss.core/a)))))
+
 (deftest test-vectors
   (is (= [] (kiss [])))
   (is (= [1] (kiss [1])))

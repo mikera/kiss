@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
+import kiss.lang.expression.Def;
 import kiss.lang.expression.If;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
@@ -80,6 +81,12 @@ public class Analyser {
 					throw new KissException("Wrong number of forms in if expression: "+n);
 				}
 				
+			}
+			
+			if (s.equals(Symbols.DEF)) {
+				if (n!=3) throw new KissException("Wrong number of forms in def expression: "+n);
+				Symbol sym=(Symbol)RT.nth(form,1);
+				return Def.create(sym,analyse(RT.nth(form, 2)));		
 			}
 
 			

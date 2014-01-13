@@ -16,6 +16,10 @@ public class Def extends Expression {
 		this.sym=sym;
 		this.body=body;
 	}
+
+	public static Def create(Symbol sym, Expression body) {
+		return new Def(sym,body);
+	}
 	
 	@Override
 	public Type getType() {
@@ -39,4 +43,5 @@ public class Def extends Expression {
 		s=body.getFreeSymbols(s);
 		return s;
 	}
+
 }
