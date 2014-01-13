@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissUtils;
 
 /**
  * The type of a specific non-null value
@@ -94,6 +95,16 @@ public class Value<T> extends Type {
 			if (((Value<?>)t).value.equals(this.value)) return this;
 		}
 		return super.union(t);
+	}
+	
+	@Override
+	public boolean equals(Object t) {
+		if (t instanceof Value) {
+			Value<?> v=(Value<?>) t;
+			if (KissUtils.equalsWithNulls(v.value,this.value)) return true;
+			return false;
+		}
+		return super.equals(t);
 	}
 	
 	@Override

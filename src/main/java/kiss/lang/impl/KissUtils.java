@@ -51,4 +51,7 @@ public class KissUtils {
 		return false;
 	}
 
+	public static boolean equalsWithNulls(Object a, Object b) {
+		return (a==b)||((a!=null)&&a.equals(b));
+	}
 }
