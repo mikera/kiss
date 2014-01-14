@@ -18,4 +18,5 @@ public class Symbols {
 	public static final Symbol FALSE = Symbol.intern("false");
 	public static final Symbol DEF = Symbol.intern("def");
 	public static final Symbol DO = Symbol.intern("do");
+	public static final Symbol CAST = Symbol.intern("cast");
 }

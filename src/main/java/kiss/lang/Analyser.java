@@ -13,6 +13,7 @@ import kiss.lang.expression.Lookup;
 import kiss.lang.expression.Vector;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
+import kiss.lang.type.JavaType;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
 import clojure.lang.RT;
@@ -41,6 +42,21 @@ public class Analyser {
 		return Constant.create(form);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static Type analyseType(Object form) {
+		if (form instanceof Class) {
+			return JavaType.create((Class<Object>) form);
+		}
+		if (form instanceof ISeq) {
+			return analyseTypeSeq((ISeq)form);
+		}
+		throw new KissException("Unrecognised type form: "+form);
+	}
+	
+	private static Type analyseTypeSeq(ISeq s) {
+		throw new KissException("Unrecognised type seq: "+s);
+	}
+
 	public static Expression analyseSymbol(Symbol sym) {
 		if (sym.equals(Symbols.NIL)) return Constant.NULL;
 		if (sym.equals(Symbols.TRUE)) return Constant.TRUE;
