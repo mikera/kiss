@@ -28,6 +28,11 @@ public class KFn extends AFn {
 		return Something.INSTANCE;
 	}
 	
+	/**
+	 * Return true if this is a pure function. Being so is a GOOD THING.
+	 * 
+	 * @return
+	 */
 	public boolean isPure() {
 		return true;
 	}

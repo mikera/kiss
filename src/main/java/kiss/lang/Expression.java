@@ -8,7 +8,7 @@ import clojure.lang.PersistentHashMap;
 import clojure.lang.Symbol;
 
 /**
- * Abstract base class for Kiss expression nodes
+ * Abstract base class for Kiss Expression nodes
  * 
  * Design intent:
  * - Represent Kiss AST
