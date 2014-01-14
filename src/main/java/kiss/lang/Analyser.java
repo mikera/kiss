@@ -10,7 +10,7 @@ import kiss.lang.expression.If;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
-import kiss.lang.expression.VectorExpr;
+import kiss.lang.expression.Vector;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentVector;
@@ -54,7 +54,7 @@ public class Analyser {
 		for (int i=0; i<n; i++) {
 			al.add(analyse(form.nth(i)));
 		}
-		return VectorExpr.create(al);
+		return Vector.create(al);
 	}
 
 	

@@ -12,19 +12,19 @@ import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.type.JavaType;
 
-public class VectorExpr extends Expression {
+public class Vector extends Expression {
 	public Type TYPE = JavaType.create(APersistentVector.class);
 	
 	private List<Expression> vals;
 	private int length;
 	
-	private VectorExpr(List<Expression> vs) {
+	private Vector(List<Expression> vs) {
 		this.vals=vs;
 		this.length=vs.size();
 	}
 	
-	public static VectorExpr create (List<Expression> vs) {
-		return new VectorExpr(vs);
+	public static Vector create (List<Expression> vs) {
+		return new Vector(vs);
 	}
 
 	@Override
