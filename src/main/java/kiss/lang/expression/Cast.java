@@ -52,6 +52,22 @@ public class Cast extends Expression {
 		}
 		return ev;
 	}
+	
+	@Override
+	public Expression optimise() {
+		Expression b=body.optimise();
+		Type bt=body.getType();
+		if (b.isConstant()) {
+			Object val=b.eval();
+			if (type.checkInstance(val)) throw new KissException("Impossible to cast value "+val+" to type: "+type);
+			// TODO: is this logic sound? what about interface casts?
+			return b;
+		} 
+		Type t=type;
+		if (t.contains(bt)) t=bt;
+		if ((b==body)&&(t==type)) return this;
+		return create(t,b);
+	}
 
 	@Override
 	public Expression specialise(Type type) {
