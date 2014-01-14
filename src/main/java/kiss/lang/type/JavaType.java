@@ -82,6 +82,11 @@ public class JavaType<T> extends Type {
 	public boolean canBeTruthy() {
 		return true;
 	}
+	
+	@Override
+	public boolean cannotBeTruthy() {
+		return false;
+	}
 
 	@Override
 	public boolean canBeFalsey() {

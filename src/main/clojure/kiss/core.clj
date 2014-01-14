@@ -25,7 +25,7 @@
     (kiss.lang.Compiler/compile form)))
 
 (defmacro environment
-  "Creates an Environment with the given symbol / expression mappings."
+  "Creates an Environment with the given Symbol -> Expression mappings."
   ([]
     `Environment/EMPTY)
   ([mappings]
@@ -61,9 +61,9 @@
        (.eval ex# env#))))
 
 (defmacro kisse
-  "Compiles and executes Kiss code in the given Environment, returning the updated environment.
+  "Compiles and executes Kiss code in the given Environment, returning the updated Environment.
 
-   The result can be accessed if needed via the 'result' function."
+   The last result can be accessed if needed via the 'result' function."
   ([body]
     `(let [env# Environment/EMPTY
            ex# (optimise (quote ~body))]
