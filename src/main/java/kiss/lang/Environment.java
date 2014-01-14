@@ -53,14 +53,21 @@ public final class Environment extends APersistentMap {
 		return new Environment(map,value);
 	}
 	
-	public Environment withAssoc(Symbol key, Object value) {
+	private Environment withAssoc(Symbol key, Object value) {
 		return new Environment(map.assoc(key, Mapping.create(value)),value);
 	}
 	
-	public Environment withAssocMapping(Symbol key, Mapping m) {
+	private Environment withAssocMapping(Symbol key, Mapping m) {
 		return new Environment(map.assoc(key, m),m.getValue());
 	}
 	
+	/**
+	 * Redefine a symbol in this environment to a new Expression.
+	 * 
+	 * @param key
+	 * @param body
+	 * @return
+	 */
 	public Environment define(Symbol key, Expression body) {
 		return define(key,body,PersistentHashMap.EMPTY);
 	}
@@ -173,7 +180,7 @@ public final class Environment extends APersistentMap {
 	}
 
 	@Override
-	public IPersistentCollection empty() {
+	public Environment empty() {
 		return EMPTY;
 	}
 
