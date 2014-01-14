@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import kiss.lang.expression.Constant;
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentCollection;
@@ -34,6 +35,10 @@ public final class Environment extends APersistentMap {
 	
 	public final IPersistentMap map;
 	public final Object result;
+	
+	public final IPersistentMap deps=null;
+	public final IPersistentMap backDeps=null;
+
 
 	private Environment() {
 		this(PersistentHashMap.EMPTY);
@@ -87,11 +92,7 @@ public final class Environment extends APersistentMap {
 	
 	@Override
 	public Environment assoc(Object key, Object val) {
-		Mapping m=getMapping(key);
-		if (m!=null) {
-			if (m.getValue()==val) return this;
-		}
-		return withAssoc((Symbol) key,val);
+		return define((Symbol) key,Constant.create(val));
 	}
 	
 

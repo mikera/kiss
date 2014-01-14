@@ -43,8 +43,9 @@
 ;; - leaves original environment unchanged
 ;; - causes update of dependent Expressions (!!!!!!)
 
-(let [env2 (assoc env 'foo 2)]
-  [(env 'foo) (env2 'foo)])
+(let [env1 env
+      env2 (assoc env 'foo 2)]
+  [(env1 'foo) (env2 'foo)])
 ; => [1 2]
 
 
