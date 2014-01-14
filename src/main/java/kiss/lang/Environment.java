@@ -79,11 +79,11 @@ public final class Environment extends APersistentMap {
 		IPersistentMap backDeps=this.backDeps;
 		
 		IPersistentSet free=body.getFreeSymbols(PersistentHashSet.EMPTY);
-		//IPersistentSet oldDeps=(IPersistentSet) deps.valAt(key);
-		//if ((oldDeps==null)||(oldDeps.count()==0)) {
-		//	
-		//}
+		IPersistentSet oldDeps=(IPersistentSet) deps.valAt(key);
+		if ((oldDeps==null)) oldDeps=PersistentHashSet.EMPTY;
+
 		deps=deps.assoc(key, free);
+		backDeps=updateBackDeps(key,backDeps,oldDeps,free);
 		
 		for (ISeq s=RT.seq(free);s!=null; s=s.next()) {
 			Symbol sym=(Symbol) s.first();
@@ -102,6 +102,33 @@ public final class Environment extends APersistentMap {
 		}
 	}
 	
+
+	private IPersistentMap updateBackDeps(Symbol key,IPersistentMap backDeps,
+			IPersistentSet oldDeps, IPersistentSet newDeps) {
+		if (oldDeps==newDeps) return backDeps;
+		
+		for (ISeq s=newDeps.seq(); s!=null; s=s.next()) {
+			Symbol sym=(Symbol)s.first();
+			if (oldDeps.contains(sym)) continue;
+			IPersistentSet bs=(IPersistentSet) backDeps.valAt(sym);
+			if (bs==null) bs=PersistentHashSet.EMPTY;
+			backDeps=backDeps.assoc(sym, bs.cons(key));
+		}
+		
+		for (ISeq s=oldDeps.seq(); s!=null; s=s.next()) {
+			Symbol sym=(Symbol)s.first();
+			if (newDeps.contains(sym)) continue;
+			IPersistentSet bs=(IPersistentSet) backDeps.valAt(sym);
+			bs=bs.disjoin(key);
+			if (bs.count()==0) {
+				backDeps=backDeps.without(sym);
+			} else {
+				backDeps=backDeps.assoc(sym, bs);
+			}
+		}
+		
+		return backDeps;
+	}
 
 	@Override
 	public IPersistentMap without(Object key) {
@@ -231,6 +258,11 @@ public final class Environment extends APersistentMap {
 				throw new KissException("Mismatched dependencies for symbol: "+key+" free="+free+" deps="+ds);
 			}
 			
+			for (ISeq s=ds.seq(); s!=null; s=s.next()) {
+				Symbol sym=(Symbol)s.first();
+				IPersistentSet bs=(IPersistentSet) backDeps.valAt(sym);
+				if (!bs.contains(key)) throw new KissException("Missing back dependency from "+sym+"=>"+key);
+			}
 		}
 	}
 }
