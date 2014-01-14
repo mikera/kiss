@@ -6,6 +6,8 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
+import kiss.lang.type.Anything;
+import kiss.lang.type.Nothing;
 
 /**
  * A Kiss "do" expression.
@@ -31,6 +33,7 @@ public class Do extends kiss.lang.Expression {
 	
 	@Override
 	public Type getType() {
+		if (length==0) return Nothing.INSTANCE;
 		return exps[length-1].getType();
 	}
 
