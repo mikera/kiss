@@ -1,5 +1,7 @@
 package kiss.lang.expression;
 
+import java.util.Arrays;
+
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
@@ -35,6 +37,24 @@ public class Do extends kiss.lang.Expression {
 	public Type getType() {
 		if (length==0) return Nothing.INSTANCE;
 		return exps[length-1].getType();
+	}
+	
+	@Override
+	public Expression optimise() {
+		Expression[] es=new Expression[length];
+		int j=0;
+		boolean found=false;
+		for (int i=0; i<length; i++) {
+			Expression old=exps[i];
+			Expression x=old.optimise();
+			if (x!=old) found=true;
+			if ((i==(length-1))||(!x.isPure())) {
+				es[j++]=x;
+			}
+		}
+		if ((!found)&&(j==length)) return this;
+		if (j==1) return es[0];
+		return create(Arrays.copyOf(es, j));
 	}
 
 	@Override

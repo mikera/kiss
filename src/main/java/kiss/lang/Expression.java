@@ -79,7 +79,7 @@ public abstract class Expression {
 	}
 
 	public boolean isPure() {
-		return true;
+		return false;
 	}
 
 	/**

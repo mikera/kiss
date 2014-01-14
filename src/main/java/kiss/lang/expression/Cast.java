@@ -68,6 +68,11 @@ public class Cast extends Expression {
 		if ((b==body)&&(t==type)) return this;
 		return create(t,b);
 	}
+	
+	@Override
+	public boolean isPure() {
+		return body.isPure();
+	}
 
 	@Override
 	public Expression specialise(Type type) {
