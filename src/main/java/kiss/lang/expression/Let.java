@@ -2,6 +2,8 @@ package kiss.lang.expression;
 
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
+import clojure.lang.PersistentHashMap;
+import clojure.lang.PersistentHashSet;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
@@ -27,6 +29,23 @@ public class Let extends Expression {
 
 	public static Let create(Symbol sym, Expression value, Expression body) {
 		return new Let(sym,value,body);
+	}
+	
+	@Override
+	public Expression optimise() {
+		Expression b=body.optimise();
+		Expression v=value.optimise();
+		if (value.isPure()) {
+			IPersistentSet bfree= b.getFreeSymbols(PersistentHashSet.EMPTY);
+			if (!(bfree.contains(sym))) {
+				return b;
+			}
+			if (value.isConstant()) {
+				return b.substitute(PersistentHashMap.EMPTY.assoc(sym,value.eval()));
+			}
+		}
+		if ((b==body)&&(v==value)) return this;
+		return create(sym,value,body);
 	}
 	
 	@Override
