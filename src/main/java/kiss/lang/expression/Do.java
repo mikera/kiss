@@ -48,6 +48,7 @@ public class Do extends kiss.lang.Expression {
 			Expression old=exps[i];
 			Expression x=old.optimise();
 			if (x!=old) found=true;
+			// we can eliminate pure expressions in non-ending position
 			if ((i==(length-1))||(!x.isPure())) {
 				es[j++]=x;
 			}
