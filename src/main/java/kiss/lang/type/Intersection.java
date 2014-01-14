@@ -47,7 +47,14 @@ public class Intersection extends ACompoundType {
 
 	@Override
 	public Class<?> getJavaClass() {
-		return Object.class;
+		Class<?> c=types[0].getJavaClass();
+		for (int i=1; i<types.length; i++) {
+			Class<?> ci=types[i].getJavaClass();
+			if (c.isAssignableFrom(ci)) {
+				c=ci;
+			}
+		}
+		return c;
 	}
 
 	@Override

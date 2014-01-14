@@ -88,6 +88,11 @@ public class TypeTests {
 
 	}
 	
+	@Test public void testJavaClass() {
+		assertEquals(Integer.class,Intersection.create(JavaType.create(Integer.class),JavaType.create(Number.class)).getJavaClass());
+		assertEquals(Integer.class,Intersection.create(JavaType.create(Number.class),JavaType.create(Integer.class)).getJavaClass());
+	}
+	
 	@Test 
 	public void testProperties() {
 		for (Type a:testTypes) {
