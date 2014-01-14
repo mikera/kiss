@@ -26,7 +26,8 @@ public abstract class Expression {
 	/**
 	 * Specialises an expression to guarantee returning the given type, or a strict subset
 	 * 
-	 * Returns null if this specialisation is impossible
+	 * Returns null if this specialisation is impossible, may return the same expression
+	 * if no additional specialisation can be performed.
 	 * 
 	 * @param type
 	 * @return
@@ -61,7 +62,7 @@ public abstract class Expression {
 	 */
 	public abstract Environment compute(Environment d, IPersistentMap bindings);
 
-	public Environment compute(Environment e) {
+	public final Environment compute(Environment e) {
 		return compute(e,PersistentHashMap.EMPTY);
 	}
 	
@@ -74,7 +75,7 @@ public abstract class Expression {
 	}
 
 	/**
-	 * Gets the free symbols in an Expression, conjing them onto a given persistent set
+	 * Gets the free symbols in an Expression, conj'ing them onto a given persistent set
 	 * @param s
 	 * @return
 	 */
