@@ -145,6 +145,7 @@ public class Intersection extends ACompoundType {
 	@Override
 	public void validate() {
 		int n=types.length;
+		if (n<2) throw new KissException("Intersection must have at least two members");
 		for (int i=0; i<n; i++) {
 			Type t=types[i];
 			t.validate();

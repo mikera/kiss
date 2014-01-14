@@ -142,6 +142,7 @@ public class Union extends ACompoundType {
 	@Override
 	public void validate() {
 		int n=types.length;
+		if (n<2) throw new KissException("Union must have at least two members");
 		for (int i=0; i<n; i++) {
 			Type t=types[i];
 			t.validate();
