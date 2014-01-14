@@ -34,7 +34,7 @@
 (defn kmerge
   "Merge Kiss Environments, returning a new Environment"
   (^Environment [^Environment a] a)
-  (^Environment [^Environment a ^Environment b] (TODO))
+  (^Environment [^Environment a ^Environment b] (.merge a b))
   (^Environment [^Environment a ^Environment b & more ]
     (reduce kmerge (kmerge a b) more)))
 

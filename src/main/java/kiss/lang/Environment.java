@@ -1,6 +1,7 @@
 package kiss.lang;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import clojure.lang.APersistentMap;
@@ -54,6 +55,11 @@ public final class Environment extends APersistentMap {
 	public Environment withAssoc(Symbol key, Object value) {
 		return new Environment(map.assoc(key, Mapping.create(value)),value);
 	}
+	
+	public Environment withAssocMapping(Symbol key, Mapping m) {
+		return new Environment(map.assoc(key, m),m.value);
+	}
+	
 	
 	public Environment define(Symbol key, Expression body, IPersistentMap bindings) {
 		@SuppressWarnings("unused")
@@ -128,6 +134,21 @@ public final class Environment extends APersistentMap {
 		public void remove() {
 			throw new UnsupportedOperationException("Immutable!");
 		}		
+	}
+	
+	/**
+	 * Merges a second environment into this one
+	 * @param e
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Environment merge(Environment e) {
+		Environment result=this;
+		for (Object o : e.map) {
+			Map.Entry<Symbol, Mapping> ent=(Entry<Symbol, Mapping>) o;
+			result=result.withAssocMapping(ent.getKey(),ent.getValue());
+		}
+		return result;
 	}
 
 	@Override

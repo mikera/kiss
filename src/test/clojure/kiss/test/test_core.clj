@@ -48,6 +48,13 @@
     (is (= 1 (e 'kiss.core/a)))
     (is (= 2 (e 'kiss.core/b)))))
 
+(deftest test-merge
+  (let [e1 (kisse (def a 1))
+        e2 (kisse (def b 2))
+        e3 (kmerge e1 e2)]
+    (is (= 1 (e3 'a)))
+    (is (= 2 (e3 'b)))))
+
 (deftest test-vectors
   (is (= [] (kiss [])))
   (is (= [1] (kiss [1])))
