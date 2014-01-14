@@ -76,4 +76,10 @@ public class Cast extends Expression {
 		if (nBody==null) return null;
 		return create(type,nBody);
 	}
+	
+	@Override
+	public void validate() {
+		// OK?
+	}
+
 }

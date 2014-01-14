@@ -81,6 +81,17 @@ public class ExpressionTests {
 	}
 	
 	@Test
+	public void testProperties() {
+		for (Expression e:testExprs) {
+			try {
+				e.validate();		
+			} catch (Throwable t) {
+				throw new KissException("Error testing expression "+e,t);
+			}
+		}		
+	}
+	
+	@Test
 	public void testConstants() {
 		assertNull(Constant.create(null).eval());
 		assertEquals(1,Constant.create(1).eval());

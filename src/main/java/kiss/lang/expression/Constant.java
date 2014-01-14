@@ -5,6 +5,7 @@ import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Null;
 import kiss.lang.type.Value;
@@ -84,4 +85,10 @@ public class Constant<T> extends Expression {
 	public Expression substitute(IPersistentMap bindings) {
 		return this;
 	}
+	
+	@Override
+	public void validate() {
+		if (!type.checkInstance(value)) throw new KissException("Mismatched type!");
+	}
+
 }

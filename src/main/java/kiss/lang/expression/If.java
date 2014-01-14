@@ -90,4 +90,9 @@ public class If extends Expression {
 		return s;
 	}
 
+	@Override
+	public void validate() {
+		// OK?
+	}
+
 }

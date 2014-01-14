@@ -62,4 +62,9 @@ public class Def extends Expression {
 		return create(sym,nBody);
 	}
 
+	@Override
+	public void validate() {
+		// OK?
+	}
+
 }

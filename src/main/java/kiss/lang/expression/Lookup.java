@@ -74,5 +74,10 @@ public class Lookup extends Expression {
 		return s;
 	}
 
+	@Override
+	public void validate() {
+		// OK?
+	}
+
 
 }

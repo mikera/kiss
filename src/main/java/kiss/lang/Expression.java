@@ -89,6 +89,5 @@ public abstract class Expression {
 	 */
 	public abstract IPersistentSet getFreeSymbols(IPersistentSet s);
 
-
-
+	public abstract void validate();
 }

@@ -119,4 +119,9 @@ public class Application extends Expression {
 		return create(nfunc,nParams);
 	}
 
+	@Override
+	public void validate() {
+		if (params.length!=arity) throw new KissException("Mismatched arity!");
+	}
+
 }

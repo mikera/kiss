@@ -6,6 +6,7 @@ import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * A let expression, creates a local lexical binding
@@ -66,5 +67,11 @@ public class Let extends Expression {
 		s=s.disjoin(sym);
 		return s;
 	}
+	
+	@Override
+	public void validate() {
+		// OK?
+	}
+
 
 }

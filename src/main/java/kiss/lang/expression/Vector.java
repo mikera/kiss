@@ -10,6 +10,7 @@ import clojure.lang.PersistentVector;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 import kiss.lang.type.JavaType;
 
 public class Vector extends Expression {
@@ -79,5 +80,12 @@ public class Vector extends Expression {
 		}
 		return s;
 	}
+	
+
+	@Override
+	public void validate() {
+		if (length!=vals.size()) throw new KissException("Mismatched vector length!");
+	}
+
 
 }

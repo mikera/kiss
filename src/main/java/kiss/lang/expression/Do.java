@@ -5,6 +5,7 @@ import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * A Kiss "do" expression.
@@ -83,5 +84,11 @@ public class Do extends kiss.lang.Expression {
 		}
 		return s;
 	}
+	
+	@Override
+	public void validate() {
+		if (length!=exps.length) throw new KissException("Mismatched length!");
+	}
+
 
 }
