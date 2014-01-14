@@ -26,8 +26,37 @@ public class Do extends kiss.lang.Expression {
 
 	@Override
 	public Expression specialise(Type type) {
-		// TODO Auto-generated method stub
-		return null;
+		// specialise based on the last expression in the do block, since this defines the return value
+		if (length==0) return null;
+		Expression end=exps[length-1];
+		Expression send=end.specialise(type);
+		if (send==null) return null;
+		if (send==end) return this;
+		Expression[] nexps=exps.clone();
+		nexps[length-1]=send;
+		return create(nexps);
+	}
+	
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		int i=0;
+		Expression nx=null;
+		for (;i<length; i++) {
+			Expression x=exps[i];
+			nx=x.substitute(bindings);
+			if (nx==null) return null;
+			if (nx!=x) break;
+		}
+		if (i==length) return this; // no changes
+		Expression[] nexps=exps.clone();
+		nexps[i++]=nx;
+		for (;i<length; i++) {
+			Expression x=exps[i];
+			nx=x.substitute(bindings);
+			if (nx==null) return null;
+			nexps[i]=nx;
+		}
+		return create(nexps);
 	}
 
 	@Override

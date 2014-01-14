@@ -47,6 +47,18 @@ public class Let extends Expression {
 		if (body==newBody) return this;
 		return new Let(sym,value,body);
 	}
+		
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		Expression nv=value.substitute(bindings);
+		if (nv==null) return null;
+		bindings=bindings.without(sym);
+		Expression nbody=body.substitute(bindings);
+		if (nbody==null) return null;
+		
+		if ((nv==value)&&(nbody==body)) return this;
+		return create(sym,nv,nbody);
+	}
 	
 	@Override
 	public IPersistentSet getFreeSymbols(IPersistentSet s) {

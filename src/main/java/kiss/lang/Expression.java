@@ -35,6 +35,14 @@ public abstract class Expression {
 	public abstract Expression specialise(Type type);
 	
 	/**
+	 * Specialises an expression using the given Symbol -> Value substitution map
+	 * 
+	 * @param bindings
+	 * @return
+	 */
+	public abstract Expression substitute(IPersistentMap bindings);
+	
+	/**
 	 * Optimises this expression. Performs constant folding, etc.
 	 * @return
 	 */

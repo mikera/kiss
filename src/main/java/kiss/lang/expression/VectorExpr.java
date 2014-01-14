@@ -18,9 +18,13 @@ public class VectorExpr extends Expression {
 	private List<Expression> vals;
 	private int length;
 	
-	public VectorExpr(List<Expression> vs) {
+	private VectorExpr(List<Expression> vs) {
 		this.vals=vs;
 		this.length=vs.size();
+	}
+	
+	public static VectorExpr create (List<Expression> vs) {
+		return new VectorExpr(vs);
 	}
 
 	@Override
@@ -31,6 +35,31 @@ public class VectorExpr extends Expression {
 	@Override
 	public Expression specialise(Type type) {
 		return null;
+	}
+	
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		int i=0;
+		Expression nx=null;
+		for (;i<length; i++) {
+			Expression x=vals.get(i);
+			nx=x.substitute(bindings);
+			if (nx==null) return null;
+			if (nx!=x) break;
+		}
+		if (i==length) return this; // no changes
+		ArrayList<Expression> al=new ArrayList<Expression>();
+		for (int j=0; j<i; j++) {
+			al.add(vals.get(j));
+		}
+		al.add(nx);
+		for (;i<length; i++) {
+			Expression x=vals.get(i);
+			nx=x.substitute(bindings);
+			if (nx==null) return null;
+			al.add(nx);
+		}
+		return create(al);
 	}
 
 	@Override

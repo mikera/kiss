@@ -54,7 +54,7 @@ public class Analyser {
 		for (int i=0; i<n; i++) {
 			al.add(analyse(form.nth(i)));
 		}
-		return new VectorExpr(al);
+		return VectorExpr.create(al);
 	}
 
 	

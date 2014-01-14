@@ -90,7 +90,7 @@ public class Application extends Expression {
 		// TODO Better specialisation of lambda application
 		return Cast.create(type, this);
 	}
-
+	
 	@Override
 	public IPersistentSet getFreeSymbols(IPersistentSet s) {
 		s=func.getFreeSymbols(s);
@@ -98,6 +98,25 @@ public class Application extends Expression {
 			s=params[i].getFreeSymbols(s);
 		}
 		return s;
+	}
+
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		Expression nfunc=func.substitute(bindings);
+		if (nfunc==null) return null;
+		boolean changed= (func!=nfunc);
+		Expression[] nParams=params.clone();
+		for (int i=0; i<arity; i++) {
+			Expression x=params[i];
+			Expression nx=x.substitute(bindings);
+			if (nx==null) return null;
+			if (nx!=x) {
+				nParams[i]=nx;
+				changed=true;
+			}
+		}
+		if (!changed) return this;
+		return create(nfunc,nParams);
 	}
 
 }

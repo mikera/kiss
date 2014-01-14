@@ -25,7 +25,6 @@ public class Lambda extends Expression {
 
 	private FunctionType type;
 	private Expression body;
-	@SuppressWarnings("unused")
 	private Type[] types;
 	private Symbol[] syms;
 	
@@ -63,6 +62,19 @@ public class Lambda extends Expression {
 		if (this.type==type) return this;
 		if (type.contains(this.type)) return this;
 		return Cast.create(type, this);
+	}
+	
+	
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		for (Symbol s:syms) {
+			bindings=bindings.without(s);
+		}
+		Expression nbody=body.substitute(bindings);
+		if (nbody==null) return null;
+		
+		if ((nbody==body)) return this;
+		return create(nbody,syms,types);
 	}
 	
 	@Override

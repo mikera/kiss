@@ -23,6 +23,10 @@ public class Lookup extends Expression {
 	public static Expression create(Symbol symbol) {
 		return new Lookup(symbol);
 	}
+	
+	public static Expression create(String symName) {
+		return create(Symbol.intern(symName));
+	}
 
 	@Override
 	public Type getType() {
@@ -56,9 +60,18 @@ public class Lookup extends Expression {
 	}
 	
 	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		if(bindings.containsKey(sym)) {
+			return Constant.create(bindings.valAt(sym));
+		}
+		return this;
+	}
+	
+	@Override
 	public IPersistentSet getFreeSymbols(IPersistentSet s) {
 		s=(IPersistentSet) ((IPersistentCollection)s).cons(sym);
 		return s;
 	}
+
 
 }

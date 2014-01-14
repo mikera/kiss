@@ -58,6 +58,19 @@ public class If extends Expression {
 		if ((doThen==newThen)||(doElse==newElse)) return this;
 		return new If(cond,newThen,newElse);
 	}
+	
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		Expression ncond=cond.substitute(bindings);
+		if (ncond==null) return null;
+		Expression nthen=doThen.substitute(bindings);
+		if (nthen==null) return null;
+		Expression nelse=doElse.substitute(bindings);
+		if (nelse==null) return null;
+		
+		if ((ncond==cond)&&(nthen==doThen)&&(nelse==doElse)) return this;
+		return create(ncond,nthen,nelse);
+	}
 
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {

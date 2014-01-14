@@ -79,4 +79,9 @@ public class Constant<T> extends Expression {
 	public IPersistentSet getFreeSymbols(IPersistentSet s) {
 		return s;
 	}
+
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		return this;
+	}
 }

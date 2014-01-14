@@ -62,4 +62,12 @@ public class Cast extends Expression {
 		s=body.getFreeSymbols(s);
 		return s;
 	}
+
+	@Override
+	public Expression substitute(IPersistentMap bindings) {
+		Expression nBody=body.substitute(bindings);
+		if (nBody==body) return this;
+		if (nBody==null) return null;
+		return create(type,nBody);
+	}
 }
