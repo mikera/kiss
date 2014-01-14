@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 public class Union extends ACompoundType {
 
@@ -136,6 +137,16 @@ public class Union extends ACompoundType {
 	@Override
 	public Type union(Type t) {
 		return include(t);
+	}
+	
+	@Override
+	public void validate() {
+		int n=types.length;
+		for (int i=0; i<n; i++) {
+			Type t=types[i];
+			t.validate();
+			if (t instanceof Nothing) throw new KissException(this+ " should not contain Nothing type");
+		}
 	}
 
 	@Override

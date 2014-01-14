@@ -3,6 +3,7 @@ package kiss.lang.type;
 import kiss.lang.KFn;
 import kiss.lang.Mapping;
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 import clojure.lang.IFn;
 
 /**
@@ -170,6 +171,11 @@ public class FunctionType extends Type {
 	public Type union(Type t) {
 		if (t==this) return t;
 		return Union.create(this,t);
+	}
+
+	@Override
+	public void validate() {
+		if (arity!=paramTypes.length) throw new KissException("Mismatched arity count");
 	}
 
 }

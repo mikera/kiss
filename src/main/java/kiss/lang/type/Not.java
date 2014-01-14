@@ -86,4 +86,9 @@ public class Not extends Type {
 		// TODO any applicable optimisations here?
 		return super.union(t);
 	}
+	
+	@Override
+	public void validate() {
+		type.validate();
+	}
 }

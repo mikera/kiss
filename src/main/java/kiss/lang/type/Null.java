@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * The type of the value null
@@ -67,6 +68,11 @@ public class Null extends Type {
 	public Type union(Type t) {
 		if (t.checkInstance(null)) return t;
 		return Maybe.create(t);
+	}
+	
+	@Override
+	public void validate() {
+		if (this!=Null.INSTANCE) throw new KissException(this+ " should be a singleton!");
 	}
 
 }

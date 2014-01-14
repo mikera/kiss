@@ -105,6 +105,8 @@ public abstract class Type {
 	public int hashCode() {
 		return super.hashCode();
 	}
+	
+	public abstract void validate();
 
 	public abstract Type inverse();
 

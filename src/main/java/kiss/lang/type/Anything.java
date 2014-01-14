@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * A type that represents any value, including null 
@@ -53,6 +54,11 @@ public class Anything extends Type {
 	@Override
 	public Type union(Type t) {
 		return this;
+	}
+
+	@Override
+	public void validate() {
+		if (this!=Anything.INSTANCE) throw new KissException(this+ " should be a singleton!");
 	}
 
 }

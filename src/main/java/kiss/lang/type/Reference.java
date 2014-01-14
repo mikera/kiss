@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 public class Reference extends Type {
 
@@ -54,6 +55,11 @@ public class Reference extends Type {
 	public Type union(Type t) {
 		// TODO what about primitives?
 		return this;
+	}
+	
+	@Override
+	public void validate() {
+		// OK?
 	}
 
 }

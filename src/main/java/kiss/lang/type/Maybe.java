@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * Maybe type, represents the type of values that may be either null or non-null values of another type
@@ -101,5 +102,13 @@ public class Maybe extends Type {
 		if (type.contains(t)) return this;
 		
 		return Union.create(Null.INSTANCE,type,t);
+	}
+	
+	@Override
+	public void validate() {
+		if (type.checkInstance(null)) {
+			throw new KissException("Maybe should not contain nullable type!");
+		}
+		type.validate();
 	}
 }

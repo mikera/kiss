@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * Type that represents any non-null reference
@@ -72,6 +73,11 @@ public class Something extends Type {
 		// TODO what about primitives?
 		if (t.cannotBeNull()) return this;
 		return Reference.INSTANCE;
+	}
+	
+	@Override
+	public void validate() {
+		if (this!=Something.INSTANCE) throw new KissException(this+ " should be a singleton!");
 	}
 
 }

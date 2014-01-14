@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * JavaType represents the type of non-null values that are of a specific Java type.
@@ -121,6 +122,11 @@ public class JavaType<T> extends Type {
 			return Maybe.create(this);
 		}
 		return super.union(t);
+	}
+	
+	@Override
+	public void validate() {
+		// OK
 	}
 
 }

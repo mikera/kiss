@@ -91,6 +91,8 @@ public class TypeTests {
 	@Test 
 	public void testProperties() {
 		for (Type a:testTypes) {
+			a.validate();
+			
 			if (a.canBeNull()) assertTrue(a.checkInstance(null));
 			if (a.cannotBeNull()) assertFalse(a.checkInstance(null));	
 			

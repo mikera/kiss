@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 
 /**
  * Intersection type. 
@@ -139,6 +140,16 @@ public class Intersection extends ACompoundType {
 	@Override
 	public boolean canBeFalsey() {
 		return (checkInstance(null)||(checkInstance(Boolean.FALSE)));
+	}
+	
+	@Override
+	public void validate() {
+		int n=types.length;
+		for (int i=0; i<n; i++) {
+			Type t=types[i];
+			t.validate();
+			if (t instanceof Anything) throw new KissException(this+ " should not contain Anything");
+		}
 	}
 
 }

@@ -1,6 +1,7 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
+import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 
 /**
@@ -111,5 +112,11 @@ public class Value<T> extends Type {
 	public String toString() {
 		return "(Value "+value.toString()+")";
 	}
+	
+	@Override
+	public void validate() {
+		if (!(klass.isInstance(value))) throw new KissException(value+ " is of wrong type, should be "+klass);
+	}
+
 
 }
