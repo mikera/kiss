@@ -77,7 +77,14 @@ public class Union extends ACompoundType {
 
 	@Override
 	public Class<?> getJavaClass() {
-		return Object.class;
+		Class<?> c=types[0].getJavaClass();
+		for (int i=1; i<types.length; i++) {
+			Class<?> ci=types[i].getJavaClass();
+			while (!c.isAssignableFrom(ci)) {
+				c=c.getSuperclass();
+			}
+		}
+		return c;
 	}
 
 	@Override

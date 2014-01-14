@@ -1,6 +1,9 @@
 package kiss.test;
 
 import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
+
 import kiss.lang.Type;
 import kiss.lang.expression.Cast;
 import kiss.lang.expression.Constant;
@@ -91,6 +94,10 @@ public class TypeTests {
 	@Test public void testJavaClass() {
 		assertEquals(Integer.class,Intersection.create(JavaType.create(Integer.class),JavaType.create(Number.class)).getJavaClass());
 		assertEquals(Integer.class,Intersection.create(JavaType.create(Number.class),JavaType.create(Integer.class)).getJavaClass());
+
+		assertEquals(Number.class,Union.create(JavaType.create(Long.class),JavaType.create(Float.class)).getJavaClass());
+		assertEquals(Object.class,Union.create(JavaType.create(BigDecimal.class),JavaType.create(String.class)).getJavaClass());
+		assertEquals(Number.class,Union.create(JavaType.create(BigDecimal.class),JavaType.create(Number.class)).getJavaClass());
 	}
 	
 	@Test 
