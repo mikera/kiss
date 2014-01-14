@@ -16,6 +16,8 @@ public class Not extends Type {
 	}
 	
 	public static Type create(Type t) {
+		if (t instanceof Nothing) return Anything.INSTANCE;
+		if (t instanceof Anything) return Nothing.INSTANCE;
 		return t.inverse();
 	}
 	
@@ -45,12 +47,12 @@ public class Not extends Type {
 
 	@Override
 	public boolean canBeTruthy() {
-		return false;
+		return type.cannotBeTruthy();
 	}
 
 	@Override
 	public boolean canBeFalsey() {
-		return canBeNull();
+		return type.cannotBeFalsey();
 	}
 
 	@Override
