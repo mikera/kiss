@@ -79,12 +79,14 @@ public final class Environment extends APersistentMap {
 		IPersistentMap backDeps=this.backDeps;
 		
 		IPersistentSet free=body.getFreeSymbols(PersistentHashSet.EMPTY);
+		
 		IPersistentSet oldDeps=(IPersistentSet) deps.valAt(key);
 		if ((oldDeps==null)) oldDeps=PersistentHashSet.EMPTY;
 
 		deps=deps.assoc(key, free);
 		backDeps=updateBackDeps(key,backDeps,oldDeps,free);
 		
+		// check if free variables can be satisfied from the current environment 
 		for (ISeq s=RT.seq(free);s!=null; s=s.next()) {
 			Symbol sym=(Symbol) s.first();
 			// TODO: fix Clojure var hackery?
@@ -107,6 +109,7 @@ public final class Environment extends APersistentMap {
 			IPersistentSet oldDeps, IPersistentSet newDeps) {
 		if (oldDeps==newDeps) return backDeps;
 		
+		// add new back dependencies
 		for (ISeq s=newDeps.seq(); s!=null; s=s.next()) {
 			Symbol sym=(Symbol)s.first();
 			if (oldDeps.contains(sym)) continue;
@@ -115,6 +118,7 @@ public final class Environment extends APersistentMap {
 			backDeps=backDeps.assoc(sym, bs.cons(key));
 		}
 		
+		// remove old back dependencies
 		for (ISeq s=oldDeps.seq(); s!=null; s=s.next()) {
 			Symbol sym=(Symbol)s.first();
 			if (newDeps.contains(sym)) continue;
