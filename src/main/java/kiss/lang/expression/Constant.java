@@ -58,6 +58,11 @@ public class Constant<T> extends Expression {
 	public boolean isConstant() {
 		return true;
 	}
+	
+	@Override
+	public boolean isPure() {
+		return true;
+	}
 
 	@Override
 	public Object eval(Environment e) {

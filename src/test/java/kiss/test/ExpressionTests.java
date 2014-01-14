@@ -96,11 +96,22 @@ public class ExpressionTests {
 		assertNull(Constant.create(null).eval());
 		assertEquals(1,Constant.create(1).eval());
 		assertEquals("foo",Constant.create("foo").eval());
-
 	}
 	
 	
+	@Test 
+	public void testOptimisations() {
+		checkConstant(1,Constant.create(1));
+		checkConstant(2,If.create(Constant.create(1),Constant.create(2),Constant.create(3)));
+		checkConstant(3,Do.create(Constant.create(1),Constant.create(2),Constant.create(3)));
+	}
 	
+	private void checkConstant(Object expected,Expression x) {
+		Expression opt=x.optimise();
+		assertTrue("Expression not constant: "+x,opt.isConstant());
+		assertEquals(expected,opt.eval());
+	}
+
 	@Test
 	public void testIf() {
 		assertEquals(2,If.create(Constant.create(null), Constant.create(1), Constant.create(2)).eval());
