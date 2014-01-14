@@ -6,6 +6,7 @@ import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
+import kiss.lang.expression.Def;
 import kiss.lang.expression.Do;
 import kiss.lang.expression.If;
 import kiss.lang.expression.Lambda;
@@ -104,6 +105,18 @@ public class ExpressionTests {
 		checkConstant(1,Constant.create(1));
 		checkConstant(2,If.create(Constant.create(1),Constant.create(2),Constant.create(3)));
 		checkConstant(3,Do.create(Constant.create(1),Constant.create(2),Constant.create(3)));
+		checkConstant(3,Let.create(Symbol.create("foo"),Constant.create(3),Lookup.create("foo")));
+	}
+	
+	@Test 
+	public void testNotConstant() {
+		checkNotConstant(Lookup.create("foo"));
+		checkNotConstant(Def.create(Symbol.intern("foo"),Constant.create(1)));
+	}
+	
+	private void checkNotConstant(Expression x) {
+		Expression opt=x.optimise();
+		assertFalse("Expression is constant: "+x,opt.isConstant());
 	}
 	
 	private void checkConstant(Object expected,Expression x) {
