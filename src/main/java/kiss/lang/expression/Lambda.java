@@ -7,6 +7,7 @@ import kiss.lang.Expression;
 import kiss.lang.KFn;
 import kiss.lang.Type;
 import kiss.lang.impl.LambdaFn;
+import kiss.lang.type.Anything;
 import kiss.lang.type.FunctionType;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
@@ -23,6 +24,8 @@ import clojure.lang.Symbol;
  */
 public class Lambda extends Expression {
 
+	public static final Lambda IDENTITY=create(Lookup.create("x"),new Symbol[] {Symbol.intern("x")},new Type[] {Anything.INSTANCE});
+	
 	private FunctionType type;
 	private Expression body;
 	private Type[] types;

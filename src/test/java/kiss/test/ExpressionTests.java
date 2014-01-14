@@ -5,8 +5,11 @@ import static org.junit.Assert.assertNull;
 import kiss.lang.Analyser;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
+import kiss.lang.expression.Do;
 import kiss.lang.expression.If;
+import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
 import kiss.lang.impl.KissUtils;
@@ -31,7 +34,11 @@ public class ExpressionTests {
 	static final Expression[] testExprs={
 		Constant.create(null),
 		Constant.create("friend"),
-		Let.create(Symbol.intern("foo"), Constant.create(3), Lookup.create("foo"))	
+		Let.create(Symbol.intern("foo"), Constant.create(3), Lookup.create("foo")),
+		Lambda.IDENTITY,
+		Do.create(Constant.create(1)),
+		Do.create(Constant.create(1),Lookup.create("foo")),
+		Application.create(Lambda.IDENTITY, Constant.create(3))
 	}; 
 	
 	@Test 

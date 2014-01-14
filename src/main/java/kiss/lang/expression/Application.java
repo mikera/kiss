@@ -26,7 +26,7 @@ public class Application extends Expression {
 		this.arity=params.length;
 	}
 	
-	public static Expression create(Expression func, Expression[] params) {
+	public static Expression create(Expression func, Expression... params) {
 		return new Application(func,params.clone());
 	}
 	
