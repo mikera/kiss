@@ -17,15 +17,16 @@ public class FunctionType extends Type {
 
 	private final Type returnType;
 	private final Type[] paramTypes;
+	private final int arity;
 	
 	private FunctionType(Type returnType) {
-		this.returnType=returnType;
-		this.paramTypes=Type.EMPTY_TYPE_ARRAY;
+		this(returnType,Type.EMPTY_TYPE_ARRAY);
 	}
 	
 	private FunctionType(Type returnType, Type[] paramTypes) {
 		this.returnType=returnType;
 		this.paramTypes=paramTypes;
+		this.arity=paramTypes.length;
 	}
 	
 	public static FunctionType create(Type returnType, Mapping[] params) {
@@ -48,14 +49,14 @@ public class FunctionType extends Type {
 	
 	public boolean hasArity(int n) {
 		// TODO: think about multi-arity?
-		return n==getArity();
+		return n==arity;
 	}
 	
 	public int getArity() {
-		return paramTypes.length;
+		return arity;
 	}
 	
-	private Type getReturnType() {
+	public Type getReturnType() {
 		return returnType;
 	}
 
@@ -63,11 +64,18 @@ public class FunctionType extends Type {
 	public boolean checkInstance(Object o) {
 		if (o instanceof KFn) {
 			KFn fn=(KFn)o;
-			if (!(returnType.contains(fn.getReturnType()))) return false;
+			if (!returnType.contains(fn.getReturnType())) return false; // covariance on return type
+			for (int i=0; i<arity; i++) {
+				if (!fn.getParamType(i).contains(paramTypes[i])) return false; // contravariance on parameter type				
+			}
+			return true;
+		} else if (o instanceof IFn) {
+			// we can't assume anything about an arbitrary IFn.....
+			 return true;
 		} else {
-			if (o instanceof IFn) return true;
+			// not a function, so return false
+			return false;			
 		}
-		return false;
 	}
 
 	@Override

@@ -30,6 +30,7 @@ public class Lambda extends Expression {
 	private Expression body;
 	private Type[] types;
 	private Symbol[] syms;
+	private KFn compiled=null;
 	
 	private Lambda(Expression body, Symbol[] syms, Type[] types) {
 		this.body=body;
@@ -49,6 +50,8 @@ public class Lambda extends Expression {
 
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
+		if (compiled!=null) return d.withResult(compiled);
+		
 		// TODO is this sensible? capture the dynamic environment at exact point of lambda creation?
 		Environment e=d;
 		for (ISeq s= bindings.seq(); s!=null; s=s.next()) {

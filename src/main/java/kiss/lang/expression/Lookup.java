@@ -6,6 +6,7 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
+import kiss.lang.type.Anything;
 import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
@@ -30,7 +31,7 @@ public class Lookup extends Expression {
 
 	@Override
 	public Type getType() {
-		return null;
+		return Anything.INSTANCE;
 	}
 
 	@SuppressWarnings("unchecked")
