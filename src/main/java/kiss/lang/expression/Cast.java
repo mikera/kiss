@@ -10,6 +10,12 @@ import kiss.lang.impl.KissUtils;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 
+/**
+ * An expression which casts the type of its body to a specified Type
+ * 
+ * @author Mike
+ *
+ */
 public class Cast extends Expression {
 	Type type;
 	Expression body;

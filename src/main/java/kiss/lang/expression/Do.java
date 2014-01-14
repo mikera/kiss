@@ -6,6 +6,15 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 
+/**
+ * A Kiss "do" expression.
+ * 
+ * All subexpressions are evaluated in sequence, and the result is the result of the final 
+ * subexpression.
+ * 
+ * @author Mike
+ *
+ */
 public class Do extends kiss.lang.Expression {
 	private final Expression[] exps;
 	private final int length;

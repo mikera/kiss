@@ -10,7 +10,7 @@ import kiss.lang.type.Null;
 import kiss.lang.type.Value;
 
 /**
- * A typed constant value in an expression
+ * A typed constant value in an Expression
  * 
  * @author Mike
  */

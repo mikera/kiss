@@ -8,7 +8,8 @@ import clojure.lang.IFn;
 /**
  * Type representing a fixed arity function
  * 
- * Covers both Kiss and Clojure functions
+ * Covers both Kiss (KFn) and Clojure (Ifn) functions, however type checking is only
+ * supported on Kiss functions.
  * 
  * @author Mike
  *

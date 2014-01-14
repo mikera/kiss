@@ -7,6 +7,16 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 
+/**
+ * A kiss "def" expression.
+ * 
+ * Alters the current immutable environment, binding the specified symbol to a new Expression
+ * 
+ * The result is the value of the new Expression
+ * 
+ * @author Mike
+ *
+ */
 public class Def extends Expression {
 
 	private final Symbol sym;
