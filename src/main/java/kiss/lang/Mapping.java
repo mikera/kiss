@@ -30,6 +30,10 @@ public class Mapping {
 		return new Mapping(Constant.create(val),val,JavaType.analyse(val));
 	}
 	
+	public static Object createExpression(Expression ex, Object val) {
+		return new Mapping(ex,val,ex.getType());
+	}
+	
 	public Object getValue() {
 		return value;
 	}

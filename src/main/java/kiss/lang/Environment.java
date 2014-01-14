@@ -33,37 +33,25 @@ public final class Environment extends APersistentMap {
 	
 	public static final Environment EMPTY = new Environment();
 	
-	public final IPersistentMap map;
+	public final IPersistentMap map; // Symbol -> Mapping 
+	public final IPersistentMap deps; // Symbol -> set of Symbols
+	public final IPersistentMap backDeps; // Symbol -> set of Symbols
 	public final Object result;
-	
-	public final IPersistentMap deps=null;
-	public final IPersistentMap backDeps=null;
-
 
 	private Environment() {
-		this(PersistentHashMap.EMPTY);
+		this(PersistentHashMap.EMPTY,PersistentHashMap.EMPTY,PersistentHashMap.EMPTY,null);
 	}
 	
-	private Environment(IPersistentMap map) {
-		this(map,null);
-	}
-	
-	private Environment(IPersistentMap map, Object result) {
+	private Environment(IPersistentMap map, IPersistentMap deps, IPersistentMap backDeps, Object result) {
 		this.map=map;
 		this.result=result;
+		this.deps=deps;
+		this.backDeps=backDeps;
 	}
 	
 	public Environment withResult(Object value) {
 		if (value==result) return this;
-		return new Environment(map,value);
-	}
-	
-	private Environment withAssoc(Symbol key, Object value) {
-		return new Environment(map.assoc(key, Mapping.create(value)),value);
-	}
-	
-	private Environment withAssocMapping(Symbol key, Mapping m) {
-		return new Environment(map.assoc(key, m),m.getValue());
+		return new Environment(map,deps,backDeps,value);
 	}
 	
 	/**
@@ -86,8 +74,15 @@ public final class Environment extends APersistentMap {
 		Environment newEnv=body.compute(this, bindings);
 		Object value=newEnv.getResult();
 		
-		newEnv= newEnv.withAssoc(key,value);
-		return newEnv;
+		return new Environment(map.assoc(key, Mapping.createExpression(Constant.create(value), value)),deps,backDeps,value);
+	}
+	
+
+	@Override
+	public IPersistentMap without(Object key) {
+		Mapping m=getMapping(key);
+		if (m==null) return this;
+		return new Environment(map.without(key),deps,backDeps, result);
 	}
 	
 	@Override
@@ -98,19 +93,9 @@ public final class Environment extends APersistentMap {
 
 	@Override
 	public Environment assocEx(Object key, Object val) {
-		Mapping m=getMapping(key);
-		if (m!=null) {
-			if (m.getValue()==val) return this;
-		}
-		return withAssoc((Symbol) key,val);
+		return define((Symbol) key,Constant.create(val));
 	}
 
-	@Override
-	public IPersistentMap without(Object key) {
-		Mapping m=getMapping(key);
-		if (m==null) return this;
-		return new Environment(map.without(key));
-	}
 	
 	public Mapping getMapping(Object key) {
 		return (Mapping)map.valAt(key);
@@ -158,7 +143,7 @@ public final class Environment extends APersistentMap {
 		Environment result=this;
 		for (Object o : e.map) {
 			Map.Entry<Symbol, Mapping> ent=(Entry<Symbol, Mapping>) o;
-			result=result.withAssocMapping(ent.getKey(),ent.getValue());
+			result=result.define(ent.getKey(), ent.getValue().getExpression());
 		}
 		return result;
 	}
