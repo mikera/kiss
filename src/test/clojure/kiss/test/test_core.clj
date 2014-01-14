@@ -4,19 +4,19 @@
   (:import [kiss.lang Expression Environment] ))
 
 (deftest environment-tests
-  (let [e (empty-environment)]
+  (let [e (environment)]
     (is (empty? (seq e)))
     (let [e (assoc e 'foo 1)]
       (is (== 1 (e 'foo))))))
 
 (deftest test-analyser
-  (let [^Environment e (empty-environment)
+  (let [^Environment e (environment)
         ^Expression ex (analyse 1)]
     (is (instance? Expression ex))
     (is (== 1 (.eval ex e)))))
 
 (deftest test-lookup
-  (let [^Environment e (empty-environment)
+  (let [^Environment e (environment)
         e (assoc e 'foo 10) 
         ^Expression ex (analyse 'foo)]
     (is (instance? Expression ex))

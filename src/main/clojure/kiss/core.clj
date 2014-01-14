@@ -15,12 +15,15 @@
   ([]
     Environment/EMPTY))
 
-(defn environment
+(defmacro environment
   "Creates an Environment with the given symbol / value mappings"
   ([]
-    (empty-environment))
+    `Environment/EMPTY)
   ([mappings]
-    (reduce (fn [e [k v]] (assoc e k v)) (empty-environment) mappings)))
+    `(reduce 
+       (fn [e# [k# v#]] (assoc e# k# v#)) 
+       Environment/EMPTY 
+       (quote ~mappings))))
 
 (defn analyse
   "Analyse a form, resulting a Kiss Expression AST"
@@ -46,7 +49,7 @@
 (defmacro kiss
   "Compiles and executes Kiss code in the given Environment, returning the result"
   ([body]
-    `(let [env# Environment/EMPTY
+    `(let [env# (environment)
            ex# (optimise (quote ~body))]
        (.eval ex# env#)))
   ([env body]

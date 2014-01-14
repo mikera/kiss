@@ -35,6 +35,6 @@
     (let [kfn (kiss (let [a 3] (fn [x] a)))]
       (is (== 3 (kfn 7)))))
   (testing "Closing over a dynamically scoped value"
-    (let [e (environment {'a 4})
+    (let [e (environment {a 4})
           kfn (kiss e (fn [] a))]
       (is (== 4 (kfn))))))
