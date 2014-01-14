@@ -67,23 +67,24 @@ public final class Environment extends APersistentMap {
 	
 	public Environment define(Symbol key, Expression body, IPersistentMap bindings) {
 		if (bindings.count()>0) {
-			body=body.substitute(bindings);
-			body=body.optimise();
+			Expression newBody=body.substitute(bindings);
+			if (newBody!=body) newBody=newBody.optimise(); // re-optimise if needed
+			body=newBody;
 		}
+		
+		IPersistentMap deps=this.deps;
+		IPersistentMap backDeps=this.backDeps;
 		
 		IPersistentSet free=body.getFreeSymbols(PersistentHashSet.EMPTY);
+		//IPersistentSet oldDeps=(IPersistentSet) deps.valAt(key);
+		//if ((oldDeps==null)||(oldDeps.count()==0)) {
+		//	
+		//}
+		deps=deps.assoc(key, free);
 		
-		if (free.count()==0) {
-			Environment newEnv=body.compute(this, bindings);
-			Object value=newEnv.getResult();
-			return new Environment(map.assoc(key, Mapping.createExpression(Constant.create(value), value)),deps,backDeps,value);
-			
-		} else {
-			// partial expression count
-			Environment newEnv=body.compute(this, bindings);
-			Object value=newEnv.getResult();
-			return new Environment(map.assoc(key, Mapping.createExpression(Constant.create(value), value)),deps,backDeps,value);
-		}
+		Environment newEnv=body.compute(this, bindings);
+		Object value=newEnv.getResult();
+		return new Environment(map.assoc(key, Mapping.createExpression(Constant.create(value), value)),deps,backDeps,value);
 	}
 	
 
