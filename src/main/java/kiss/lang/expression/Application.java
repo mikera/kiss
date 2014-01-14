@@ -72,7 +72,7 @@ public class Application extends Expression {
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		d=func.compute(d, bindings);
 		Object o=d.getResult();
-		if (!(o instanceof IFn)) throw new KissException("Not a function!");
+		if (!(o instanceof IFn)) throw new KissException("Not a function: "+o);
 		IFn fn=(IFn)o;
 		
 		int n=params.length;

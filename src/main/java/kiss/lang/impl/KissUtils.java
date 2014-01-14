@@ -54,4 +54,11 @@ public class KissUtils {
 	public static boolean equalsWithNulls(Object a, Object b) {
 		return (a==b)||((a!=null)&&a.equals(b));
 	}
+
+	public static boolean isClojureVar(Symbol sym) {
+		String ns=sym.getNamespace();
+		if (ns==null) return false;
+		String name=sym.getName();
+		return (RT.var(ns, name)!=null);
+	}
 }

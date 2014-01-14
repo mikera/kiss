@@ -5,6 +5,7 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Def;
+import kiss.lang.expression.Lookup;
 
 import org.junit.Test;
 
@@ -19,5 +20,19 @@ public class EnvironmentTests {
 		Environment e2=x.compute(e);
 		assertEquals(1,e2.get(Symbol.intern("foo")));
 		assertEquals(1,e2.getResult());
+	}
+	
+	@Test public void testValidity() {
+		Environment e=Environment.EMPTY;
+		e.validate();
+		
+		e=Def.create(Symbol.intern("foo"),Constant.create(1)).compute(e);
+		e.validate();
+		
+		e=Def.create(Symbol.intern("bar"),Lookup.create("foo")).compute(e);
+		e.validate();
+		
+		e=Def.create(Symbol.intern("bar"),Lookup.create("baz")).compute(e);
+		e.validate();
 	}
 }

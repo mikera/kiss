@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 import kiss.lang.expression.Constant;
+import kiss.lang.impl.KissException;
+import kiss.lang.impl.KissUtils;
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentCollection;
@@ -13,6 +15,7 @@ import clojure.lang.IPersistentSet;
 import clojure.lang.ISeq;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
+import clojure.lang.RT;
 import clojure.lang.Symbol;
 
 /**
@@ -82,9 +85,20 @@ public final class Environment extends APersistentMap {
 		//}
 		deps=deps.assoc(key, free);
 		
-		Environment newEnv=body.compute(this, bindings);
-		Object value=newEnv.getResult();
-		return new Environment(map.assoc(key, Mapping.createExpression(Constant.create(value), value)),deps,backDeps,value);
+		for (ISeq s=RT.seq(free);s!=null; s=s.next()) {
+			Symbol sym=(Symbol) s.first();
+			if (map.containsKey(sym)||KissUtils.isClojureVar(sym)) {
+				free=free.disjoin(sym);
+			}
+		}
+		
+		if (free.count()==0) {
+			Environment newEnv=body.compute(this, bindings);
+			Object value=newEnv.getResult();
+			return new Environment(map.assoc(key, Mapping.createExpression(body, value)),deps,backDeps,value);
+		} else {
+			return new Environment(map.assoc(key, Mapping.createExpression(body, null)),deps,backDeps,null);	
+		}
 	}
 	
 
@@ -203,5 +217,19 @@ public final class Environment extends APersistentMap {
 		return result;
 	}
 
-
+	@SuppressWarnings("unchecked")
+	public void validate() {
+		for (Object o : map) {
+			Map.Entry<Symbol, Mapping> ent=(Entry<Symbol, Mapping>) o;
+			Symbol key=ent.getKey();
+			Mapping m=ent.getValue();
+			if (m==null) throw new KissException("Unexcpected null mapping for symbol: "+key);
+			IPersistentSet free=m.getExpression().getFreeSymbols(PersistentHashSet.EMPTY);
+			IPersistentSet ds=(IPersistentSet) deps.valAt(key);
+			if (!free.equiv(ds)) {
+				throw new KissException("Mismatched dependencies for symbol: "+key+" free="+free+" deps="+ds);
+			}
+			
+		}
+	}
 }
