@@ -42,7 +42,7 @@ public class Lookup extends Expression {
 			Var v=RT.var(sym.getNamespace(),sym.getName());
 			if (v!=null) return e.withResult(v.deref());
 		} catch (Throwable t) {
-			String err="Error trying to lookp var "+sym+"."; 
+			String err="Error trying to lookp var "+sym+" "; 
 			err+=" with Environment "+e.toString();
 			throw new KissException(err,t);
 		}

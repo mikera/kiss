@@ -29,6 +29,7 @@ import clojure.lang.Symbol;
  */
 public final class Environment extends APersistentMap {
 	private static final long serialVersionUID = -2048617052932290067L;
+	
 	public static final Environment EMPTY = new Environment();
 	
 	public final IPersistentMap map;
@@ -57,9 +58,12 @@ public final class Environment extends APersistentMap {
 	}
 	
 	public Environment withAssocMapping(Symbol key, Mapping m) {
-		return new Environment(map.assoc(key, m),m.value);
+		return new Environment(map.assoc(key, m),m.getValue());
 	}
 	
+	public Environment define(Symbol key, Expression body) {
+		return define(key,body,PersistentHashMap.EMPTY);
+	}
 	
 	public Environment define(Symbol key, Expression body, IPersistentMap bindings) {
 		@SuppressWarnings("unused")

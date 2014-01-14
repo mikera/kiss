@@ -7,7 +7,11 @@
   (let [e (environment)]
     (is (empty? (seq e)))
     (let [e (assoc e 'foo 1)]
-      (is (== 1 (e 'foo))))))
+      (is (== 1 (e 'foo)))))
+  (let [env (environment {foo 1, 
+                         bar 2,
+                         baz (clojure.core/+ foo bar)})]
+    (is (== 3 ('baz env)))))
 
 (deftest test-analyser
   (let [^Environment e (environment)

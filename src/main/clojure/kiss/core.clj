@@ -15,16 +15,6 @@
   ([]
     Environment/EMPTY))
 
-(defmacro environment
-  "Creates an Environment with the given symbol / value mappings"
-  ([]
-    `Environment/EMPTY)
-  ([mappings]
-    `(reduce 
-       (fn [e# [k# v#]] (assoc e# k# v#)) 
-       Environment/EMPTY 
-       (quote ~mappings))))
-
 (defn analyse
   "Analyse a form, resulting a Kiss Expression AST"
   ([form]
@@ -33,6 +23,19 @@
 (defn optimise
   ([form]
     (kiss.lang.Compiler/compile form)))
+
+(defmacro environment
+  "Creates an Environment with the given symbol / expression mappings."
+  ([]
+    `Environment/EMPTY)
+  ([mappings]
+    `(environment Environment/EMPTY ~mappings))
+  ([env mappings]
+    `(reduce 
+       (fn [^Environment e# [^Symbol k# v#]] (.define e# k# (optimise v#))) 
+       ~env 
+       (quote ~mappings))))
+
 
 (defn kmerge
   "Merge Kiss Environments, returning a new Environment"
