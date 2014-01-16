@@ -3,7 +3,10 @@ Kiss
 
 **K**iss is **I**mmutable, **S**tatically compiled and **S**ymbiotic (with Clojure).
 
-This is an EXPERIMENT in programming language design. Who knows where it will go?
+This is an **EXPERIMENT** in programming language design. Who knows where it will go?
+
+![Kiss!](https://raw.github.com/mikera/kiss/master/src/main/resources/kiss.png)
+
 
 ## Objectives
 
