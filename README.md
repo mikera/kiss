@@ -32,7 +32,7 @@ For more working code examples see the [examples.clj](https://github.com/mikera/
 Kiss takes the following approach to language design:
 
  - **Immutable environments** - all Kiss code is compiled against a specific immutable environment, potentially creating a new immutable environment (with any definitions updated). Environments are *first class* and represent the complete state of the code base, making them highly amenable to static analysis.
- - **Statically compiled** - Kiss objects all have a static type, and the compiler will use these to generate decent bytecode. Exact features of the type system to be determined, but at a minimum will take full advantage of all JVM type.
+ - **Statically compiled** - Kiss objects all have a static type, and the compiler will use these to generate decent bytecode. Types are *first class* and can be used both at compile time and runtime. Exact features of the type system are still to be determined, but at a minimum will take full advantage of all JVM types.
  - **Symbiotic with Clojure** - Kiss is bootstrapped on top of Clojure, and designed to be used within a Clojure environment. You can call Clojure functions / macros transparently, and Kiss functions will be IFn instances that are equally usable from Clojure. Kiss will just use the Clojure reader and syntax directly. 
 
 ## See the Wiki for more details
