@@ -25,6 +25,8 @@ This is an **EXPERIMENT** in programming language design. Who knows where it wil
     (str "Hello from Kiss!")))
 ```
 
+For more working code examples see the ![examples.clj](https://github.com/mikera/kiss/blob/master/src/test/clojure/kiss/demo/example.clj) namespace.
+
 ## Solution
 
 Kiss takes the following approach to language design:
