@@ -69,7 +69,9 @@ public class Analyser {
 		if (sym.equals(Symbols.NIL)) return Null.INSTANCE;
 		
 		if (sym.getNamespace()==null) {
-			Class<?> c=RT.classForName(sym.getName());
+			String name=sym.getName();
+			if (!name.contains(".")) name="java.lang."+name;
+			Class<?> c=RT.classForName(name);
 			if (c!=null) return JavaType.create(c);
 		}
 		throw new KissException("Unrecognised type symbol: "+sym);
