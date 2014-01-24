@@ -2,6 +2,7 @@ package kiss.lang.impl;
 
 import java.util.ArrayList;
 
+import kiss.lang.Environment;
 import kiss.lang.KFn;
 import clojure.lang.IFn;
 import clojure.lang.IPersistentVector;
@@ -60,5 +61,12 @@ public class KissUtils {
 		if (ns==null) return false;
 		String name=sym.getName();
 		return (RT.var(ns, name)!=null);
+	}
+
+	/**
+	 * Trick function used to clear local values, enabling GC
+	 */
+	public static Environment ret1(Environment ret, Environment nil) {
+		return ret;
 	}
 }

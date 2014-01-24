@@ -2,11 +2,13 @@ package kiss.lang;
 
 import java.util.Set;
 
+import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
 import clojure.lang.Symbol;
+import clojure.lang.Util;
 
 /**
  * Abstract base class for Kiss Expression nodes
@@ -29,38 +31,44 @@ public abstract class Expression {
 	 * 
 	 * Returns null if this specialisation is impossible, may return the same expression
 	 * if no additional specialisation can be performed.
-	 * 
-	 * @param type
-	 * @return
 	 */
 	public abstract Expression specialise(Type type);
 	
 	/**
 	 * Specialises an expression using the given Symbol -> Value substitution map
 	 * 
-	 * @param bindings
+	 * @param bindings A map of symbols to values
 	 * @return
 	 */
 	public abstract Expression substitute(IPersistentMap bindings);
 	
 	/**
 	 * Optimises this expression. Performs constant folding, etc.
-	 * @return
+	 * @return An optimised Expression
 	 */
 	public Expression optimise() {
 		return this;
 	}
 	
 	/**
-	 * Evaluate an expression within an environment, interpreter style
+	 * Evaluate an expression within an environment, interpreter style.
 	 * 
-	 * @param e
-	 * @return
+	 * Any changes to the Environment are discarded.
+	 * 
+	 * @param e Any Environment in which to evaluate the expression
+	 * @return The result of the expression.
 	 */
 	public Object eval(Environment e) {
-		return compute(e, PersistentHashMap.EMPTY).getResult();
+		return compute(KissUtils.ret1(e,e=null), PersistentHashMap.EMPTY).getResult();
 	}
 	
+	/**
+	 * Evaluates this expression in an empty environment.
+	 * 
+	 * Any changes to the Environment are discarded.
+	 * 
+	 * @return
+	 */
 	public Object eval() {
 		return compute(Environment.EMPTY, PersistentHashMap.EMPTY).getResult();
 	}
@@ -71,14 +79,32 @@ public abstract class Expression {
 	 */
 	public abstract Environment compute(Environment d, IPersistentMap bindings);
 
+	/**
+	 * Computes the result of this expression in a given Environment. 
+	 * 
+	 * Returns a new Environment, use Environment.getResult() to see the result of the expression.
+	 * 
+	 * @param e
+	 * @return
+	 */
 	public final Environment compute(Environment e) {
-		return compute(e,PersistentHashMap.EMPTY);
+		return compute(KissUtils.ret1(e,e=null),PersistentHashMap.EMPTY);
 	}
 	
+	/**
+	 * Returns true if this expression is a constant value
+	 * @return
+	 */
 	public boolean isConstant() {
 		return false;
 	}
 
+	/**
+	 * Returns true if the expression is pure (no side effects) with respect to all free symbols.
+	 * 
+	 * A pure expression can be safely replaced with its evaluation result
+	 * @return
+	 */
 	public boolean isPure() {
 		return false;
 	}
