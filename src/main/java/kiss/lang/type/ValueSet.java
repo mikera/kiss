@@ -11,18 +11,18 @@ import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 
 /**
- * The type of a specific non-null value
+ * The type of a set of 2 or more values. Values may include null.
  * 
  * @author Mike
  *
  * @param <T>
  */
 public class ValueSet<T> extends Type {
-	private final IPersistentSet values;
+	private final PersistentHashSet values;
 	private final Class<T> klass;
 	
 	@SuppressWarnings("unchecked")
-	private ValueSet(IPersistentSet values) {
+	private ValueSet(PersistentHashSet values) {
 		this.values=values;
 		this.klass=(Class<T>) Object.class;
 	}
@@ -41,7 +41,7 @@ public class ValueSet<T> extends Type {
 		return new ValueSet<T>(PersistentHashSet.create(RT.seq(values)));
 	}
 	
-	public Type update(IPersistentSet values) {
+	public Type update(PersistentHashSet values) {
 		if (values==this.values) return this;
 		int n=values.count();
 		if (n==1) return Value.create(values.seq().first());
@@ -107,12 +107,12 @@ public class ValueSet<T> extends Type {
 	
 	@Override
 	public Type intersection(Type t) {
-		IPersistentSet values=this.values;
+		PersistentHashSet values=this.values;
 		ISeq s=values.seq();
 		while(s!=null) {
 			Object o=s.first();
 			if (!t.checkInstance(o)) {
-				values=values.disjoin(o);
+				values=(PersistentHashSet) values.disjoin(o);
 			}
 			s=s.next();
 		}
@@ -132,7 +132,7 @@ public class ValueSet<T> extends Type {
 			if (values.contains(value)) {
 				return this;
 			} else {
-				return update((IPersistentSet) values.cons(value));
+				return update((PersistentHashSet) values.cons(value));
 			}
 		}
 		return super.union(t);
