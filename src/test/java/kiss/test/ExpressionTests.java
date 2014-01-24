@@ -61,8 +61,6 @@ public class ExpressionTests {
 	public void testSubstitutions() {
 		for (Expression e:testExprs) {
 			try {
-				assertEquals(e,e.substitute(PersistentHashMap.EMPTY));
-				
 				IPersistentSet free=e.accumulateFreeSymbols(PersistentHashSet.EMPTY);
 				if (free.count()==0) {
 					Object result=e.eval(); // should work
@@ -98,7 +96,6 @@ public class ExpressionTests {
 		assertEquals(1,Constant.create(1).eval());
 		assertEquals("foo",Constant.create("foo").eval());
 	}
-	
 	
 	@Test 
 	public void testOptimisations() {

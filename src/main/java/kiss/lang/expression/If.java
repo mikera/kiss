@@ -30,14 +30,6 @@ public class If extends Expression {
 	}
 	
 	public Expression update(Expression cond,Expression doThen, Expression doElse) {
-		if ((cond==this.cond)&&(doThen==this.doThen)&&(doElse==this.doElse)) return this;
-		return new If(cond,doThen,doElse);
-	}
-	
-	public Expression optimise() {
-		Expression cond=this.cond.optimise();
-		Expression doThen=this.doThen.optimise();
-		Expression doElse=this.doElse.optimise();
 		Type t=cond.getType();
 		if (cond.isConstant()) {
 			return (KissUtils.truthy(cond.eval()))?doThen:doElse;
@@ -46,6 +38,15 @@ public class If extends Expression {
 			if (t.cannotBeFalsey()) return doThen;
 			if (t.cannotBeTruthy()) return doElse;
 		}
+		
+		if ((cond==this.cond)&&(doThen==this.doThen)&&(doElse==this.doElse)) return this;
+		return new If(cond,doThen,doElse);
+	}
+	
+	public Expression optimise() {
+		Expression cond=this.cond.optimise();
+		Expression doThen=this.doThen.optimise();
+		Expression doElse=this.doElse.optimise();
 		return update(cond,doThen,doElse);
 	}
 
