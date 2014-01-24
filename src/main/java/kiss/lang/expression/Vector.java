@@ -13,6 +13,11 @@ import kiss.lang.Type;
 import kiss.lang.impl.KissException;
 import kiss.lang.type.JavaType;
 
+/**
+ * A vector producing expression
+ * @author Mike
+ *
+ */
 public class Vector extends Expression {
 	public Type TYPE = JavaType.create(APersistentVector.class);
 	

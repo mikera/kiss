@@ -31,6 +31,11 @@ public class Def extends Expression {
 		return new Def(sym,body);
 	}
 	
+	public Def update(Symbol sym, Expression body) {
+		if ((sym==this.sym)&&(body==this.body)) return this;
+		return new Def(sym,body);
+	}
+	
 	@Override
 	public Type getType() {
 		return body.getType();
@@ -40,7 +45,7 @@ public class Def extends Expression {
 	public Expression specialise(Type type) {
 		Expression b=body.specialise(type);
 		if ((b==body)||(b==null)) return this;
-		return new Def(sym,b);
+		return update(sym,b);
 	}
 
 	@Override
@@ -57,9 +62,8 @@ public class Def extends Expression {
 	@Override
 	public Expression substitute(IPersistentMap bindings) {
 		Expression nBody=body.substitute(bindings);
-		if (nBody==body) return this;
 		if (nBody==null) return null;
-		return create(sym,nBody);
+		return update(sym,nBody);
 	}
 
 	@Override

@@ -62,7 +62,6 @@ public class Let extends Expression {
 	
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
-		// TODO: figure out what should happen if the let body changes the environment???
 		d=value.compute(d, bindings);
 		bindings=bindings.assoc(sym, d.getResult());
 		return body.compute(d, bindings);
