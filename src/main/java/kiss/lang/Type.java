@@ -2,6 +2,7 @@ package kiss.lang;
 
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
+import kiss.lang.type.Intersection;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Union;
@@ -80,7 +81,9 @@ public abstract class Type {
 	 * @param t
 	 * @return
 	 */
-	public abstract Type intersection(Type t);
+	public Type intersection(Type t) {
+		return Intersection.create(this,t);
+	}
 	
 	/**
 	 * Returns the union of this type with another type
@@ -88,7 +91,6 @@ public abstract class Type {
 	 * @return
 	 */
 	public Type union(Type t) {
-		if (t instanceof Nothing) return this;
 		return Union.create(this,t);
 	}
 	
