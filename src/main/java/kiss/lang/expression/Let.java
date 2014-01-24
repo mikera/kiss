@@ -31,6 +31,11 @@ public class Let extends Expression {
 		return new Let(sym,value,body);
 	}
 	
+	public Let update(Symbol sym, Expression value, Expression body) {
+		if ((this.sym==sym)&&(this.body==body)&&(this.value==value)) return this;
+		return create(sym, value,body);
+	}
+	
 	@Override
 	public Expression optimise() {
 		Expression b=body.optimise();
@@ -44,8 +49,7 @@ public class Let extends Expression {
 				return b.substitute(PersistentHashMap.EMPTY.assoc(sym,value.eval()));
 			}
 		}
-		if ((b==body)&&(v==value)) return this;
-		return create(sym,value,body);
+		return update(sym,v,b);
 	}
 	
 	@Override
@@ -70,8 +74,7 @@ public class Let extends Expression {
 	@Override
 	public Expression specialise(Type type) {
 		Expression newBody=body.specialise(type);
-		if (body==newBody) return this;
-		return new Let(sym,value,body);
+		return update(sym,value,newBody);
 	}
 		
 	@Override
@@ -82,8 +85,7 @@ public class Let extends Expression {
 		Expression nbody=body.substitute(bindings);
 		if (nbody==null) return null;
 		
-		if ((nv==value)&&(nbody==body)) return this;
-		return create(sym,nv,nbody);
+		return update(sym,nv,nbody);
 	}
 	
 	@Override
