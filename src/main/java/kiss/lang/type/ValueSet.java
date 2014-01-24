@@ -13,6 +13,8 @@ import kiss.lang.impl.KissUtils;
 /**
  * The type of a set of 2 or more values. Values may include null.
  * 
+ * 
+ * 
  * @author Mike
  *
  * @param <T>
@@ -102,6 +104,12 @@ public class ValueSet<T> extends Type {
 			Value<?> ev=(Value<?>) t;
 			return values.contains(ev.value);
 		}
+		if (t instanceof ValueSet) {
+			@SuppressWarnings("rawtypes")
+			PersistentHashSet tvs=((ValueSet) t).values;
+			return tvs.containsAll(values);
+		}
+
 		return false;
 	}
 	
@@ -153,7 +161,9 @@ public class ValueSet<T> extends Type {
 	
 	@Override
 	public void validate() {
-		// TODO validate classes
+		if (values.count()<=1) throw new KissException("Insufficient values in ValueSet!");
+		
+		// TODO: class tests?
 	}
 
 
