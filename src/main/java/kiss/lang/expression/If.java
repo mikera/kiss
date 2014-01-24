@@ -25,6 +25,15 @@ public class If extends Expression {
 		this.type=doThen.getType().union(doElse.getType());
 	}
 	
+	public static Expression create(Expression cond,Expression doThen, Expression doElse) {
+		return new If(cond,doThen,doElse);
+	}
+	
+	public Expression update(Expression cond,Expression doThen, Expression doElse) {
+		if ((cond==this.cond)&&(doThen==this.doThen)&&(doElse==this.doElse)) return this;
+		return new If(cond,doThen,doElse);
+	}
+	
 	public Expression optimise() {
 		Expression cond=this.cond.optimise();
 		Expression doThen=this.doThen.optimise();
@@ -37,14 +46,9 @@ public class If extends Expression {
 			if (t.cannotBeFalsey()) return doThen;
 			if (t.cannotBeTruthy()) return doElse;
 		}
-		if ((cond==this.cond)&&(doThen==this.doThen)&&(doElse==this.doElse)) return this;
-		return new If(cond,doThen,doElse);
+		return update(cond,doThen,doElse);
 	}
-	
-	public static Expression create(Expression cond,Expression doThen, Expression doElse) {
-		return new If(cond,doThen,doElse);
-	}
-	
+
 	@Override
 	public Type getType() {
 		return type;
@@ -55,8 +59,7 @@ public class If extends Expression {
 		Expression newThen=doThen.specialise(type);
 		Expression newElse=doElse.specialise(type);
 		if ((newThen==null)||(newElse==null)) return null;
-		if ((doThen==newThen)||(doElse==newElse)) return this;
-		return new If(cond,newThen,newElse);
+		return update(cond,newThen,newElse);
 	}
 	
 	@Override
@@ -68,8 +71,7 @@ public class If extends Expression {
 		Expression nelse=doElse.substitute(bindings);
 		if (nelse==null) return null;
 		
-		if ((ncond==cond)&&(nthen==doThen)&&(nelse==doElse)) return this;
-		return create(ncond,nthen,nelse);
+		return update(ncond,nthen,nelse);
 	}
 
 	@Override
