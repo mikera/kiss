@@ -6,7 +6,9 @@ import kiss.lang.KFn;
 import kiss.lang.Type;
 
 /**
- * Type represented by a predicate.
+ * Type defined by a predicate function.
+ * 
+ * The predicate function must have arity 1 return true if the parameter is a member of the type, false otherwise.
  * 
  * @author Mike
  *
@@ -62,7 +64,9 @@ public class Predicate extends Type {
 	@Override
 	public Type intersection(Type t) {
 		if (t instanceof Nothing) return Nothing.INSTANCE;
-		return Intersection.create(this,t);
+		if (t instanceof ValueSet) return t.intersection(this);
+		if (t instanceof Value) return t.intersection(this);
+		return Intersection.create(t,this);
 	}
 
 	@Override
