@@ -31,6 +31,7 @@ public class JavaType<T> extends Type {
 	}
 	
 	public static <T> JavaType<T> create(Class<T> c) {
+		if (c==null) throw new NullPointerException("Null Class not allowed for JavaType");
 		return new JavaType<T>(c);
 	}
 	
