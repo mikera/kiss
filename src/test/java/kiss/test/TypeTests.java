@@ -19,6 +19,7 @@ import kiss.lang.type.Nothing;
 import kiss.lang.type.Null;
 import kiss.lang.type.Something;
 import kiss.lang.type.Union;
+import kiss.lang.type.ValueSet;
 
 import org.junit.Test;
 
@@ -38,6 +39,7 @@ public class TypeTests {
 		Maybe.create(JavaType.create(String.class)),
 		Not.create(JavaType.create(Integer.class)),
 		Not.create(Value.create("foo")),
+		ValueSet.create(new Object[] {1, "foo"}),
 		FunctionType.create(Something.INSTANCE, Something.INSTANCE),
 		FunctionType.create(Something.INSTANCE),
 		FunctionType.create(Something.INSTANCE, JavaType.create(Number.class))

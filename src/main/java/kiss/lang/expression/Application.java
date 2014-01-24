@@ -30,29 +30,7 @@ public class Application extends Expression {
 		return new Application(func,params.clone());
 	}
 	
-	public Expression optimise() {
-		Expression nFunc=func.optimise();
-		Expression[] nParams=new Expression[arity];
-		boolean maybeApply=true;
-		for (int i=0; i<arity; i++) {
-			Expression on=params[i].optimise();;
-			nParams[i]=on;
-			if ((on instanceof Constant)) {
-				// OK
-			} else {
-				maybeApply=false;
-			}
-		}
-		if ((maybeApply)&&nFunc instanceof Constant) {
-			IFn fn=(IFn) ((Constant<?>)nFunc).getValue();
-			if (KissUtils.isPureFn(fn)) {
-				Object[] ps=new Object[arity];
-				for (int i=0; i<arity; i++) {
-					ps[i]=((Constant<?>)nParams[i]).getValue();
-				}
-				return Constant.create(fn.applyTo(RT.seq(ps)));
-			}
-		}
+	private Expression update(Expression nFunc, Expression[] nParams) {
 		if (nFunc!=func) return Application.create(nFunc, nParams);
 		for (int i=0; i<arity; i++) {
 			if (params[i]!=nParams[i]) return Application.create(nFunc, nParams);
@@ -60,6 +38,40 @@ public class Application extends Expression {
 		return this;
 	}
 	
+	public Expression optimise() {
+		Expression nFunc=func.optimise();
+		
+		if (nFunc.isConstant()) {
+			// IFn fn=(IFn)nFunc.eval();
+			// TODO: macro expansion here??
+		}
+		
+		Expression[] nParams=new Expression[arity];
+		boolean maybeApply=true;
+		for (int i=0; i<arity; i++) {
+			Expression on=params[i];
+			on=on.optimise();
+			nParams[i]=on;
+			if (on.isConstant()) {
+				// OK
+			} else {
+				maybeApply=false;
+			}
+		}
+		if (maybeApply&&nFunc.isConstant()) {
+			IFn fn=(IFn) ((Constant<?>)nFunc).getValue();
+			if (KissUtils.isPureFn(fn)) {
+				// compute result
+				Object[] ps=new Object[arity];
+				for (int i=0; i<arity; i++) {
+					ps[i]=((Constant<?>)nParams[i]).getValue();
+				}
+				return Constant.create(fn.applyTo(RT.seq(ps)));
+			}
+		}
+		return update(nFunc,nParams);
+	}
+
 	@SuppressWarnings("unused")
 	@Override
 	public Type getType() {
@@ -112,20 +124,11 @@ public class Application extends Expression {
 	@Override
 	public Expression substitute(IPersistentMap bindings) {
 		Expression nfunc=func.substitute(bindings);
-		if (nfunc==null) return null;
-		boolean changed= (func!=nfunc);
 		Expression[] nParams=params.clone();
 		for (int i=0; i<arity; i++) {
-			Expression x=params[i];
-			Expression nx=x.substitute(bindings);
-			if (nx==null) return null;
-			if (nx!=x) {
-				nParams[i]=nx;
-				changed=true;
-			}
+			nParams[i]=params[i].substitute(bindings);
 		}
-		if (!changed) return this;
-		return create(nfunc,nParams);
+		return update(nfunc,nParams);
 	}
 
 	@Override

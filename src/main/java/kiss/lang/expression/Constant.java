@@ -68,6 +68,11 @@ public class Constant<T> extends Expression {
 	public Object eval(Environment e) {
 		return value;
 	}
+	
+	@Override
+	public Object eval() {
+		return value;
+	}
 
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {

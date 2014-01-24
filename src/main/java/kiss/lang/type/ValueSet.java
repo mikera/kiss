@@ -1,0 +1,156 @@
+package kiss.lang.type;
+
+import java.util.Collection;
+
+import clojure.lang.IPersistentSet;
+import clojure.lang.ISeq;
+import clojure.lang.PersistentHashSet;
+import clojure.lang.RT;
+import kiss.lang.Type;
+import kiss.lang.impl.KissException;
+import kiss.lang.impl.KissUtils;
+
+/**
+ * The type of a specific non-null value
+ * 
+ * @author Mike
+ *
+ * @param <T>
+ */
+public class ValueSet<T> extends Type {
+	private final IPersistentSet values;
+	private final Class<T> klass;
+	
+	@SuppressWarnings("unchecked")
+	private ValueSet(IPersistentSet values) {
+		this.values=values;
+		this.klass=(Class<T>) Object.class;
+	}
+	
+	public static <T> Type create(Collection<T> values) {
+		if (values.size()==0) throw new KissException("Can't create ValueSet type with zero values");
+		return new ValueSet<T>(PersistentHashSet.create(RT.seq(values)));
+	}
+	
+	public static <T> Type create(Object[] values) {
+		if (values.length==0) throw new KissException("Can't create ValueSet type with zero values");
+		return new ValueSet<T>(PersistentHashSet.create(RT.seq(values)));
+	}
+	
+	public Type update(IPersistentSet values) {
+		if (values==this.values) return this;
+		int n=values.count();
+		if (n==1) return Value.create(values.seq().first());
+		if (n==0) return Nothing.INSTANCE;
+		return new ValueSet<T>(values);
+	}
+	
+	@Override
+	public boolean checkInstance(Object o) {
+		return values.contains(o);
+	}
+	
+	@Override
+	public Class<T> getJavaClass() {
+		return klass;
+	}
+	@Override
+	public boolean canBeNull() {
+		return values.contains(null);
+	}
+	
+	@Override
+	public boolean cannotBeNull() {
+		return !values.contains(null);
+	}
+	
+	@Override
+	public boolean canBeTruthy() {
+		return true;
+	}
+	
+	@Override
+	public boolean isWellBehaved() {
+		// not a well behaved type
+		return false;
+	}
+	
+	@Override
+	public boolean canBeFalsey() {
+		return (values.contains(Boolean.FALSE))||(values.contains(null));
+	}
+	
+	@Override
+	public boolean cannotBeTruthy() {
+		return false;
+	}
+	
+	@Override
+	public boolean cannotBeFalsey() {
+		return !((values.contains(Boolean.FALSE))||(values.contains(null)));
+	}
+	
+	@Override
+	public boolean contains(Type t) {
+		if (t==this) return true;
+		if (t instanceof Nothing) return true;
+		if (t instanceof Value) {
+			Value<?> ev=(Value<?>) t;
+			return values.contains(ev.value);
+		}
+		return false;
+	}
+	
+	@Override
+	public Type intersection(Type t) {
+		IPersistentSet values=this.values;
+		ISeq s=values.seq();
+		while(s!=null) {
+			Object o=s.first();
+			if (!t.checkInstance(o)) {
+				values=values.disjoin(o);
+			}
+			s=s.next();
+		}
+		return update(values);
+	}
+
+	@Override
+	public Type inverse() {
+		return Not.createNew(this);
+	}
+
+	@Override
+	public Type union(Type t) {
+		if (t==this) return t;
+		if (t instanceof Value) {
+			Object value=((Value<?>)t).value;
+			if (values.contains(value)) {
+				return this;
+			} else {
+				return update((IPersistentSet) values.cons(value));
+			}
+		}
+		return super.union(t);
+	}
+	
+	@Override
+	public boolean equals(Object t) {
+		if (t instanceof ValueSet) {
+			return values.equals(t);
+		}
+		return super.equals(t);
+	}
+	
+	@Override
+	public String toString() {
+		return "(Values "+values.toString()+")";
+	}
+	
+	@Override
+	public void validate() {
+		// TODO validate classes
+	}
+
+
+}

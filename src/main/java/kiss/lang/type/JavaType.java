@@ -27,7 +27,6 @@ public class JavaType<T> extends Type {
 		return new JavaType<T>(c);
 	}
 	
-
 	@Override
 	public boolean checkInstance(Object o) {
 		return (o!=null)&&klass.isInstance(o);

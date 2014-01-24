@@ -12,7 +12,7 @@ import kiss.lang.impl.KissUtils;
  * @param <T>
  */
 public class Value<T> extends Type {
-	private final T value;
+	final T value;
 	private final Class<T> klass;
 	
 	@SuppressWarnings("unchecked")

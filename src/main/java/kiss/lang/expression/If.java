@@ -44,6 +44,7 @@ public class If extends Expression {
 		return new If(cond,doThen,doElse);
 	}
 	
+	@Override
 	public Expression optimise() {
 		Expression cond=this.cond.optimise();
 		Expression doThen=this.doThen.optimise();

@@ -93,6 +93,11 @@ public class Lambda extends Expression {
 	}
 	
 	@Override
+	public Lambda optimise() {
+		return update(body.optimise(),syms,types);
+	}
+	
+	@Override
 	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
 		s=body.accumulateFreeSymbols(s);
 		for (Symbol sym:syms) {
