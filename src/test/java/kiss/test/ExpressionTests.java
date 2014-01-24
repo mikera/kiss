@@ -105,6 +105,11 @@ public class ExpressionTests {
 		checkConstant(3,Let.create(Symbol.create("foo"),Constant.create(3),Lookup.create("foo")));
 	}
 	
+	@Test
+	public void testInstanceOf() {
+		assertEquals("foo", KissUtils.eval("(if (instance? Long 3) \"foo\" \"bar\")"));
+	}
+	
 	@Test 
 	public void testNotConstant() {
 		checkNotConstant(Lookup.create("foo"));

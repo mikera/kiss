@@ -9,6 +9,7 @@ import kiss.lang.expression.Constant;
 import kiss.lang.expression.Def;
 import kiss.lang.expression.Do;
 import kiss.lang.expression.If;
+import kiss.lang.expression.InstanceOf;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
@@ -138,8 +139,16 @@ public class Analyser {
 					return If.create(analyse(RT.nth(form, 1)), analyse(RT.nth(form, 2)),Constant.NULL);
 				default:
 					throw new KissException("Wrong number of forms in if expression: "+n);
-				}
-				
+				}		
+			}
+			
+			if (s.equals(Symbols.INSTANCE)) {
+				switch (n) {
+				case 3:
+					return InstanceOf.create(analyseType(RT.nth(form, 1)), analyse(RT.nth(form, 2)));
+				default:
+					throw new KissException("Wrong number of forms in instance? expression: "+n);
+				}		
 			}
 			
 			if (s.equals(Symbols.DEF)) {

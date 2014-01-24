@@ -19,6 +19,11 @@ public class KissUtils {
 		return LispReader.read(new LineNumberingPushbackReader(new StringReader(s)), false, null, false);
 	}
 	
+
+	public static Object eval(String s) {
+		return kiss.lang.Compiler.compile(read(s)).eval();
+	}
+	
 	public static IPersistentVector expectVector(Object x) {
 		if (x instanceof IPersistentVector) {
 			return (IPersistentVector)x;

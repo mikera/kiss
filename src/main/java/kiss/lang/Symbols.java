@@ -19,7 +19,7 @@ public class Symbols {
 	public static final Symbol DEF = Symbol.intern("def");
 	public static final Symbol DO = Symbol.intern("do");
 	public static final Symbol CAST = Symbol.intern("cast");
-	
+	public static final Symbol INSTANCE = Symbol.intern("instance?");	
 	
 	// type symbols
 	public static final Symbol U = Symbol.intern("U");
@@ -28,4 +28,5 @@ public class Symbols {
 	public static final Symbol NOTHING = Symbol.intern("Nothing");
 	public static final Symbol VALUE = Symbol.intern("Value");
 	public static final Symbol FN_TYPE = Symbol.intern("Fn");
+
 }

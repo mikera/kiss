@@ -19,12 +19,12 @@ public class InstanceOf extends Expression {
 	}
 	
 	public static Expression create(Type t, Expression body) {
-		JavaType type=t.toJavaType();
+		JavaType<?> type=t.toJavaType();
 		return new InstanceOf(type,body);
 	}
 	
 	public InstanceOf update(Type t, Expression body) {
-		JavaType type=t.toJavaType();
+		JavaType<?> type=t.toJavaType();
 		if ((type==this.type)&&(body==this.body)) return this;
 		return new InstanceOf(type,body);
 	}
