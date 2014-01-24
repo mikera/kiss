@@ -69,4 +69,13 @@ public class KissUtils {
 	public static Environment ret1(Environment ret, Environment nil) {
 		return ret;
 	}
+
+	public static java.util.List<Object> asList(ISeq s) {
+		ArrayList<Object> al=new ArrayList<Object>();
+		while (s!=null) {
+			al.add(s.first());
+			s=s.next();
+		}
+		return al;
+	}
 }

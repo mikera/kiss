@@ -1,6 +1,7 @@
 package kiss.lang;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kiss.lang.expression.Application;
 import kiss.lang.expression.ClojureLookup;
@@ -14,7 +15,10 @@ import kiss.lang.expression.Lookup;
 import kiss.lang.expression.Vector;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
+import kiss.lang.type.Anything;
 import kiss.lang.type.JavaType;
+import kiss.lang.type.Nothing;
+import kiss.lang.type.Null;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
 import clojure.lang.RT;
@@ -45,6 +49,9 @@ public class Analyser {
 	
 	@SuppressWarnings("unchecked")
 	public static Type analyseType(Object form) {
+		if (form instanceof Symbol) {
+			return analyseTypeSymbol((Symbol)form);
+		}
 		if (form instanceof Class) {
 			return JavaType.create((Class<Object>) form);
 		}
@@ -54,8 +61,27 @@ public class Analyser {
 		throw new KissException("Unrecognised type form: "+form);
 	}
 	
+	private static Type analyseTypeSymbol(Symbol sym) {
+		if (sym.equals(Symbols.ANY)) return Anything.INSTANCE;
+		if (sym.equals(Symbols.NOTHING)) return Nothing.INSTANCE;
+		if (sym.equals(Symbols.NIL)) return Null.INSTANCE;
+		
+		if (sym.getNamespace()==null) {
+			Class<?> c=RT.classForName(sym.getName());
+			if (c!=null) return JavaType.create(c);
+		}
+		throw new KissException("Unrecognised type symbol: "+sym);
+	}
+
 	private static Type analyseTypeSeq(ISeq s) {
-		throw new KissException("Unrecognised type seq: "+s);
+		List<Object> al=KissUtils.asList(s);
+		Symbol sym=(Symbol) al.get(0);
+		if (sym.equals(Symbols.U)) {
+			
+		} else if (sym.equals(Symbols.I)) {
+			
+		}
+		throw new KissException("Unrecognised type form: "+s);		
 	}
 
 	public static Expression analyseSymbol(Symbol sym) {
