@@ -38,6 +38,9 @@ public class Symbols {
 	public static final Symbol ANY = Symbol.intern("Any");
 	public static final Symbol NOTHING = Symbol.intern("Nothing");
 	public static final Symbol VALUE = Symbol.intern("Value");
+	public static final Symbol SYMBOL_TYPE = Symbol.intern("Symbol");
+	public static final Symbol KEYWORD_TYPE = Symbol.intern("Keyword");
 	public static final Symbol FN_TYPE = Symbol.intern("Fn");
+	public static final Symbol TYPE = Symbol.intern("Type");
 
 }
