@@ -1,5 +1,7 @@
 package kiss.lang.type;
 
+import clojure.lang.Keyword;
+import clojure.lang.Symbol;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
 
@@ -13,6 +15,10 @@ public class JavaType<T> extends Type {
 	final Class<T> klass;
 	
 	public static final Type BOOLEAN=create(Boolean.class);
+
+	public static final Type KISS_TYPE = create(Type.class);;
+	public static final Type SYMBOL = create(Symbol.class);;
+	public static final Type KEYWORD = create(Keyword.class);;
 	
 	public JavaType(Class<T> c) {
 		klass=c;

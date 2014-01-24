@@ -68,6 +68,9 @@ public class Analyser {
 		if (sym.equals(Symbols.ANY)) return Anything.INSTANCE;
 		if (sym.equals(Symbols.NOTHING)) return Nothing.INSTANCE;
 		if (sym.equals(Symbols.NIL)) return Null.INSTANCE;
+		if (sym.equals(Symbols.TYPE)) return JavaType.KISS_TYPE;
+		if (sym.equals(Symbols.SYMBOL_TYPE)) return JavaType.SYMBOL;
+		if (sym.equals(Symbols.KEYWORD_TYPE)) return JavaType.KEYWORD;
 		
 		if (sym.getNamespace()==null) {
 			String name=sym.getName();
