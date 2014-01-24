@@ -46,7 +46,7 @@ public class Let extends Expression {
 				return b;
 			}
 			if (value.isConstant()) {
-				return b.substitute(PersistentHashMap.EMPTY.assoc(sym,value.eval()));
+				return b.substitute(PersistentHashMap.EMPTY.assoc(sym,value.eval())).optimise();
 			}
 		}
 		return update(sym,v,b);
