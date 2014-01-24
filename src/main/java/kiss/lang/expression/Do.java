@@ -57,6 +57,14 @@ public class Do extends kiss.lang.Expression {
 		if (j==1) return es[0];
 		return create(Arrays.copyOf(es, j));
 	}
+	
+	@Override
+	public boolean isPure() {
+		for (Expression e:exps) {
+			if (!e.isPure()) return false;
+		}
+		return true;
+	}
 
 	@Override
 	public Expression specialise(Type type) {

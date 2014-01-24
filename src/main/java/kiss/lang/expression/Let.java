@@ -54,6 +54,13 @@ public class Let extends Expression {
 	}
 	
 	@Override
+	public boolean isPure() {
+		if (!body.isPure()) return false;
+		if (!value.isPure()) return false;
+		return true;
+	}
+	
+	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		// TODO: figure out what should happen if the let body changes the environment???
 		d=value.compute(d, bindings);

@@ -62,6 +62,11 @@ public class Lambda extends Expression {
 		KFn fn=LambdaFn.create(e,body,syms);
 		return d.withResult(fn);
 	}
+	
+	@Override
+	public boolean isPure() {
+		return body.isPure();
+	}
 
 	@Override
 	public Expression specialise(Type type) {

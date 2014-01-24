@@ -84,6 +84,15 @@ public class Application extends Expression {
 		
 		return d.withResult(fn.applyTo(ArraySeq.create(args)));
 	}
+	
+	@Override
+	public boolean isPure() {
+		if (!func.isPure()) return false;
+		for (Expression e:params) {
+			if (!e.isPure()) return false;
+		}
+		return true;
+	}
 
 	@Override
 	public Expression specialise(Type type) {

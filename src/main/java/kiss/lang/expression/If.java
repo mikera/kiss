@@ -30,11 +30,12 @@ public class If extends Expression {
 	}
 	
 	public Expression update(Expression cond,Expression doThen, Expression doElse) {
-		Type t=cond.getType();
 		if (cond.isConstant()) {
 			return (KissUtils.truthy(cond.eval()))?doThen:doElse;
 		} 
 		if (cond.isPure()) {
+			// we can optimise away the test only if cond is pure (i.e. no side effects)
+			Type t=cond.getType();
 			if (t.cannotBeFalsey()) return doThen;
 			if (t.cannotBeTruthy()) return doElse;
 		}
@@ -48,6 +49,11 @@ public class If extends Expression {
 		Expression doThen=this.doThen.optimise();
 		Expression doElse=this.doElse.optimise();
 		return update(cond,doThen,doElse);
+	}
+	
+	@Override
+	public boolean isPure() {
+		return cond.isPure()&&doThen.isPure()&&doElse.isPure();
 	}
 
 	@Override
