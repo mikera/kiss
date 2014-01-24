@@ -93,8 +93,14 @@ public class Value<T> extends Type {
 		if (t==this) return t;
 		if (t.checkInstance(value)) return t;
 		if (t instanceof Value) {
-			if (((Value<?>)t).value.equals(this.value)) return this;
+			Object tv=((Value<?>)t).value;
+			if (tv.equals(this.value)) return this;
+			return ValueSet.create(new Object[] {value,tv});
 		}
+		if (t instanceof ValueSet) {
+			return t.union(this);
+		}
+		
 		return super.union(t);
 	}
 	

@@ -28,12 +28,16 @@ public class ValueSet<T> extends Type {
 	}
 	
 	public static <T> Type create(Collection<T> values) {
-		if (values.size()==0) throw new KissException("Can't create ValueSet type with zero values");
+		int n=values.size();
+		if (n==0) return Nothing.INSTANCE;
+		if (n==1) return Value.create(values.iterator().next());
 		return new ValueSet<T>(PersistentHashSet.create(RT.seq(values)));
 	}
 	
 	public static <T> Type create(Object[] values) {
-		if (values.length==0) throw new KissException("Can't create ValueSet type with zero values");
+		int n=values.length;
+		if (n==0) return Nothing.INSTANCE;
+		if (n==1) return Value.create(values[0]);
 		return new ValueSet<T>(PersistentHashSet.create(RT.seq(values)));
 	}
 	
