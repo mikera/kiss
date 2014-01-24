@@ -3,6 +3,7 @@ package kiss.lang;
 import java.util.ArrayList;
 
 import kiss.lang.expression.Application;
+import kiss.lang.expression.ClojureLookup;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Def;
 import kiss.lang.expression.Do;
@@ -61,6 +62,7 @@ public class Analyser {
 		if (sym.equals(Symbols.NIL)) return Constant.NULL;
 		if (sym.equals(Symbols.TRUE)) return Constant.TRUE;
 		if (sym.equals(Symbols.FALSE)) return Constant.FALSE;
+		if (sym.getNamespace()!=null) return ClojureLookup.create(sym);
 		return Lookup.create(sym);
 	}
 

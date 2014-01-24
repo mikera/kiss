@@ -19,15 +19,15 @@ import clojure.lang.Var;
  * @author Mike
  *
  */
-public class Lookup extends Expression {
+public class ClojureLookup extends Expression {
 	private final Symbol sym;
 	
-	private Lookup(Symbol sym) {
+	private ClojureLookup(Symbol sym) {
 		this.sym=sym;
 	}
 
 	public static Expression create(Symbol symbol) {
-		return new Lookup(symbol);
+		return new ClojureLookup(symbol);
 	}
 	
 	public static Expression create(String symName) {
@@ -39,16 +39,18 @@ public class Lookup extends Expression {
 		return Anything.INSTANCE;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Environment compute(Environment e, IPersistentMap bindings) {
-		Entry<Symbol, Object> lb=bindings.entryAt(sym);
-		if (lb!=null) return e.withResult(lb.getValue());
-
-		Entry<Symbol, Object> o=e.entryAt(sym);
-		if (o!=null) return e.withResult(o.getValue());
+		try {
+			Var v=RT.var(sym.getNamespace(),sym.getName());
+			if (v!=null) return e.withResult(v.deref());
+		} catch (Throwable t) {
+			String err="Error trying to lookp var "+sym+" "; 
+			err+=" with Environment "+e.toString();
+			throw new KissException(err,t);
+		}
 		
-		throw new KissException("Cannot lookup symbol "+sym+" in environment");
+		throw new KissException("Cannot find Clojure symbol "+sym+" in environment");
 	}
 
 	@Override
@@ -58,15 +60,11 @@ public class Lookup extends Expression {
 	
 	@Override
 	public Expression substitute(IPersistentMap bindings) {
-		if(bindings.containsKey(sym)) {
-			return Constant.create(bindings.valAt(sym));
-		}
 		return this;
 	}
 	
 	@Override
 	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
-		s=(IPersistentSet) ((IPersistentCollection)s).cons(sym);
 		return s;
 	}
 
@@ -74,4 +72,6 @@ public class Lookup extends Expression {
 	public void validate() {
 		// OK?
 	}
+
+
 }
