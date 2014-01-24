@@ -69,12 +69,14 @@ public final class Environment extends APersistentMap {
 	}
 	
 	public Environment define(Symbol key, Expression body, IPersistentMap bindings) {
+		// handle define with local bindings
 		if (bindings.count()>0) {
 			Expression newBody=body.substitute(bindings);
 			if (newBody!=body) newBody=newBody.optimise(); // re-optimise if needed
 			body=newBody;
 		}
 		
+		// manage dependency updates
 		IPersistentMap deps=this.deps;
 		IPersistentMap backDeps=this.backDeps;
 		
