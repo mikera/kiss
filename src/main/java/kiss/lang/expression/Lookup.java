@@ -65,6 +65,11 @@ public class Lookup extends Expression {
 	}
 	
 	@Override
+	public boolean isPure() {
+		return true;
+	}
+	
+	@Override
 	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
 		s=(IPersistentSet) ((IPersistentCollection)s).cons(sym);
 		return s;
