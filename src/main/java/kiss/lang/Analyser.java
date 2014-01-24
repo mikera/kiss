@@ -16,9 +16,11 @@ import kiss.lang.expression.Vector;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
+import kiss.lang.type.Intersection;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Null;
+import kiss.lang.type.Union;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
 import clojure.lang.RT;
@@ -77,11 +79,21 @@ public class Analyser {
 		List<Object> al=KissUtils.asList(s);
 		Symbol sym=(Symbol) al.get(0);
 		if (sym.equals(Symbols.U)) {
-			
+			Type[] types=analyseSequenceOfTypes(al,1,al.size()-1);
+			return Union.create(types);
 		} else if (sym.equals(Symbols.I)) {
-			
+			Type[] types=analyseSequenceOfTypes(al,1,al.size()-1);
+			return Intersection.create(types);
 		}
 		throw new KissException("Unrecognised type form: "+s);		
+	}
+
+	private static Type[] analyseSequenceOfTypes(List<Object> al, int start, int length) {
+		Type[] types=new Type[length];
+		for (int i=0; i<length; i++) {
+			types[i]=analyseType(al.get(start+i));
+		}
+		return types;
 	}
 
 	public static Expression analyseSymbol(Symbol sym) {

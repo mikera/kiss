@@ -100,6 +100,11 @@ public class TypeTests {
 		assertEquals(Number.class,Union.create(JavaType.create(BigDecimal.class),JavaType.create(Number.class)).getJavaClass());
 	}
 	
+	@Test public void testParse() {
+		assertEquals(Integer.class,Type.parse("java.lang.Integer").getJavaClass());
+		assertEquals(Number.class,Type.parse("(U java.lang.Integer java.lang.Long)").getJavaClass());
+	}
+	
 	@Test 
 	public void testProperties() {
 		for (Type a:testTypes) {

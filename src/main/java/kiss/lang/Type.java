@@ -1,5 +1,6 @@
 package kiss.lang;
 
+import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Union;
@@ -14,6 +15,13 @@ import clojure.lang.Symbol;
 public abstract class Type {	
 	public static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
 
+	/**
+	 * Creates a type by parsing a given String
+	 */
+	public static Type parse(String s) {
+		return Analyser.analyseType(KissUtils.read(s));
+	}
+	
 	/**
 	 * Check if an object is an instance of this type
 	 * 
