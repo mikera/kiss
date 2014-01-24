@@ -89,8 +89,7 @@ public final class Environment extends APersistentMap {
 		// check if free variables can be satisfied from the current environment 
 		for (ISeq s=RT.seq(free);s!=null; s=s.next()) {
 			Symbol sym=(Symbol) s.first();
-			// TODO: fix Clojure var hackery?
-			if (map.containsKey(sym)||KissUtils.isClojureVar(sym)) {
+			if (map.containsKey(sym)) {
 				free=free.disjoin(sym);
 			}
 		}
