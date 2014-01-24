@@ -1,5 +1,6 @@
 package kiss.lang.expression;
 
+import java.util.Arrays;
 import java.util.Map.Entry;
 
 import kiss.lang.Environment;
@@ -26,10 +27,10 @@ public class Lambda extends Expression {
 
 	public static final Lambda IDENTITY=create(Lookup.create("x"),new Symbol[] {Symbol.intern("x")},new Type[] {Anything.INSTANCE});
 	
-	private FunctionType type;
-	private Expression body;
-	private Type[] types;
-	private Symbol[] syms;
+	private final FunctionType type;
+	private final Expression body;
+	private final Type[] types;
+	private final Symbol[] syms;
 	private KFn compiled=null;
 	
 	private Lambda(Expression body, Symbol[] syms, Type[] types) {
@@ -40,6 +41,11 @@ public class Lambda extends Expression {
 	}
 	
 	public static Lambda create(Expression body, Symbol[] syms, Type[] types) {
+		return new Lambda(body,syms,types);
+	}
+	
+	public Lambda update(Expression body, Symbol[] syms, Type[] types) {
+		if ((body==this.body)&&(Arrays.equals(syms, this.syms))&&(Arrays.equals(types, this.types))) return this;
 		return new Lambda(body,syms,types);
 	}
 	
@@ -72,9 +78,8 @@ public class Lambda extends Expression {
 	public Expression specialise(Type type) {
 		if (this.type==type) return this;
 		if (type.contains(this.type)) return this;
-		return Cast.create(type, this);
+		return update(body.specialise(type),syms,types);
 	}
-	
 	
 	@Override
 	public Expression substitute(IPersistentMap bindings) {
@@ -84,8 +89,7 @@ public class Lambda extends Expression {
 		Expression nbody=body.substitute(bindings);
 		if (nbody==null) return null;
 		
-		if ((nbody==body)) return this;
-		return create(nbody,syms,types);
+		return update(nbody,syms,types);
 	}
 	
 	@Override
