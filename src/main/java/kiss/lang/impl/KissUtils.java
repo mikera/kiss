@@ -1,5 +1,6 @@
 package kiss.lang.impl;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 
 import kiss.lang.Environment;
@@ -7,11 +8,17 @@ import kiss.lang.KFn;
 import clojure.lang.IFn;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
+import clojure.lang.LineNumberingPushbackReader;
+import clojure.lang.LispReader;
 import clojure.lang.RT;
 import clojure.lang.Symbol;
 
 public class KissUtils {
 
+	public static Object read(String s) {
+		return LispReader.read(new LineNumberingPushbackReader(new StringReader(s)), false, null, false);
+	}
+	
 	public static IPersistentVector expectVector(Object x) {
 		if (x instanceof IPersistentVector) {
 			return (IPersistentVector)x;
