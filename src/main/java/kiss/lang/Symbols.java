@@ -20,6 +20,17 @@ public class Symbols {
 	public static final Symbol DO = Symbol.intern("do");
 	public static final Symbol CAST = Symbol.intern("cast");
 	public static final Symbol INSTANCE = Symbol.intern("instance?");	
+	public static final Symbol VAR = Symbol.intern("var");	
+	public static final Symbol LOOP = Symbol.intern("loop");	
+	public static final Symbol RECUR = Symbol.intern("recur");	
+	public static final Symbol QUOTE = Symbol.intern("quote");	
+	public static final Symbol TRY = Symbol.intern("try");	
+	public static final Symbol THROW = Symbol.intern("throw");	
+	public static final Symbol NEW = Symbol.intern("new");	
+	public static final Symbol SET_BANG = Symbol.intern("set!");	
+	public static final Symbol DOT = Symbol.intern(".");	
+	public static final Symbol DOTDOT = Symbol.intern("..");	
+	
 	
 	// type symbols
 	public static final Symbol U = Symbol.intern("U");
