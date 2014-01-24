@@ -6,7 +6,7 @@ import kiss.lang.Type;
 import kiss.lang.impl.KissException;
 
 /**
- * JavaType represents the type of non-null values that are of a specific Java type.
+ * JavaType represents the type of non-null values that are of a specific Java reference type.
  * 
  * @author Mike
  *
@@ -15,10 +15,11 @@ public class JavaType<T> extends Type {
 	final Class<T> klass;
 	
 	public static final Type BOOLEAN=create(Boolean.class);
-
-	public static final Type KISS_TYPE = create(Type.class);;
-	public static final Type SYMBOL = create(Symbol.class);;
-	public static final Type KEYWORD = create(Keyword.class);;
+	public static final Type KISS_TYPE = create(Type.class);
+	public static final Type SYMBOL = create(Symbol.class);
+	public static final Type KEYWORD = create(Keyword.class);
+	public static final Type NUMBER = create(Number.class);
+	public static final Type OBJECT = create(Object.class);
 	
 	public JavaType(Class<T> c) {
 		klass=c;
