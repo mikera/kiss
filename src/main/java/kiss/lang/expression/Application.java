@@ -92,10 +92,10 @@ public class Application extends Expression {
 	}
 	
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
-		s=func.getFreeSymbols(s);
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
+		s=func.accumulateFreeSymbols(s);
 		for (int i=0; i<arity; i++) {
-			s=params[i].getFreeSymbols(s);
+			s=params[i].accumulateFreeSymbols(s);
 		}
 		return s;
 	}

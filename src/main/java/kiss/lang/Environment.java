@@ -78,7 +78,7 @@ public final class Environment extends APersistentMap {
 		IPersistentMap deps=this.deps;
 		IPersistentMap backDeps=this.backDeps;
 		
-		IPersistentSet free=body.getFreeSymbols(PersistentHashSet.EMPTY);
+		IPersistentSet free=body.accumulateFreeSymbols(PersistentHashSet.EMPTY);
 		
 		IPersistentSet oldDeps=(IPersistentSet) deps.valAt(key);
 		if ((oldDeps==null)) oldDeps=PersistentHashSet.EMPTY;
@@ -256,7 +256,7 @@ public final class Environment extends APersistentMap {
 			Symbol key=ent.getKey();
 			Mapping m=ent.getValue();
 			if (m==null) throw new KissException("Unexcpected null mapping for symbol: "+key);
-			IPersistentSet free=m.getExpression().getFreeSymbols(PersistentHashSet.EMPTY);
+			IPersistentSet free=m.getExpression().accumulateFreeSymbols(PersistentHashSet.EMPTY);
 			IPersistentSet ds=(IPersistentSet) deps.valAt(key);
 			if (!free.equiv(ds)) {
 				throw new KissException("Mismatched dependencies for symbol: "+key+" free="+free+" deps="+ds);

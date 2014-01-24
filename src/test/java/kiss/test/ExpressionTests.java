@@ -63,7 +63,7 @@ public class ExpressionTests {
 			try {
 				assertEquals(e,e.substitute(PersistentHashMap.EMPTY));
 				
-				IPersistentSet free=e.getFreeSymbols(PersistentHashSet.EMPTY);
+				IPersistentSet free=e.accumulateFreeSymbols(PersistentHashSet.EMPTY);
 				if (free.count()==0) {
 					Object result=e.eval(); // should work
 					assertTrue(e.getType().checkInstance(result));

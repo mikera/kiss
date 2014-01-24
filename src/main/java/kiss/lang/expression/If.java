@@ -83,10 +83,10 @@ public class If extends Expression {
 	}
 	
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
-		s=cond.getFreeSymbols(s);
-		s=doThen.getFreeSymbols(s);
-		s=doElse.getFreeSymbols(s);
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
+		s=cond.accumulateFreeSymbols(s);
+		s=doThen.accumulateFreeSymbols(s);
+		s=doElse.accumulateFreeSymbols(s);
 		return s;
 	}
 

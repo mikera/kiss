@@ -5,6 +5,7 @@ import java.util.Set;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentHashMap;
+import clojure.lang.PersistentHashSet;
 import clojure.lang.Symbol;
 
 /**
@@ -87,7 +88,11 @@ public abstract class Expression {
 	 * @param s
 	 * @return
 	 */
-	public abstract IPersistentSet getFreeSymbols(IPersistentSet s);
+	public abstract IPersistentSet accumulateFreeSymbols(IPersistentSet s);
+	
+	public IPersistentSet getFreeSymbols() {
+		return accumulateFreeSymbols(PersistentHashSet.EMPTY);
+	}
 
 	public abstract void validate();
 }

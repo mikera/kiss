@@ -84,8 +84,8 @@ public class Lambda extends Expression {
 	}
 	
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
-		s=body.getFreeSymbols(s);
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
+		s=body.accumulateFreeSymbols(s);
 		for (Symbol sym:syms) {
 			s=s.disjoin(sym);
 		}

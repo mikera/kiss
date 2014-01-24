@@ -74,9 +74,9 @@ public class Vector extends Expression {
 	}
 	
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
 		for (Expression e:vals) {
-			s=e.getFreeSymbols(s);
+			s=e.accumulateFreeSymbols(s);
 		}
 		return s;
 	}

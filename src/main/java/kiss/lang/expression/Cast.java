@@ -85,8 +85,8 @@ public class Cast extends Expression {
 	}
 
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
-		s=body.getFreeSymbols(s);
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
+		s=body.accumulateFreeSymbols(s);
 		return s;
 	}
 

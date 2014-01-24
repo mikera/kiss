@@ -82,7 +82,7 @@ public class Constant<T> extends Expression {
 	}
 	
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
 		return s;
 	}
 

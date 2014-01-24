@@ -102,9 +102,9 @@ public class Do extends kiss.lang.Expression {
 	}
 
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
 		for (int i=0; i<length; i++) {
-			s=exps[i].getFreeSymbols(s);
+			s=exps[i].accumulateFreeSymbols(s);
 		}
 		return s;
 	}

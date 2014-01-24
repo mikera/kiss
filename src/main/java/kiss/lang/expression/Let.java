@@ -36,7 +36,7 @@ public class Let extends Expression {
 		Expression b=body.optimise();
 		Expression v=value.optimise();
 		if (value.isPure()) {
-			IPersistentSet bfree= b.getFreeSymbols(PersistentHashSet.EMPTY);
+			IPersistentSet bfree= b.accumulateFreeSymbols(PersistentHashSet.EMPTY);
 			if (!(bfree.contains(sym))) {
 				return b;
 			}
@@ -81,8 +81,8 @@ public class Let extends Expression {
 	}
 	
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
-		s=body.getFreeSymbols(s);
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
+		s=body.accumulateFreeSymbols(s);
 		s=s.disjoin(sym);
 		return s;
 	}

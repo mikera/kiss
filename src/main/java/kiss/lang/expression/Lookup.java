@@ -69,7 +69,7 @@ public class Lookup extends Expression {
 	}
 	
 	@Override
-	public IPersistentSet getFreeSymbols(IPersistentSet s) {
+	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
 		s=(IPersistentSet) ((IPersistentCollection)s).cons(sym);
 		return s;
 	}
