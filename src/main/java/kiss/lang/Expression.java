@@ -24,6 +24,10 @@ import clojure.lang.Util;
  */
 public abstract class Expression {
 
+	/**
+	 * Gets the result type of the expression. Evaluation of an expression is guaranteed to return
+	 * a result of this type.
+	 */
 	public abstract Type getType(); 
 	
 	/**
