@@ -2,6 +2,7 @@ package kiss.lang;
 
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
+import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Union;
 import clojure.lang.Symbol;
@@ -132,5 +133,9 @@ public abstract class Type {
 
 	public boolean cannotBeTruthy() {
 		return false;
+	}
+
+	public JavaType<?> toJavaType() {
+		return JavaType.create(this.getJavaClass());
 	}
 }

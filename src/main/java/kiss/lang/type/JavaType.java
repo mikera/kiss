@@ -12,6 +12,8 @@ import kiss.lang.impl.KissException;
 public class JavaType<T> extends Type {
 	final Class<T> klass;
 	
+	public static final Type BOOLEAN=create(Boolean.class);
+	
 	public JavaType(Class<T> c) {
 		klass=c;
 	}
@@ -107,6 +109,11 @@ public class JavaType<T> extends Type {
 	@Override
 	public String toString() {
 		return "(JavaType "+klass.toString()+")";
+	}
+	
+	@Override
+	public JavaType<?> toJavaType() {
+		return this;
 	}
 
 	@Override
