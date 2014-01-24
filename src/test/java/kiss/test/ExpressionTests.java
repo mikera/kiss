@@ -107,6 +107,7 @@ public class ExpressionTests {
 	
 	@Test
 	public void testInstanceOf() {
+		assertTrue(Analyser.analyse(KissUtils.read("(instance? Integer 2)")).isConstant());
 		assertEquals("foo", KissUtils.eval("(if (instance? Long 3) \"foo\" \"bar\")"));
 	}
 	

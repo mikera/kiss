@@ -20,7 +20,7 @@ public class InstanceOf extends Expression {
 	
 	public static Expression create(Type t, Expression body) {
 		JavaType<?> type=t.toJavaType();
-		return new InstanceOf(type,body);
+		return new InstanceOf(type,body).optimise();
 	}
 	
 	public InstanceOf update(Type t, Expression body) {
@@ -37,10 +37,11 @@ public class InstanceOf extends Expression {
 	
 	@Override
 	public Expression optimise() {
+		Expression body=this.body.optimise();
 		Type bt=body.getType();
 		if (type.contains(bt)) return Constant.TRUE;
 		if (type.intersection(bt)==Nothing.INSTANCE) return Constant.FALSE;
-		return this;
+		return update(type,body);
 	}
 
 	@Override
