@@ -1,7 +1,6 @@
 package kiss.lang.type;
 
 import kiss.lang.Type;
-import kiss.lang.impl.KissException;
 
 public class Reference extends Type {
 

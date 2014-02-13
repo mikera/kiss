@@ -1,14 +1,13 @@
 package kiss.lang.expression;
 
-import clojure.lang.IPersistentMap;
-import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
-import kiss.lang.type.JavaType;
 import kiss.lang.type.Null;
 import kiss.lang.type.Value;
+import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 
 /**
  * A typed constant value in an Expression

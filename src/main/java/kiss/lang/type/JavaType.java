@@ -1,9 +1,8 @@
 package kiss.lang.type;
 
+import kiss.lang.Type;
 import clojure.lang.Keyword;
 import clojure.lang.Symbol;
-import kiss.lang.Type;
-import kiss.lang.impl.KissException;
 
 /**
  * JavaType represents the type of non-null values that are of a specific Java reference type.
@@ -25,7 +24,6 @@ public class JavaType<T> extends Type {
 		klass=c;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> JavaType<T> analyse(T val) {
 		return new JavaType<T>((Class<T>) val.getClass());
 	}

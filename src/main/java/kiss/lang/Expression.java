@@ -1,14 +1,10 @@
 package kiss.lang;
 
-import java.util.Set;
-
 import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
-import clojure.lang.Symbol;
-import clojure.lang.Util;
 
 /**
  * Abstract base class for Kiss Expression nodes

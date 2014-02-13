@@ -3,7 +3,6 @@ package kiss.test;
 import static org.junit.Assert.*;
 import kiss.lang.Analyser;
 import kiss.lang.Expression;
-import kiss.lang.Type;
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Def;
@@ -16,20 +15,11 @@ import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
 import kiss.lang.type.FunctionType;
-import kiss.lang.type.JavaType;
-import kiss.lang.type.Maybe;
-import kiss.lang.type.Not;
-import kiss.lang.type.Nothing;
-import kiss.lang.type.Null;
-import kiss.lang.type.Something;
-import kiss.lang.type.Value;
-
 import org.junit.Test;
 
 import clojure.lang.IFn;
 import clojure.lang.IPersistentSet;
 import clojure.lang.ISeq;
-import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
 import clojure.lang.Symbol;
 

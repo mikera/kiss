@@ -1,13 +1,10 @@
 package kiss.lang.expression;
 
-import java.util.Set;
-
 import clojure.lang.ArraySeq;
 import clojure.lang.IFn;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.RT;
-import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;

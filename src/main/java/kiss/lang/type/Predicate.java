@@ -1,9 +1,8 @@
 package kiss.lang.type;
 
-import clojure.lang.IFn;
-import clojure.lang.RT;
 import kiss.lang.KFn;
 import kiss.lang.Type;
+import clojure.lang.RT;
 
 /**
  * Type defined by a predicate function.

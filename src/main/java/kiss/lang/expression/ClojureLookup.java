@@ -1,13 +1,10 @@
 package kiss.lang.expression;
 
-import java.util.Map.Entry;
-
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
 import kiss.lang.type.Anything;
-import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.RT;

@@ -2,14 +2,10 @@ package kiss.lang;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-
 import kiss.lang.expression.Constant;
 import kiss.lang.impl.KissException;
-import kiss.lang.impl.KissUtils;
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
-import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.ISeq;
@@ -158,7 +154,6 @@ public final class Environment extends APersistentMap {
 		return (Mapping)map.valAt(key);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<?> iterator() {
 		return new EnvioronmentIterator(map.iterator());
@@ -176,7 +171,6 @@ public final class Environment extends APersistentMap {
 			return source.hasNext();
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public Entry<Symbol,Object> next() {
 			Entry<Symbol,Mapping> entry=source.next();

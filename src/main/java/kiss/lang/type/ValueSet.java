@@ -2,13 +2,11 @@ package kiss.lang.type;
 
 import java.util.Collection;
 
-import clojure.lang.IPersistentSet;
 import clojure.lang.ISeq;
 import clojure.lang.PersistentHashSet;
 import clojure.lang.RT;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
-import kiss.lang.impl.KissUtils;
 
 /**
  * The type of a set of 2 or more values. Values may include null.
