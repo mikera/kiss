@@ -1,6 +1,7 @@
 (ns kiss.test.test-core
   (:use clojure.test)
   (:use kiss.core)
+  (:use [mikera.cljutils error]) 
   (:import [kiss.lang Expression Environment] ))
 
 (deftest environment-tests
@@ -33,7 +34,9 @@
   (is (= 1 (kiss 1))))
 
 (deftest test-let
-  (is (== 13 (kiss (let [a 13] a)))))
+  (is (== 13 (kiss (let [a 13] a))))
+  (is (== 13 (kiss (let [a 13 b a] b))))
+  (is (error? (kiss (let [a 13 b] b)))))
 
 (deftest test-if 
   (is (== 4 (kiss (if true 4 5))))

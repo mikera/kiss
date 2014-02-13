@@ -4,6 +4,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 import kiss.lang.Environment;
+import kiss.lang.Expression;
 import kiss.lang.KFn;
 import clojure.lang.IFn;
 import clojure.lang.IPersistentVector;
@@ -21,7 +22,9 @@ public class KissUtils {
 	
 
 	public static Object eval(String s) {
-		return kiss.lang.Compiler.compile(read(s)).eval();
+		Object form=read(s);
+		Expression ex=kiss.lang.Compiler.compile(form);
+		return ex.eval();
 	}
 	
 	public static IPersistentVector expectVector(Object x) {

@@ -8,7 +8,6 @@ import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
-import kiss.lang.impl.KissException;
 
 /**
  * A let expression, creates a local lexical binding
@@ -67,7 +66,8 @@ public class Let extends Expression {
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		d=value.compute(d, bindings);
-		bindings=bindings.assoc(sym, d.getResult());
+		Object result=d.getResult();
+		bindings=bindings.assoc(sym, result);
 		return body.compute(d, bindings);
 	}
 	
@@ -92,6 +92,7 @@ public class Let extends Expression {
 	public IPersistentSet accumulateFreeSymbols(IPersistentSet s) {
 		s=body.accumulateFreeSymbols(s);
 		s=s.disjoin(sym);
+		s=value.accumulateFreeSymbols(s);
 		return s;
 	}
 	

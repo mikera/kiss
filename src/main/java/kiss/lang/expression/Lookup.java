@@ -10,9 +10,7 @@ import kiss.lang.type.Anything;
 import clojure.lang.IPersistentCollection;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
-import clojure.lang.RT;
 import clojure.lang.Symbol;
-import clojure.lang.Var;
 
 /**
  * An expression representing a lookup in the current Kiss Environment
@@ -39,7 +37,6 @@ public class Lookup extends Expression {
 		return Anything.INSTANCE;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Environment compute(Environment e, IPersistentMap bindings) {
 		Entry<Symbol, Object> lb=bindings.entryAt(sym);

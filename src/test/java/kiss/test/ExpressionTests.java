@@ -106,6 +106,11 @@ public class ExpressionTests {
 	}
 	
 	@Test
+	public void testLet() {
+		assertEquals(10L, KissUtils.eval("(let [a 10 b a] b)"));
+	}
+	
+	@Test
 	public void testInstanceOf() {
 		assertTrue(Analyser.analyse(KissUtils.read("(instance? Integer 2)")).isConstant());
 		assertEquals("foo", KissUtils.eval("(if (instance? Long 3) \"foo\" \"bar\")"));

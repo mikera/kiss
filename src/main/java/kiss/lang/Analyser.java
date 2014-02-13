@@ -129,9 +129,18 @@ public class Analyser {
 			Symbol s=(Symbol)first;
 			if (s.equals(Symbols.LET)) {
 				IPersistentVector v=KissUtils.expectVector(RT.second(form));
-				Symbol sym=KissUtils.expectSymbol(v.nth(0));
+				int vc=v.count();
+				if ((vc&1)!=0) throw new KissException("let requires an even number of binding forms");
 				
-				return Let.create(sym, analyse(v.nth(1)), analyse(RT.nth(form, 2)));
+				// start with expression body
+				Expression e = analyse(RT.nth(form, 2));
+				
+				for (int i=vc-2; i>=0; i-=2) {
+					Symbol sym=KissUtils.expectSymbol(v.nth(i));
+					Expression exp=analyse(v.nth(i+1));
+					e= Let.create(sym, exp, e);
+				}
+				return e;
 			}
 			
 			if (s.equals(Symbols.IF)) {
