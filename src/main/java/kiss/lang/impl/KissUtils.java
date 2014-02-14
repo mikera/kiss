@@ -93,4 +93,10 @@ public class KissUtils {
 		}
 		return al;
 	}
+
+
+	public static boolean isMacro(Expression fn) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

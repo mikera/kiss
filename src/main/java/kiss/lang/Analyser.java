@@ -194,6 +194,13 @@ public class Analyser {
 			}
 		} 
 		
+		Expression fn=analyse(first);
+		while (KissUtils.isMacro(fn)) {
+			// TODO: macro expend with expansion passing?
+			Expression expansion=fn;
+			if (expansion==fn) break;
+		}
+		
 		ISeq paramSeq=RT.next(form);
 		int paramCount=RT.count(paramSeq);
 		Expression[] params=new Expression[paramCount];
@@ -202,7 +209,7 @@ public class Analyser {
 			params[i++]=analyse(s.first());
 		}
 		
-		return Application.create(analyse(first),params);
+		return Application.create(fn,params);
 		
 		// throw new KissException("Unexpected form: "+form);
 	}
