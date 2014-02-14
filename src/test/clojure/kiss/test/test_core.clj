@@ -29,6 +29,11 @@
     (is (== 10 (kiss e foo)))
     (is (== 17 (kiss e (let [foo 17] foo))))))
 
+(deftest test-errors
+  (is (error? (kiss (1))))
+  (is (error? (kiss (1 2))))
+  (is (error? (kiss (clojure.core/+ 1 "foo"))))) 
+
 (deftest test-constants
   (is (= nil (kiss nil)))
   (is (= 1 (kiss 1))))
