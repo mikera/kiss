@@ -60,6 +60,17 @@
            ex# (optimise (quote ~body))]
        (.eval ex# env#))))
 
+(defmacro kisst
+  "Returns the type of a given expression, without executing it."
+  ([body]
+    `(let [env# (environment)
+           ex# (optimise (quote ~body))]
+       (.getType ex#)))
+  ([env body]
+    `(let [env# ~env
+           ex# (optimise (quote ~body))]
+       (.getType ex#)))) 
+
 (defmacro kisse
   "Compiles and executes Kiss code in the given Environment, returning the updated Environment.
 
