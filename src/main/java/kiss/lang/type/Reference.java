@@ -2,6 +2,12 @@ package kiss.lang.type;
 
 import kiss.lang.Type;
 
+/**
+ * Type that represents any reference (including null)
+ * 
+ * @author Mike
+ *
+ */
 public class Reference extends Type {
 
 	public static final Reference INSTANCE = new Reference();

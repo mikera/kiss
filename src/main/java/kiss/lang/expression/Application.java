@@ -10,6 +10,8 @@ import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
+import kiss.lang.type.FunctionType;
+import kiss.lang.type.Reference;
 import kiss.lang.type.Something;
 
 public class Application extends Expression {
@@ -69,12 +71,13 @@ public class Application extends Expression {
 		return update(nFunc,nParams);
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public Type getType() {
 		Type ft=func.getType();
-		// TODO: specialise function return type
-		return Something.INSTANCE;
+		if (ft instanceof FunctionType) {
+			return ((FunctionType)ft).getReturnType();
+		}
+		return Reference.INSTANCE;
 	}
 
 	@Override
