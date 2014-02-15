@@ -63,12 +63,12 @@
 (defmacro kisst
   "Returns the type of a given expression, without executing it."
   ([body]
-    `(let [env# (environment)
-           ex# (optimise (quote ~body))]
+    `(let [ex# (optimise (quote ~body))]
        (.getType ex#)))
   ([env body]
     `(let [env# ~env
-           ex# (optimise (quote ~body))]
+           ex# (optimise (quote ~body))
+           ex# (.substitute ex# env#)]
        (.getType ex#)))) 
 
 (defmacro kisse

@@ -59,6 +59,7 @@ public class TypeTests {
 	@Test public void testExactValue() {
 		assertTrue(Null.INSTANCE==Value.create(null));
 	}
+
 	
 	@Test public void testIntersections() {
 		for (Type a:testTypes) {
