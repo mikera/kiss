@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
+import kiss.lang.expression.Constant;
+import kiss.lang.expression.Lambda;
 import clojure.lang.IFn;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
@@ -96,7 +98,7 @@ public class KissUtils {
 
 
 	public static boolean isMacro(Expression fn) {
-		// TODO Auto-generated method stub
+		// TODO: how to detect a macro?
 		return false;
 	}
 }
