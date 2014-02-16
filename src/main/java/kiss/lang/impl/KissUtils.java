@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
-import kiss.lang.expression.Constant;
-import kiss.lang.expression.Lambda;
 import clojure.lang.IFn;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
@@ -84,6 +82,13 @@ public class KissUtils {
 	 * Trick function used to clear local values, enabling GC
 	 */
 	public static Environment ret1(Environment ret, Environment nil) {
+		return ret;
+	}
+	
+	/**
+	 * Trick function used to clear local values, enabling GC
+	 */
+	public static Object ret1(Object ret, Object nil) {
 		return ret;
 	}
 
