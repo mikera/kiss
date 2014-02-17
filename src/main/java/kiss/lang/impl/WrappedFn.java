@@ -2,8 +2,6 @@ package kiss.lang.impl;
 
 import kiss.lang.Type;
 import clojure.lang.IFn;
-import clojure.lang.IPersistentMap;
-import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
 
 public class WrappedFn extends ATypedFn {

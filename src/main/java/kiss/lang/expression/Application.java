@@ -1,10 +1,5 @@
 package kiss.lang.expression;
 
-import clojure.lang.ArraySeq;
-import clojure.lang.IFn;
-import clojure.lang.IPersistentMap;
-import clojure.lang.IPersistentSet;
-import clojure.lang.RT;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
@@ -12,7 +7,11 @@ import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.Reference;
-import kiss.lang.type.Something;
+import clojure.lang.ArraySeq;
+import clojure.lang.IFn;
+import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
+import clojure.lang.RT;
 
 public class Application extends Expression {
 	private final Expression func;
