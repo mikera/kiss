@@ -13,6 +13,12 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.RT;
 
+/**
+ * Expression representing a function application
+ * 
+ * @author Mike
+ *
+ */
 public class Application extends Expression {
 	private final Expression func;
 	private final Expression[] params;

@@ -8,6 +8,12 @@ import kiss.lang.Type;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 
+/**
+ * Expression representing an instanceof check on a Java type
+ * 
+ * @author Mike
+ *
+ */
 public class InstanceOf extends Expression {
 
 	private final JavaType<?> type;

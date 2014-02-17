@@ -12,7 +12,7 @@ import clojure.lang.Symbol;
 import clojure.lang.Var;
 
 /**
- * An expression representing a lookup in the current Kiss Environment
+ * An expression representing a lookup in the Clojre global environment
  * @author Mike
  *
  */

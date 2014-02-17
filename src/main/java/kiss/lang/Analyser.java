@@ -1,7 +1,10 @@
 package kiss.lang;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import kiss.lang.expression.Application;
 import kiss.lang.expression.ClojureLookup;
@@ -22,6 +25,7 @@ import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Null;
 import kiss.lang.type.Union;
+import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
 import clojure.lang.RT;
@@ -47,6 +51,7 @@ public class Analyser {
 		if (form instanceof Symbol) return analyseSymbol((Symbol)form);
 		if (form instanceof ISeq) return analyseSeq((ISeq)form);
 		if (form instanceof IPersistentVector) return analyseVector((IPersistentVector)form);
+		if (form instanceof IPersistentMap) return analyseMap((IPersistentMap)form);
 		return Constant.create(form);
 	}
 	
@@ -117,6 +122,17 @@ public class Analyser {
 			al.add(analyse(form.nth(i)));
 		}
 		return Vector.create(al);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private static Expression analyseMap(IPersistentMap form) {
+		HashMap<Expression,Expression> hm=new HashMap<Expression,Expression>();
+		Iterator<Map.Entry> it=form.iterator();
+		while (it.hasNext()) {
+			Map.Entry e=it.next();
+			hm.put(analyse(e.getKey()), analyse(e.getValue()));
+		}
+		return kiss.lang.expression.Map.create(hm);
 	}
 
 	
