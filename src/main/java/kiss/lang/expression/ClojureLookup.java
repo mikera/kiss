@@ -2,8 +2,10 @@ package kiss.lang.expression;
 
 import kiss.lang.Environment;
 import kiss.lang.Expression;
+import kiss.lang.Keywords;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
+import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
@@ -34,6 +36,12 @@ public class ClojureLookup extends Expression {
 	@Override
 	public Type getType() {
 		return Anything.INSTANCE;
+	}
+	
+	@Override
+	public boolean isMacro() {
+		Var v=RT.var(sym.getNamespace(),sym.getName());
+		return KissUtils.isTruthy(v.meta().valAt(Keywords.MACRO));
 	}
 
 	@Override

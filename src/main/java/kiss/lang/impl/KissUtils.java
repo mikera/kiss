@@ -103,7 +103,11 @@ public class KissUtils {
 
 
 	public static boolean isMacro(Expression fn) {
-		// TODO: how to detect a macro?
-		return false;
+		return fn.isMacro();
+	}
+
+
+	public static boolean isTruthy(Object x) {
+		return (x!=null)&&(x!=Boolean.FALSE);
 	}
 }

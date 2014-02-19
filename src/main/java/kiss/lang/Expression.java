@@ -98,6 +98,14 @@ public abstract class Expression {
 	public boolean isConstant() {
 		return false;
 	}
+	
+	/**
+	 * Returns true if this expression is a macro
+	 * @return
+	 */
+	public boolean isMacro() {
+		return false;
+	}
 
 	/**
 	 * Returns true if the expression is pure (no side effects) with respect to all free symbols.

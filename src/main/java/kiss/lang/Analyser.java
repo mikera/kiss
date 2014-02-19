@@ -25,9 +25,11 @@ import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 import kiss.lang.type.Null;
 import kiss.lang.type.Union;
+import clojure.lang.IFn;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentVector;
 import clojure.lang.ISeq;
+import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
 import clojure.lang.Symbol;
 
@@ -211,10 +213,11 @@ public class Analyser {
 		} 
 		
 		Expression fn=analyse(first);
-		while (KissUtils.isMacro(fn)) {
+		if (KissUtils.isMacro(fn)) {
 			// TODO: macro expend with expansion passing?
-			Expression expansion=fn;
-			if (expansion==fn) break;
+			IFn macroFn=(IFn) fn.eval(Environment.EMPTY);
+			Object expandedForm=macroFn.applyTo(RT.cons(form,RT.cons(PersistentHashMap.EMPTY, form.next())));
+			return analyse(expandedForm);
 		}
 		
 		ISeq paramSeq=RT.next(form);
