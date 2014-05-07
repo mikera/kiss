@@ -7,13 +7,14 @@ import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
 
 /**
- * Abstract base class for Kiss Expression nodes
+ * Abstract base class for immutable Kiss Expression nodes
  * 
  * Design intent:
  * - Represent Kiss AST
  * - Can be optimised
  * - Can be evaluated / interpreted given an execution environment
  * - Can be compiled, given satisfaction of all external dependencies
+ * - Immutable
  * 
  * @author Mike
  *
@@ -128,5 +129,8 @@ public abstract class Expression {
 		return accumulateFreeSymbols(PersistentHashSet.EMPTY);
 	}
 
+	/**
+	 * Validates the structure of the expression. Checks that all invariants are satisfied
+	 */
 	public abstract void validate();
 }
