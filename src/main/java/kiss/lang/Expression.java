@@ -30,8 +30,8 @@ public abstract class Expression {
 	/**
 	 * Specialises an expression to guarantee returning the given type, or a strict subset
 	 * 
-	 * Returns null if this specialisation is impossible, may return the same expression
-	 * if no additional specialisation can be performed.
+	 * Returns null if this specialisation is impossible 
+	 * Must return the same expression if no additional specialisation can be performed.
 	 */
 	public abstract Expression specialise(Type type);
 	

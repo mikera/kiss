@@ -50,6 +50,7 @@ public class Lookup extends Expression {
 
 	@Override
 	public Expression specialise(Type type) {
+		if (type.contains(this.getType())) return this;
 		return Cast.create(type, this);
 	}
 	

@@ -113,7 +113,7 @@ public class Application extends Expression {
 
 	@Override
 	public Expression specialise(Type type) {
-		// TODO Better specialisation of lambda application
+		if (type.contains(this.getType())) return this;
 		return Cast.create(type, this);
 	}
 	

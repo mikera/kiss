@@ -3,6 +3,7 @@ package kiss.test;
 import static org.junit.Assert.*;
 import kiss.lang.Analyser;
 import kiss.lang.Expression;
+import kiss.lang.Type;
 import kiss.lang.expression.Application;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Def;
@@ -15,6 +16,7 @@ import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
 import kiss.lang.type.FunctionType;
+
 import org.junit.Test;
 
 import clojure.lang.IFn;
@@ -45,6 +47,15 @@ public class ExpressionTests {
 		IFn fn=(IFn) id.eval();
 		assertEquals(1,fn.invoke(1));
 		assertTrue(ft.checkInstance(fn));
+	}
+	
+	@Test 
+	public void testSpecialise() {
+		for (Expression e:testExprs) {
+			Type ert=e.getType();
+			Expression se=e.specialise(e.getType());
+			assertTrue("Specialise has widened return type!! "+e, ert.contains(se.getType()));
+		}
 	}
 	
 	@Test 

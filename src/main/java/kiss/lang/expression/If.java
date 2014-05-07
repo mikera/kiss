@@ -41,6 +41,7 @@ public class If extends Expression {
 		}
 		
 		if ((cond==this.cond)&&(doThen==this.doThen)&&(doElse==this.doElse)) return this;
+
 		return new If(cond,doThen,doElse);
 	}
 	
@@ -66,7 +67,7 @@ public class If extends Expression {
 	public Expression specialise(Type type) {
 		Expression newThen=doThen.specialise(type);
 		Expression newElse=doElse.specialise(type);
-		if ((newThen==null)||(newElse==null)) return null;
+		if ((newThen==null)&&(newElse==null)) return null;
 		return update(cond,newThen,newElse);
 	}
 	
