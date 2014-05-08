@@ -13,6 +13,9 @@ import kiss.lang.type.Nothing;
 /**
  * An expression which casts the type of its body to a specified Type
  * 
+ * Will throw a compile time exception if the cast is impossible
+ * Will throw a runtime exception if the Java cast fails.
+ * 
  * @author Mike
  *
  */

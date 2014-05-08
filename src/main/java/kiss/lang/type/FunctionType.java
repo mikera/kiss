@@ -1,4 +1,4 @@
-package kiss.lang.type;
+ package kiss.lang.type;
 
 import kiss.lang.KFn;
 import kiss.lang.Mapping;
