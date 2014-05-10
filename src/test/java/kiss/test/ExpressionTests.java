@@ -12,6 +12,7 @@ import kiss.lang.expression.If;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
+import kiss.lang.expression.Loop;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
@@ -34,6 +35,9 @@ public class ExpressionTests {
 		Lambda.IDENTITY,
 		Lookup.create("foo"),
 		If.create(Constant.create(null), Constant.create(1), Constant.create(2)),
+		Loop.create(new Symbol[] {Symbol.intern("foo")},
+					new Expression[] {Constant.create(3)},
+					Constant.create(4)),
 		Do.create(Constant.create(1)),
 		Do.create(Constant.create(1),Lookup.create("foo")),
 		Application.create(Lambda.IDENTITY, Constant.create(3))

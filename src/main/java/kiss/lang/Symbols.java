@@ -42,5 +42,6 @@ public class Symbols {
 	public static final Symbol KEYWORD_TYPE = Symbol.intern("Keyword");
 	public static final Symbol FN_TYPE = Symbol.intern("Fn");
 	public static final Symbol TYPE = Symbol.intern("Type");
+	
 
 }
