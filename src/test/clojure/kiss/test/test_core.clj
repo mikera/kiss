@@ -76,6 +76,9 @@
   (is (= [1] (kiss [1])))
   (is (= [3 5 nil] (kiss [(clojure.core/+ 1 2) (clojure.core/inc 4) nil]))))
 
+(deftest test-loop-recur
+  (is (= 1 (kiss (loop [] 1)))))
+
 (deftest test-maps
   (is (= {} (kiss {})))
   (is (= {5 3} (kiss {(clojure.core/+ 2 3) (clojure.core/+ 1 2)}))))

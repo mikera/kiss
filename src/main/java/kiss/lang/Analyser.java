@@ -16,6 +16,8 @@ import kiss.lang.expression.InstanceOf;
 import kiss.lang.expression.Lambda;
 import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
+import kiss.lang.expression.Loop;
+import kiss.lang.expression.Recur;
 import kiss.lang.expression.Vector;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
@@ -159,6 +161,32 @@ public class Analyser {
 					e= Let.create(sym, exp, e);
 				}
 				return e;
+			}
+			
+			if (s.equals(Symbols.LOOP)) {
+				IPersistentVector v=KissUtils.expectVector(RT.second(form));
+				int vc=v.count();
+				if ((vc&1)!=0) throw new KissException("let requires an even number of binding forms");
+				
+				Symbol[] syms=new Symbol[vc/2];
+				Expression[] initials=new Expression[vc/2];
+				
+				for (int i=0; i<vc; i+=2) {
+					syms[i]=KissUtils.expectSymbol(v.nth(i));
+					initials[i+i]=analyse(v.nth(i+1));
+				}
+				Expression body = analyse(RT.nth(form, 2));
+				return Loop.create(syms, initials, body);
+			}
+			
+			if (s.equals(Symbols.RECUR)) {
+				int vc=n-1;
+				Expression[] values=new Expression[vc];
+				
+				for (int i=0; i<vc; i++) {
+					values[i]=analyse(RT.nth(form,(i+1)));
+				}
+				return Recur.create(values);
 			}
 			
 			if (s.equals(Symbols.IF)) {
