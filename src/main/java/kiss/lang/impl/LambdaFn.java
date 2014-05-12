@@ -36,7 +36,17 @@ public class LambdaFn extends KFn {
 		for (int i=0; i<arity; i++) {
 			bindings=bindings.assoc(params[i], args[i]);
 		}
-		return body.compute(env, bindings).getResult();
+		Environment e=body.compute(env, bindings);
+		while (true) {
+			Object ro=e.getResult();
+			if (!(ro instanceof RecurResult)) break;
+			RecurResult re=(RecurResult) ro;
+			for (int i=0; i<arity; i++) {
+				bindings=bindings.assoc(params[i], re.values[i]);
+			}
+			e=body.compute(e,bindings);
+		}
+		return e.getResult();
 	}
 
 	public Object invoke() {
