@@ -37,7 +37,7 @@ public class Recur<T> extends Expression {
 	
 	@Override
 	public boolean isPure() {
-		return true;
+		return false;
 	}
 
 	@Override

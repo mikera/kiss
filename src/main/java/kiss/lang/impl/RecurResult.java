@@ -1,5 +1,7 @@
 package kiss.lang.impl;
 
+import java.util.Arrays;
+
 public class RecurResult implements IExitResult {
 	public Object[] values;
 	
@@ -7,4 +9,7 @@ public class RecurResult implements IExitResult {
 		this.values=values;
 	}
 
+	public String toString() {
+		return "(RecurResult "+Arrays.toString(values)+")";
+	}
 }

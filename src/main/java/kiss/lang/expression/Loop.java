@@ -6,6 +6,7 @@ import clojure.lang.Symbol;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.impl.RecurResult;
 
 /**
  * A let expression, creates a local lexical binding
@@ -67,7 +68,8 @@ public class Loop extends Expression {
 	
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
-		for (int i=0; i<initials.length; i++) {
+		int n=syms.length;
+		for (int i=0; i<n; i++) {
 			d=initials[i].compute(d, bindings);
 			if (d.isExiting()) return d;
 			Object result=d.getResult();
@@ -76,21 +78,15 @@ public class Loop extends Expression {
 		while (true) {
 			d=body.compute(d, bindings);
 			Object ro=d.getResult();
-			if (!(ro instanceof RecurResult)) return d;
+			if (!(ro instanceof RecurResult)) {
+				return d;
+			}
 			
 			RecurResult rr=(RecurResult) ro;
-			for (int i=0; i<syms.length; i++) {
+			for (int i=0; i<n; i++) {
 				bindings=bindings.assoc(syms[i], rr.values[i]);
 			}
 		}		
-	}
-	
-	public static final class RecurResult {
-		public final Object[] values;
-		
-		public RecurResult(Object... values) {
-			this.values=values;
-		}
 	}
 	
 	@Override
