@@ -96,6 +96,7 @@ public class Application extends Expression {
 		Object[] args=new Object[n];
 		for (int i=0; i<n; i++) {
 			d=params[i].compute(d, bindings);
+			if (d.isExiting()) return d;
 			args[i]=d.getResult();
 		}
 		

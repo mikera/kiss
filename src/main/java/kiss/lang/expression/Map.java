@@ -101,8 +101,12 @@ public class Map extends Expression {
 		HashMap<Object,Object> hm=new HashMap<Object,Object>();
 		for (int i=0; i<length; i++) {
 			d=keys.get(i).compute(d, bindings);
+			if (d.isExiting()) return d;
+			
 			Object k=d.getResult();
 			d=vals.get(i).compute(d, bindings);
+			if (d.isExiting()) return d;
+			
 			Object v=d.getResult();
 			hm.put(k, v);
 		}

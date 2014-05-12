@@ -86,6 +86,7 @@ public class If extends Expression {
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		d=cond.compute(d, bindings);
+		if (d.isExiting()) return d;
 		if (KissUtils.truthy(d.getResult())) {
 			return doThen.compute(d, bindings);
 		} else {

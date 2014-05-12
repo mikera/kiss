@@ -104,6 +104,7 @@ public class Do extends kiss.lang.Expression {
 	public Environment compute(Environment e, IPersistentMap bindings) {
 		for (int i=0; i<length; i++) {
 			e=exps[i].compute(e,bindings);
+			if (e.isExiting()) return e;
 		}
 		return e;
 	}

@@ -2,7 +2,9 @@ package kiss.lang;
 
 import java.util.Iterator;
 import java.util.Map;
+
 import kiss.lang.expression.Constant;
+import kiss.lang.impl.IExitResult;
 import kiss.lang.impl.KissException;
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
@@ -263,5 +265,9 @@ public final class Environment extends APersistentMap {
 				if (!bs.contains(key)) throw new KissException("Missing back dependency from "+sym+"=>"+key);
 			}
 		}
+	}
+
+	public boolean isExiting() {
+		return result instanceof IExitResult;
 	}
 }

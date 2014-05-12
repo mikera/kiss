@@ -69,6 +69,7 @@ public class Loop extends Expression {
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		for (int i=0; i<initials.length; i++) {
 			d=initials[i].compute(d, bindings);
+			if (d.isExiting()) return d;
 			Object result=d.getResult();
 			bindings=bindings.assoc(syms[i], result);
 		}
@@ -76,6 +77,7 @@ public class Loop extends Expression {
 			d=body.compute(d, bindings);
 			Object ro=d.getResult();
 			if (!(ro instanceof RecurResult)) return d;
+			
 			RecurResult rr=(RecurResult) ro;
 			for (int i=0; i<syms.length; i++) {
 				bindings=bindings.assoc(syms[i], rr.values[i]);

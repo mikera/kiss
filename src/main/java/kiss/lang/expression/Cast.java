@@ -48,6 +48,7 @@ public class Cast extends Expression {
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		Environment ev= body.compute(d, bindings);
+		if (ev.isExiting()) return ev;
 		Object result=ev.getResult();
 		if (type.checkInstance(result)) {
 			throw new KissException("Can't cast value of class "+KissUtils.typeName(result)+" to "+type);

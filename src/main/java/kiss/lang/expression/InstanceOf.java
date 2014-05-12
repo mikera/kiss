@@ -63,6 +63,7 @@ public class InstanceOf extends Expression {
 	@Override
 	public Environment compute(Environment d, IPersistentMap bindings) {
 		d=body.compute(d, bindings);
+		if (d.isExiting()) return d;
 		return d.withResult(type.checkInstance(d.getResult()));
 	}
 

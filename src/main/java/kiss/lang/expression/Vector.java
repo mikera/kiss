@@ -73,6 +73,8 @@ public class Vector extends Expression {
 		ArrayList<Object> al=new ArrayList<Object>(length);
 		for (int i=0; i<length; i++) {
 			d=vals.get(i).compute(d, bindings);
+			if (d.isExiting()) return d;
+			
 			al.add(d.getResult());
 		}
 		return d.withResult(PersistentVector.create(al));
