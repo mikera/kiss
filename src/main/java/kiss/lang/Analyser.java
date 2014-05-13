@@ -18,6 +18,7 @@ import kiss.lang.expression.Let;
 import kiss.lang.expression.Lookup;
 import kiss.lang.expression.Loop;
 import kiss.lang.expression.Recur;
+import kiss.lang.expression.Return;
 import kiss.lang.expression.Vector;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
@@ -187,6 +188,11 @@ public class Analyser {
 					values[i]=analyse(RT.nth(form,(i+1)));
 				}
 				return Recur.create(values);
+			}
+			
+			if (s.equals(Symbols.RETURN)) {
+				Expression value=analyse(RT.nth(form,1));
+				return Return.create(value);
 			}
 			
 			if (s.equals(Symbols.IF)) {

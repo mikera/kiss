@@ -39,6 +39,7 @@ public class LambdaFn extends KFn {
 		Environment e=body.compute(env, bindings);
 		while (true) {
 			Object ro=e.getResult();
+			if (ro instanceof ReturnResult) return ((ReturnResult) ro).value;
 			if (!(ro instanceof RecurResult)) break;
 			RecurResult re=(RecurResult) ro;
 			for (int i=0; i<arity; i++) {

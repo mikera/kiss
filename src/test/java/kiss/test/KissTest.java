@@ -6,6 +6,6 @@ public class KissTest extends ClojureTest {
 	
 	@Override
 	public String filter() {
-		return "kiss";
+		return "kiss.test";
 	}
 }

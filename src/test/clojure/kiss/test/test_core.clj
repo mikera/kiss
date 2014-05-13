@@ -80,6 +80,9 @@
   (is (= 1 (kiss (loop [] 1))))
   (is (= 4 (kiss (loop [i 1] (if (clojure.core/= i 3) 4 (recur (clojure.core/inc i))))))))
 
+(deftest test-return
+  (is (= 3 (kiss ((fn [x] (do (return (clojure.core/inc x)) (clojure.core/dex x))) 2)))))
+
 (deftest test-maps
   (is (= {} (kiss {})))
   (is (= {5 3} (kiss {(clojure.core/+ 2 3) (clojure.core/+ 1 2)}))))

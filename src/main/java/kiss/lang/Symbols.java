@@ -23,6 +23,7 @@ public class Symbols {
 	public static final Symbol VAR = Symbol.intern("var");	
 	public static final Symbol LOOP = Symbol.intern("loop");	
 	public static final Symbol RECUR = Symbol.intern("recur");	
+	public static final Symbol RETURN = Symbol.intern("return");	
 	public static final Symbol QUOTE = Symbol.intern("quote");	
 	public static final Symbol TRY = Symbol.intern("try");	
 	public static final Symbol THROW = Symbol.intern("throw");	
@@ -42,6 +43,7 @@ public class Symbols {
 	public static final Symbol KEYWORD_TYPE = Symbol.intern("Keyword");
 	public static final Symbol FN_TYPE = Symbol.intern("Fn");
 	public static final Symbol TYPE = Symbol.intern("Type");
+
 	
 
 }
