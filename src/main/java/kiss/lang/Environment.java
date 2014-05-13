@@ -242,6 +242,10 @@ public final class Environment extends APersistentMap {
 		return m.getValue();
 	}
 
+	/**
+	 * Returns the current result in the environment.
+	 * @return
+	 */
 	public Object getResult() {
 		return result;
 	}
@@ -267,6 +271,11 @@ public final class Environment extends APersistentMap {
 		}
 	}
 
+	/**
+	 * Returns true if the current result is an exit condition. This includes recur and return conditions.
+	 * 
+	 * @return
+	 */
 	public boolean isExiting() {
 		return result instanceof IExitResult;
 	}
