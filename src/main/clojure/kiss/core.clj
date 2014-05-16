@@ -52,9 +52,8 @@
 (defmacro kiss
   "Compiles and executes Kiss code in the given Environment, returning the result"
   ([body]
-    `(let [env# (environment)
-           ex# (optimise (quote ~body))]
-       (.eval ex# env#)))
+    `(let [env# (environment)]
+       (kiss env# ~body)))
   ([env body]
     `(let [env# ~env
            ex# (optimise (quote ~body))]
