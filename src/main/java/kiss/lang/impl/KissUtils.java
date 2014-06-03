@@ -23,7 +23,7 @@ public class KissUtils {
 
 	public static Object eval(String s) {
 		Object form=read(s);
-		Expression ex=kiss.lang.Compiler.compile(form);
+		Expression ex=kiss.lang.Compiler.compile(Environment.EMPTY,form);
 		return ex.eval();
 	}
 	

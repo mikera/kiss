@@ -22,7 +22,9 @@
 
 (defn optimise
   ([form]
-    (kiss.lang.Compiler/compile form)))
+    (optimise Environment/EMPTY form))
+  ([^Environment env form]
+    (kiss.lang.Compiler/compile env form)))
 
 (defmacro environment
   "Creates an Environment with the given Symbol -> Expression mappings."
