@@ -1,9 +1,17 @@
 Kiss
 ====
 
-<b>K</b>iss is **I**mmutable, **S**tatically compiled and **S**ymbiotic (with Clojure).
+<b>K</b>iss is <b>I</b>mmutable, <b>S</b>tatically compiled and <b>S</b>ymbiotic (with Clojure).
 
-This is an **EXPERIMENT** in programming language design. Who knows where it will go?
+This is an **EXPERIMENT** in programming language design, combining several big ideas from different programming languages:
+
+- A smart static type system that makes it easy to write correct code without boilerplate
+- Lisp concepts of homoiconicity and macro-driven metaprogramming
+- Functional programming concepts of programming with pure functions and immutable values
+- The ability to run on the excellent JVM platform and take advantage of the huge library ecosystem this gives you
+- The (I believe novel?) concept of programming with a succession of immutable environments
+
+Kiss is designed to be identical to Clojure except where necessary to incorporate the above ideas.
 
 ![Kiss!](https://raw.github.com/mikera/kiss/master/src/main/resources/kiss.png)
 
@@ -14,9 +22,10 @@ This is an **EXPERIMENT** in programming language design. Who knows where it wil
  - Type safety like **Haskell**
 
 
-## Example
+## Examples
 
 ```clojure
+;; NOTE: This is Clojure code, being used to bootstrap Kiss....
 (ns my.clojure.project
   (:use kiss.core))
   
