@@ -1,7 +1,5 @@
 package kiss.lang;
 
-import java.util.Set;
-
 import kiss.lang.expression.Constant;
 import kiss.lang.impl.MapEntry;
 import kiss.lang.type.JavaType;
@@ -18,7 +16,6 @@ public class Mapping {
 	private final Type type;
 	private final Expression exp;
 	private final Object value;
-	public Set<Symbol> dependencies;
 	
 	private Mapping(Expression exp, Object value, Type type) {
 		this.type=type;
