@@ -86,23 +86,31 @@ public final class Environment extends APersistentMap {
 		deps=deps.assoc(key, free);
 		backDeps=updateBackDeps(key,backDeps,oldDeps,free);
 		
-		// check if free variables can be satisfied from the current environment 
-		for (ISeq s=RT.seq(free);s!=null; s=s.next()) {
+		// Compute which symbols cannot be bound from the current environment 
+		IPersistentSet unbound=free;
+		for (ISeq s=RT.seq(unbound);s!=null; s=s.next()) {
 			Symbol sym=(Symbol) s.first();
-			if (map.containsKey(sym)) {
-				free=free.disjoin(sym);
+			if (isBound(sym)) {
+				unbound=unbound.disjoin(sym);
 			}
 		}
 		
-		if (free.count()==0) {
+		if (unbound.count()==0) {
 			Environment newEnv=body.compute(this, bindings);
 			Object value=newEnv.getResult();
-			return new Environment(map.assoc(key, Mapping.createExpression(body, value)),deps,backDeps,value);
+			newEnv = new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),deps,backDeps,value);
+			
+			return newEnv;
 		} else {
-			return new Environment(map.assoc(key, Mapping.createExpression(body, null)),deps,backDeps,null);	
+			return new Environment(map.assoc(key, Mapping.createExpression(body, null, unbound)),deps,backDeps,null);	
 		}
 	}
 	
+	private boolean isBound(Symbol sym) {
+		Object m= map.valAt(sym);
+		if (m==null) return false;
+		return ((Mapping)m).isBound();
+	}
 
 	private IPersistentMap updateBackDeps(Symbol key,IPersistentMap backDeps,
 			IPersistentSet oldDeps, IPersistentSet newDeps) {
