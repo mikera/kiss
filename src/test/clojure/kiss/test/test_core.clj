@@ -93,5 +93,11 @@
   (is (== 3 (kiss (clojure.core/+ 1 2))))
   (is (nil? (kiss ({} 2)))))
 
+(deftest test-unbound-error
+  (is (== 6 (kiss (do (def b a) 6))))
+  (is (error? (kiss (do (def b a) b))))
+  ;; (is (== 1 (kiss (do (def b a) (def a 1) b))))
+  (is (== 1 (kiss (do (def a 1) a))))) 
+
 (deftest test-lambda
   (is (== 3 (kiss ((fn [x] 3) 2)))))
