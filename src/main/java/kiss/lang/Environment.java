@@ -83,10 +83,11 @@ public final class Environment extends APersistentMap {
 		IPersistentSet oldDeps=(IPersistentSet) deps.valAt(key);
 		if ((oldDeps==null)) oldDeps=PersistentHashSet.EMPTY;
 
+		// update dependencies to match the free variables in the expression
 		deps=deps.assoc(key, free);
 		backDeps=updateBackDeps(key,backDeps,oldDeps,free);
 		
-		// Compute which symbols cannot be bound from the current environment 
+		// Compute which symbols cannot yet be bound from the current environment 
 		IPersistentSet unbound=free;
 		for (ISeq s=RT.seq(unbound);s!=null; s=s.next()) {
 			Symbol sym=(Symbol) s.first();
@@ -100,10 +101,30 @@ public final class Environment extends APersistentMap {
 			Object value=newEnv.getResult();
 			newEnv = new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),deps,backDeps,value);
 			
+			newEnv=updateDeps(newEnv,key);
+			
 			return newEnv;
 		} else {
 			return new Environment(map.assoc(key, Mapping.createExpression(body, null, unbound)),deps,backDeps,null);	
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static Environment updateDeps(Environment e, Symbol key) {
+		// get the set of symbols that depend on the given key
+		IPersistentSet ss = (IPersistentSet)(e.backDeps.valAt(key));
+		
+		if ((ss==null)||(ss==PersistentHashSet.EMPTY)) return e;
+		
+		for (Symbol s:((java.util.Collection<Symbol>)ss)) {
+			Mapping m=(Mapping) e.map.valAt(s);
+			IPersistentSet sunbound=m.getUnbound();
+			if (sunbound.count()==0) {
+				// update needed!
+			}
+		}
+		return e;
+		
 	}
 	
 	private boolean isBound(Symbol sym) {
