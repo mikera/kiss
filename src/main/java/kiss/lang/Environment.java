@@ -120,7 +120,7 @@ public final class Environment extends APersistentMap {
 			Mapping m=(Mapping) e.map.valAt(s);
 			IPersistentSet sunbound=m.getUnbound();
 			if (sunbound.count()==0) {
-				// update needed!
+				// TODO: update needed!
 			}
 		}
 		return e;
