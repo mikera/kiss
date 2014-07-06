@@ -75,17 +75,17 @@ public final class Environment extends APersistentMap {
 		}
 		
 		// manage dependency updates
-		IPersistentMap deps=this.dependencies;
-		IPersistentMap backDeps=this.dependents;
+		IPersistentMap tempDependencies=this.dependencies;
+		IPersistentMap tempDependents=this.dependents;
 		
 		IPersistentSet free=body.accumulateFreeSymbols(PersistentHashSet.EMPTY);
 		
-		IPersistentSet oldDeps=(IPersistentSet) deps.valAt(key);
+		IPersistentSet oldDeps=(IPersistentSet) tempDependencies.valAt(key);
 		if ((oldDeps==null)) oldDeps=PersistentHashSet.EMPTY;
 
 		// update dependencies to match the free variables in the expression
-		deps=deps.assoc(key, free);
-		backDeps=updateBackDeps(key,backDeps,oldDeps,free);
+		tempDependencies=tempDependencies.assoc(key, free);
+		tempDependents=updateBackDeps(key,tempDependents,oldDeps,free);
 		
 		// Compute which symbols cannot yet be bound from the current environment 
 		IPersistentSet unbound=free;
@@ -99,23 +99,23 @@ public final class Environment extends APersistentMap {
 		if (unbound.count()==0) {
 			Environment newEnv=body.compute(this, bindings);
 			Object value=newEnv.getResult();
-			newEnv = new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),deps,backDeps,value);
+			newEnv = new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),tempDependencies,tempDependents,value);
 			
-			newEnv=updateDeps(newEnv,key);
+			newEnv=updateDependents(newEnv,key);
 			
 			return newEnv;
 		} else {
-			return new Environment(map.assoc(key, Mapping.createExpression(body, null, unbound)),deps,backDeps,null);	
+			return new Environment(map.assoc(key, Mapping.createExpression(body, null, unbound)),tempDependencies,tempDependents,null);	
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static Environment updateDeps(Environment e, Symbol key) {
+	private static Environment updateDependents(Environment e, Symbol key) {
 		// get the set of symbols that depend on the given key
-		IPersistentSet ss = (IPersistentSet)(e.dependents.valAt(key));
+		IPersistentSet ss = e.accumulateDependents(PersistentHashSet.EMPTY,key);
 		
 		// check if there are any dependents
-		if ((ss==null)||(ss==PersistentHashSet.EMPTY)) return e;
+		if (ss==PersistentHashSet.EMPTY) return e;
 		
 		for (Symbol s:((java.util.Collection<Symbol>)ss)) {
 			Mapping m=(Mapping) e.map.valAt(s);
@@ -126,6 +126,19 @@ public final class Environment extends APersistentMap {
 		}
 		return e;
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private IPersistentSet accumulateDependents(IPersistentSet set, Symbol key) {
+		IPersistentSet ss=(IPersistentSet)(dependents.valAt(key));
+		if (ss==null) return set;
+		for (Symbol s: ((java.util.Collection<Symbol>)ss)) {
+			if (!set.contains(s)) {
+				set=(IPersistentSet) set.cons(s);
+				accumulateDependents(set,s);
+			}
+		}
+		return set;
 	}
 	
 	private boolean isBound(Symbol sym) {
