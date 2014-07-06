@@ -131,7 +131,7 @@ public final class Environment extends APersistentMap {
 	@SuppressWarnings("unchecked")
 	private IPersistentSet accumulateDependents(IPersistentSet set, Symbol key) {
 		IPersistentSet ss=(IPersistentSet)(dependents.valAt(key));
-		if (ss==null) return set;
+		if ((ss==null)||(ss==PersistentHashSet.EMPTY)) return set;
 		for (Symbol s: ((java.util.Collection<Symbol>)ss)) {
 			if (!set.contains(s)) {
 				set=(IPersistentSet) set.cons(s);
