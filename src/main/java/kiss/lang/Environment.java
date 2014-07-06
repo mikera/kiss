@@ -35,8 +35,8 @@ public final class Environment extends APersistentMap {
 	public static final Environment EMPTY = new Environment();
 	
 	public final IPersistentMap map; // Symbol -> Mapping 
-	public final IPersistentMap deps; // Symbol -> set of Symbols
-	public final IPersistentMap backDeps; // Symbol -> set of Symbols
+	public final IPersistentMap dependencies; // Symbol -> set of Symbols
+	public final IPersistentMap dependents; // Symbol -> set of Symbols
 	public final Object result;
 
 	private Environment() {
@@ -46,13 +46,13 @@ public final class Environment extends APersistentMap {
 	private Environment(IPersistentMap map, IPersistentMap deps, IPersistentMap backDeps, Object result) {
 		this.map=map;
 		this.result=result;
-		this.deps=deps;
-		this.backDeps=backDeps;
+		this.dependencies=deps;
+		this.dependents=backDeps;
 	}
 	
 	public Environment withResult(Object value) {
 		if (value==result) return this;
-		return new Environment(map,deps,backDeps,value);
+		return new Environment(map,dependencies,dependents,value);
 	}
 	
 	/**
@@ -75,8 +75,8 @@ public final class Environment extends APersistentMap {
 		}
 		
 		// manage dependency updates
-		IPersistentMap deps=this.deps;
-		IPersistentMap backDeps=this.backDeps;
+		IPersistentMap deps=this.dependencies;
+		IPersistentMap backDeps=this.dependents;
 		
 		IPersistentSet free=body.accumulateFreeSymbols(PersistentHashSet.EMPTY);
 		
@@ -112,8 +112,9 @@ public final class Environment extends APersistentMap {
 	@SuppressWarnings("unchecked")
 	private static Environment updateDeps(Environment e, Symbol key) {
 		// get the set of symbols that depend on the given key
-		IPersistentSet ss = (IPersistentSet)(e.backDeps.valAt(key));
+		IPersistentSet ss = (IPersistentSet)(e.dependents.valAt(key));
 		
+		// check if there are any dependents
 		if ((ss==null)||(ss==PersistentHashSet.EMPTY)) return e;
 		
 		for (Symbol s:((java.util.Collection<Symbol>)ss)) {
@@ -166,7 +167,7 @@ public final class Environment extends APersistentMap {
 	public IPersistentMap without(Object key) {
 		Mapping m=getMapping(key);
 		if (m==null) return this;
-		return new Environment(map.without(key),deps,backDeps, result);
+		return new Environment(map.without(key),dependencies,dependents, result);
 	}
 	
 	@Override
@@ -287,14 +288,14 @@ public final class Environment extends APersistentMap {
 			Mapping m=ent.getValue();
 			if (m==null) throw new KissException("Unexcpected null mapping for symbol: "+key);
 			IPersistentSet free=m.getExpression().accumulateFreeSymbols(PersistentHashSet.EMPTY);
-			IPersistentSet ds=(IPersistentSet) deps.valAt(key);
+			IPersistentSet ds=(IPersistentSet) dependencies.valAt(key);
 			if (!free.equiv(ds)) {
 				throw new KissException("Mismatched dependencies for symbol: "+key+" free="+free+" deps="+ds);
 			}
 			
 			for (ISeq s=ds.seq(); s!=null; s=s.next()) {
 				Symbol sym=(Symbol)s.first();
-				IPersistentSet bs=(IPersistentSet) backDeps.valAt(sym);
+				IPersistentSet bs=(IPersistentSet) dependents.valAt(sym);
 				if (!bs.contains(key)) throw new KissException("Missing back dependency from "+sym+"=>"+key);
 			}
 		}
