@@ -308,6 +308,7 @@ public final class Environment extends APersistentMap {
 				throw new KissException("Mismatched dependencies for symbol: "+key+" free="+free+" deps="+ds);
 			}
 			
+			// check unbound dependencies are consistent
 			IPersistentSet unbound=m.getUnbound();
 			for (ISeq s=unbound.seq(); s!=null; s=s.next()) {
 				Symbol sym=(Symbol)s.first();
