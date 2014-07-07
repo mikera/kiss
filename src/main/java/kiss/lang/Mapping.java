@@ -6,6 +6,7 @@ import kiss.lang.impl.MapEntry;
 import kiss.lang.type.JavaType;
 import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentSet;
+import clojure.lang.PersistentHashSet;
 import clojure.lang.Symbol;
 
 /**
@@ -65,6 +66,6 @@ public class Mapping {
 	}
 
 	public IPersistentSet getUnbound() {
-		return unboundDeps;
+		return (unboundDeps==null)?PersistentHashSet.EMPTY:unboundDeps;
 	}
 }

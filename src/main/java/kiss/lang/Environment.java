@@ -111,7 +111,7 @@ public final class Environment extends APersistentMap {
 	
 	@SuppressWarnings("unchecked")
 	private static Environment updateDependents(Environment e, Symbol key) {
-		// get the set of symbols that depend on the given key
+		// get the set of symbols that depend directly or indirectly on the given key
 		IPersistentSet ss = e.accumulateDependents(PersistentHashSet.EMPTY,key);
 		
 		// check if there are any dependents
@@ -300,12 +300,21 @@ public final class Environment extends APersistentMap {
 			Symbol key=ent.getKey();
 			Mapping m=ent.getValue();
 			if (m==null) throw new KissException("Unexcpected null mapping for symbol: "+key);
+			
+			// check free symbols equals dependencies
 			IPersistentSet free=m.getExpression().accumulateFreeSymbols(PersistentHashSet.EMPTY);
 			IPersistentSet ds=(IPersistentSet) dependencies.valAt(key);
 			if (!free.equiv(ds)) {
 				throw new KissException("Mismatched dependencies for symbol: "+key+" free="+free+" deps="+ds);
 			}
 			
+			IPersistentSet unbound=m.getUnbound();
+			for (ISeq s=unbound.seq(); s!=null; s=s.next()) {
+				Symbol sym=(Symbol)s.first();
+				if (isBound(sym)) throw new KissException("Expected symbol to be unbound: "+sym);
+			}
+			
+			// check reverse dependencies
 			for (ISeq s=ds.seq(); s!=null; s=s.next()) {
 				Symbol sym=(Symbol)s.first();
 				IPersistentSet bs=(IPersistentSet) dependents.valAt(sym);
