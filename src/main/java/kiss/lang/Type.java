@@ -4,6 +4,7 @@ import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
 import kiss.lang.type.Intersection;
 import kiss.lang.type.JavaType;
+import kiss.lang.type.Something;
 import kiss.lang.type.Union;
 import clojure.lang.Symbol;
 
@@ -13,7 +14,7 @@ import clojure.lang.Symbol;
  * @author Mike
  *
  */
-public abstract class Type {	
+public abstract class Type extends KFn {	
 	public static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
 
 	/**
@@ -114,6 +115,17 @@ public abstract class Type {
 	@Override
 	public int hashCode() {
 		return super.hashCode();
+	}
+	
+	@Override
+	public Type getReturnType() {
+		return this;
+	}
+	
+	@Override
+	public Object invoke(Object a) {
+		if (!checkInstance(a)) throw new ClassCastException("Can't cast value to type "+this.toString());
+		return a;
 	}
 	
 	public abstract void validate();
