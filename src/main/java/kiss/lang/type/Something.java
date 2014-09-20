@@ -19,6 +19,12 @@ public class Something extends Type {
 	public boolean checkInstance(Object o) {
 		return (o!=null);
 	}
+	
+	@Override
+	public Object cast(Object a) {
+		if (a!=null) throw new ClassCastException("null cannot be cast to Something");
+		return a;
+	}
 
 	@Override
 	public Class<?> getJavaClass() {

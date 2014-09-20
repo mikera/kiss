@@ -24,6 +24,7 @@ public class JavaType<T> extends Type {
 		klass=c;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> JavaType<T> analyse(T val) {
 		return new JavaType<T>((Class<T>) val.getClass());
 	}
@@ -36,6 +37,11 @@ public class JavaType<T> extends Type {
 	@Override
 	public boolean checkInstance(Object o) {
 		return (o!=null)&&klass.isInstance(o);
+	}
+	
+	@Override
+	public T cast(Object a) {
+		return klass.cast(a);
 	}
 
 	@Override

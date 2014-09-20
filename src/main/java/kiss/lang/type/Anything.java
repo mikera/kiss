@@ -15,6 +15,11 @@ public class Anything extends Type {
 	public boolean checkInstance(Object o) {
 		return true;
 	}
+	
+	@Override
+	public Object cast(Object a) {
+		return a;
+	}
 
 	@Override
 	public Class<?> getJavaClass() {

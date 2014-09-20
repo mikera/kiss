@@ -122,10 +122,14 @@ public abstract class Type extends KFn {
 		return this;
 	}
 	
-	@Override
-	public Object invoke(Object a) {
+	public Object cast(Object a) {
 		if (!checkInstance(a)) throw new ClassCastException("Can't cast value to type "+this.toString());
 		return a;
+	}	
+	
+	@Override
+	public final Object invoke(Object a) {
+		return cast(a);
 	}
 	
 	public abstract void validate();

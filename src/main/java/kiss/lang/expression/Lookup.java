@@ -37,6 +37,7 @@ public class Lookup extends Expression {
 		return Anything.INSTANCE;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Environment compute(Environment e, IPersistentMap bindings) {
 		Entry<Symbol, Object> lb=bindings.entryAt(sym);

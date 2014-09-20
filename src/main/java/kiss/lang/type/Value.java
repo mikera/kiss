@@ -15,6 +15,7 @@ public class Value<T> extends Type {
 	final T value;
 	private final Class<T> klass;
 	
+	@SuppressWarnings("unchecked")
 	private Value(T value) {
 		this.value=value;
 		this.klass=(Class<T>) value.getClass();

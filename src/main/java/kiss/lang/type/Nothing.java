@@ -86,4 +86,9 @@ public class Nothing extends Type {
 		if (this!=Nothing.INSTANCE) throw new KissException(this+ " should be a singleton!");
 	}
 
+	@Override
+	public Object cast(Object a) {
+		throw new ClassCastException("Can't cast to Nothing!");
+	}
+
 }

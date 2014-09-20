@@ -129,7 +129,7 @@ public class Analyser {
 		return Vector.create(al);
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static Expression analyseMap(IPersistentMap form) {
 		HashMap<Expression,Expression> hm=new HashMap<Expression,Expression>();
 		Iterator<Map.Entry> it=form.iterator();
