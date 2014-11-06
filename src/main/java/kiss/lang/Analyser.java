@@ -52,12 +52,16 @@ public class Analyser {
 	 * @param form
 	 * @return
 	 */
-	public static Expression analyse(Object form) {
-		if (form instanceof Symbol) return analyseSymbol((Symbol)form);
-		if (form instanceof ISeq) return analyseSeq((ISeq)form);
-		if (form instanceof IPersistentVector) return analyseVector((IPersistentVector)form);
-		if (form instanceof IPersistentMap) return analyseMap((IPersistentMap)form);
+	public static Expression analyse(Environment env, Object form) {
+		if (form instanceof Symbol) return analyseSymbol(env,(Symbol)form);
+		if (form instanceof ISeq) return analyseSeq(env,(ISeq)form);
+		if (form instanceof IPersistentVector) return analyseVector(env,(IPersistentVector)form);
+		if (form instanceof IPersistentMap) return analyseMap(env,(IPersistentMap)form);
 		return Constant.create(form);
+	}
+	
+	public static Expression analyse(Object form) {
+		return analyse(Environment.EMPTY,form);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -112,7 +116,7 @@ public class Analyser {
 		return types;
 	}
 
-	public static Expression analyseSymbol(Symbol sym) {
+	public static Expression analyseSymbol(Environment env,Symbol sym) {
 		if (sym.equals(Symbols.NIL)) return Constant.NULL;
 		if (sym.equals(Symbols.TRUE)) return Constant.TRUE;
 		if (sym.equals(Symbols.FALSE)) return Constant.FALSE;
@@ -120,28 +124,28 @@ public class Analyser {
 		return Lookup.create(sym);
 	}
 
-	private static Expression analyseVector(IPersistentVector form) {
+	private static Expression analyseVector(Environment env, IPersistentVector form) {
 		ArrayList<Expression> al=new ArrayList<Expression>();
 		int n=form.count();
 		for (int i=0; i<n; i++) {
-			al.add(analyse(form.nth(i)));
+			al.add(analyse(env, form.nth(i)));
 		}
 		return Vector.create(al);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private static Expression analyseMap(IPersistentMap form) {
+	@SuppressWarnings({ "rawtypes" })
+	private static Expression analyseMap(Environment env, IPersistentMap form) {
 		HashMap<Expression,Expression> hm=new HashMap<Expression,Expression>();
 		Iterator<Map.Entry> it=form.iterator();
 		while (it.hasNext()) {
 			Map.Entry e=it.next();
-			hm.put(analyse(e.getKey()), analyse(e.getValue()));
+			hm.put(analyse(env, e.getKey()), analyse(env, e.getValue()));
 		}
 		return kiss.lang.expression.Map.create(hm);
 	}
 
 	
-	private static Expression analyseSeq(ISeq form) {
+	private static Expression analyseSeq(Environment env, ISeq form) {
 		int n=form.count();
 		if (n==0) return Constant.create(form);
 		Object first=form.first();
@@ -154,11 +158,11 @@ public class Analyser {
 				if ((vc&1)!=0) throw new KissException("let requires an even number of binding forms");
 				
 				// start with expression body
-				Expression e = analyse(RT.nth(form, 2));
+				Expression e = analyse(env, RT.nth(form, 2));
 				
 				for (int i=vc-2; i>=0; i-=2) {
 					Symbol sym=KissUtils.expectSymbol(v.nth(i));
-					Expression exp=analyse(v.nth(i+1));
+					Expression exp=analyse(env, v.nth(i+1));
 					e= Let.create(sym, exp, e);
 				}
 				return e;
@@ -174,9 +178,9 @@ public class Analyser {
 				
 				for (int i=0; i<vc; i+=2) {
 					syms[i]=KissUtils.expectSymbol(v.nth(i));
-					initials[i+i]=analyse(v.nth(i+1));
+					initials[i+i]=analyse(env,v.nth(i+1));
 				}
-				Expression body = analyse(RT.nth(form, 2));
+				Expression body = analyse(env,RT.nth(form, 2));
 				return Loop.create(syms, initials, body);
 			}
 			
@@ -185,22 +189,22 @@ public class Analyser {
 				Expression[] values=new Expression[vc];
 				
 				for (int i=0; i<vc; i++) {
-					values[i]=analyse(RT.nth(form,(i+1)));
+					values[i]=analyse(env,RT.nth(form,(i+1)));
 				}
 				return Recur.create(values);
 			}
 			
 			if (s.equals(Symbols.RETURN)) {
-				Expression value=analyse(RT.nth(form,1));
+				Expression value=analyse(env,RT.nth(form,1));
 				return Return.create(value);
 			}
 			
 			if (s.equals(Symbols.IF)) {
 				switch (n) {
 				case 4:
-					return If.create(analyse(RT.nth(form, 1)), analyse(RT.nth(form, 2)), analyse(RT.nth(form, 3)));
+					return If.create(analyse(env,RT.nth(form, 1)), analyse(env,RT.nth(form, 2)), analyse(env,RT.nth(form, 3)));
 				case 3:
-					return If.create(analyse(RT.nth(form, 1)), analyse(RT.nth(form, 2)),Constant.NULL);
+					return If.create(analyse(env,RT.nth(form, 1)), analyse(env,RT.nth(form, 2)),Constant.NULL);
 				default:
 					throw new KissException("Wrong number of forms in if expression: "+n);
 				}		
@@ -209,7 +213,7 @@ public class Analyser {
 			if (s.equals(Symbols.INSTANCE)) {
 				switch (n) {
 				case 3:
-					return InstanceOf.create(analyseType(RT.nth(form, 1)), analyse(RT.nth(form, 2)));
+					return InstanceOf.create(analyseType(RT.nth(form, 1)), analyse(env,RT.nth(form, 2)));
 				default:
 					throw new KissException("Wrong number of forms in instance? expression: "+n);
 				}		
@@ -218,13 +222,13 @@ public class Analyser {
 			if (s.equals(Symbols.DEF)) {
 				if (n!=3) throw new KissException("Wrong number of forms in def expression: "+n);
 				Symbol sym=(Symbol)RT.nth(form,1);
-				return Def.create(sym,analyse(RT.nth(form, 2)));		
+				return Def.create(sym,analyse(env,RT.nth(form, 2)));		
 			}
 
 			if (s.equals(Symbols.DO)) {
 				Expression[] exps=new Expression[n-1];
 				for (int i=1; i<n; i++) {
-					exps[i-1]=analyse(RT.nth(form, i));
+					exps[i-1]=analyse(env,RT.nth(form, i));
 				}
 				return Do.create(exps);
 			}
@@ -240,18 +244,18 @@ public class Analyser {
 					Type paramType=Type.resolveTag(s);
 					types[i]=paramType;
 				}
-				Expression body=analyse(RT.nth(form, 2));
+				Expression body=analyse(env,RT.nth(form, 2));
 				
 				return Lambda.create(body,syms,types);
 			}
 		} 
 		
-		Expression fn=analyse(first);
+		Expression fn=analyse(env,first);
 		if (KissUtils.isMacro(fn)) {
 			// TODO: macro expend with expansion passing?
 			IFn macroFn=(IFn) fn.eval(Environment.EMPTY);
 			Object expandedForm=macroFn.applyTo(RT.cons(form,RT.cons(PersistentHashMap.EMPTY, form.next())));
-			return analyse(expandedForm);
+			return analyse(env,expandedForm);
 		}
 		
 		ISeq paramSeq=RT.next(form);
@@ -259,7 +263,7 @@ public class Analyser {
 		Expression[] params=new Expression[paramCount];
 		int i=0;
 		for (ISeq s=RT.seq(paramSeq); s!=null; s=s.next()) {
-			params[i++]=analyse(s.first());
+			params[i++]=analyse(env,s.first());
 		}
 		
 		return Application.create(fn,params);

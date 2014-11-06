@@ -3,6 +3,8 @@ package kiss.lang.impl;
 import java.io.StringReader;
 import java.util.ArrayList;
 
+import kiss.lang.Analyser;
+import kiss.lang.Compiler;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
@@ -23,8 +25,11 @@ public class KissUtils {
 
 	public static Object eval(String s) {
 		Object form=read(s);
-		Expression ex=kiss.lang.Compiler.compile(Environment.EMPTY,form);
-		return ex.eval();
+		Environment env=Environment.EMPTY;
+		
+		Expression ex=Analyser.analyse(env,form);
+		Expression compiled=Compiler.compile(env,ex); 
+		return compiled.eval();
 	}
 	
 	public static IPersistentVector expectVector(Object x) {

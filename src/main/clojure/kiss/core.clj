@@ -17,14 +17,17 @@
 
 (defn analyse
   "Analyse a form, resulting a Kiss Expression AST"
-  ([form]
-    (Analyser/analyse form)))
+  (^Expression [form]
+    (analyse Environment/EMPTY form))
+  (^Expression [^Environment env form]
+    (Analyser/analyse env form)))
 
 (defn optimise
   ([form]
     (optimise Environment/EMPTY form))
   ([^Environment env form]
-    (kiss.lang.Compiler/compile env form)))
+    (let [ex (analyse env form)]
+      (kiss.lang.Compiler/compile env ex))))
 
 (defmacro environment
   "Creates an Environment with the given Symbol -> Expression mappings."

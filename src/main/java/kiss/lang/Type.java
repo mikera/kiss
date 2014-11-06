@@ -4,7 +4,6 @@ import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
 import kiss.lang.type.Intersection;
 import kiss.lang.type.JavaType;
-import kiss.lang.type.Something;
 import kiss.lang.type.Union;
 import clojure.lang.Symbol;
 

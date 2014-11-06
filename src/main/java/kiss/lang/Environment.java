@@ -199,7 +199,6 @@ public final class Environment extends APersistentMap {
 		return (Mapping)map.valAt(key);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<?> iterator() {
 		return new EnvioronmentIterator(map.iterator());
@@ -217,7 +216,6 @@ public final class Environment extends APersistentMap {
 			return source.hasNext();
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public Entry<Symbol,Mapping> next() {
 			Entry<Symbol,Mapping> entry=source.next();

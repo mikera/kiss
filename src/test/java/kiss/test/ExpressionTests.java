@@ -2,6 +2,7 @@ package kiss.test;
 
 import static org.junit.Assert.*;
 import kiss.lang.Analyser;
+import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.expression.Application;
@@ -117,7 +118,7 @@ public class ExpressionTests {
 	
 	@Test
 	public void testInstanceOf() {
-		assertTrue(Analyser.analyse(KissUtils.read("(instance? Integer 2)")).isConstant());
+		assertTrue(Analyser.analyse(Environment.EMPTY,KissUtils.read("(instance? Integer 2)")).isConstant());
 		assertEquals("foo", KissUtils.eval("(if (instance? Long 3) \"foo\" \"bar\")"));
 	}
 	
@@ -143,7 +144,7 @@ public class ExpressionTests {
 		assertEquals(2,If.create(Constant.create(null), Constant.create(1), Constant.create(2)).eval());
 		
 		ISeq s=KissUtils.createSeq(Symbol.intern("if"),Symbol.intern("nil"),1,2);
-		Expression x=Analyser.analyse(s);
+		Expression x=Analyser.analyse(Environment.EMPTY,s);
 		assertEquals(2,x.eval());
 
 	}
