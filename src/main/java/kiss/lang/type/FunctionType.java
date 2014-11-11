@@ -1,9 +1,9 @@
  package kiss.lang.type;
 
 import kiss.lang.KFn;
-import kiss.lang.Mapping;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
+import kiss.lang.impl.Mapping;
 import clojure.lang.IFn;
 
 /**

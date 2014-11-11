@@ -6,6 +6,7 @@ import java.util.Map;
 import kiss.lang.expression.Constant;
 import kiss.lang.impl.IExitResult;
 import kiss.lang.impl.KissException;
+import kiss.lang.impl.Mapping;
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentMap;

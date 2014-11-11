@@ -1,8 +1,8 @@
-package kiss.lang;
+package kiss.lang.impl;
 
+import kiss.lang.Expression;
+import kiss.lang.Type;
 import kiss.lang.expression.Constant;
-import kiss.lang.impl.KissException;
-import kiss.lang.impl.MapEntry;
 import kiss.lang.type.JavaType;
 import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentSet;
