@@ -77,9 +77,7 @@
   (is (= [3 5 nil] (kiss [(clojure.core/+ 1 2) (clojure.core/inc 4) nil]))))
 
 (deftest test-loop-recur
-  ;; (is (= 1 (kiss (loop [] 1))))
-  ;; (is (= 4 (kiss (loop [i 1] (if (clojure.core/= i 3) 4 (recur (clojure.core/inc i)))))))
-  ;; (is (error? (kiss (recur 2))))
+  ;; (is (error? (kiss (recur 2))))  ;; TODO: figure out wha this should do?
   )
 
 (deftest test-return
