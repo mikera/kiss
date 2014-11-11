@@ -38,7 +38,7 @@ public class Lookup extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment e, IPersistentMap bindings) {
+	public Environment interpret(Environment e, IPersistentMap bindings) {
 		Entry<Symbol, ?> lb=bindings.entryAt(sym);
 		if (lb!=null) return e.withResult(lb.getValue());
 

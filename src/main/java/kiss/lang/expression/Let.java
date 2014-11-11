@@ -64,13 +64,13 @@ public class Let extends Expression {
 	}
 	
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
-		d=value.compute(d, bindings);
+	public Environment interpret(Environment d, IPersistentMap bindings) {
+		d=value.interpret(d, bindings);
 		if (d.isExiting()) return d;
 		
 		Object result=d.getResult();
 		bindings=bindings.assoc(sym, result);
-		return body.compute(d, bindings);
+		return body.interpret(d, bindings);
 	}
 	
 	@Override

@@ -97,14 +97,14 @@ public class Map extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
+	public Environment interpret(Environment d, IPersistentMap bindings) {
 		HashMap<Object,Object> hm=new HashMap<Object,Object>();
 		for (int i=0; i<length; i++) {
-			d=keys.get(i).compute(d, bindings);
+			d=keys.get(i).interpret(d, bindings);
 			if (d.isExiting()) return d;
 			
 			Object k=d.getResult();
-			d=vals.get(i).compute(d, bindings);
+			d=vals.get(i).interpret(d, bindings);
 			if (d.isExiting()) return d;
 			
 			Object v=d.getResult();

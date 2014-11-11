@@ -48,8 +48,8 @@ public class Return<T> extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
-		d=value.compute(d, bindings);
+	public Environment interpret(Environment d, IPersistentMap bindings) {
+		d=value.interpret(d, bindings);
 		if (d.isExiting()) return d;
 		Object o=d.getResult();
 		Environment re = d.withResult(new ReturnResult(o));

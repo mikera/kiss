@@ -97,7 +97,7 @@ public final class Environment extends APersistentMap {
 		}
 		
 		if (unbound.count()==0) {
-			Environment newEnv=body.compute(this, bindings);
+			Environment newEnv=body.interpret(this, bindings);
 			Object value=newEnv.getResult();
 			newEnv = new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),tempDependencies,tempDependents,value);
 			

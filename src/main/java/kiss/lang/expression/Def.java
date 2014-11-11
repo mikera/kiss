@@ -49,7 +49,7 @@ public class Def extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
+	public Environment interpret(Environment d, IPersistentMap bindings) {
 		return d.define(sym,body,bindings);
 	}
 	

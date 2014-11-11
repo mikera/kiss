@@ -46,8 +46,8 @@ public class Cast extends Expression {
 	}
 	
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
-		Environment ev= body.compute(d, bindings);
+	public Environment interpret(Environment d, IPersistentMap bindings) {
+		Environment ev= body.interpret(d, bindings);
 		if (ev.isExiting()) return ev;
 		Object result=ev.getResult();
 		if (type.checkInstance(result)) {

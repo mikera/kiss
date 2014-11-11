@@ -69,10 +69,10 @@ public class Vector extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
+	public Environment interpret(Environment d, IPersistentMap bindings) {
 		ArrayList<Object> al=new ArrayList<Object>(length);
 		for (int i=0; i<length; i++) {
-			d=vals.get(i).compute(d, bindings);
+			d=vals.get(i).interpret(d, bindings);
 			if (d.isExiting()) return d;
 			
 			al.add(d.getResult());

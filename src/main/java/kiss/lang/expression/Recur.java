@@ -46,11 +46,11 @@ public class Recur<T> extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
+	public Environment interpret(Environment d, IPersistentMap bindings) {
 		int n=values.length;
 		Object[] rs=new Object[n];
 		for (int i=0; i<n; i++) {
-			d=values[i].compute(d, bindings);
+			d=values[i].interpret(d, bindings);
 			rs[i]=d.getResult();
 		}
 		return d.withResult(new RecurResult(rs));

@@ -55,7 +55,7 @@ public class Lambda extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
+	public Environment interpret(Environment d, IPersistentMap bindings) {
 		if (compiled!=null) return d.withResult(compiled);
 		
 		// TODO is this sensible? capture the dynamic environment at exact point of lambda creation?

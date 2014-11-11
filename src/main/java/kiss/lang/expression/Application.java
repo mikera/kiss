@@ -86,8 +86,8 @@ public class Application extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
-		d=func.compute(d, bindings);
+	public Environment interpret(Environment d, IPersistentMap bindings) {
+		d=func.interpret(d, bindings);
 		Object o=d.getResult();
 		if (!(o instanceof IFn)) throw new KissException("Not a function: "+o);
 		IFn fn=(IFn)o;
@@ -95,7 +95,7 @@ public class Application extends Expression {
 		int n=params.length;
 		Object[] args=new Object[n];
 		for (int i=0; i<n; i++) {
-			d=params[i].compute(d, bindings);
+			d=params[i].interpret(d, bindings);
 			if (d.isExiting()) return d;
 			args[i]=d.getResult();
 		}

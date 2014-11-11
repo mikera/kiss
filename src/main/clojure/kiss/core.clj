@@ -83,4 +83,4 @@
   ([env body]
     `(let [env# ~env
            ex# (analyse env# (quote ~body))]
-       (.compute ex# env#))))
+       (.interpret ex# env#))))

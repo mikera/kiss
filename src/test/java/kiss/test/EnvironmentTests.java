@@ -17,7 +17,7 @@ public class EnvironmentTests {
 		Expression x=Def.create(Symbol.intern("foo"),Constant.create(1));
 		Environment e=Environment.EMPTY;
 		
-		Environment e2=x.compute(e);
+		Environment e2=x.interpret(e);
 		assertEquals(1,e2.get(Symbol.intern("foo")));
 		assertEquals(1,e2.getResult());
 	}
@@ -26,13 +26,13 @@ public class EnvironmentTests {
 		Environment e=Environment.EMPTY;
 		e.validate();
 		
-		e=Def.create(Symbol.intern("foo"),Constant.create(1)).compute(e);
+		e=Def.create(Symbol.intern("foo"),Constant.create(1)).interpret(e);
 		e.validate();
 		
-		e=Def.create(Symbol.intern("bar"),Lookup.create("foo")).compute(e);
+		e=Def.create(Symbol.intern("bar"),Lookup.create("foo")).interpret(e);
 		e.validate();
 		
-		e=Def.create(Symbol.intern("bar"),Lookup.create("baz")).compute(e);
+		e=Def.create(Symbol.intern("bar"),Lookup.create("baz")).interpret(e);
 		e.validate();
 	}
 }

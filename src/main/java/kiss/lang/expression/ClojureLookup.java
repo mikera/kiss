@@ -45,7 +45,7 @@ public class ClojureLookup extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment e, IPersistentMap bindings) {
+	public Environment interpret(Environment e, IPersistentMap bindings) {
 		try {
 			Var v=RT.var(sym.getNamespace(),sym.getName());
 			if (v!=null) return e.withResult(v.deref());

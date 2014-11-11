@@ -101,9 +101,9 @@ public class Do extends kiss.lang.Expression {
 	}
 
 	@Override
-	public Environment compute(Environment e, IPersistentMap bindings) {
+	public Environment interpret(Environment e, IPersistentMap bindings) {
 		for (int i=0; i<length; i++) {
-			e=exps[i].compute(e,bindings);
+			e=exps[i].interpret(e,bindings);
 			if (e.isExiting()) return e;
 		}
 		return e;

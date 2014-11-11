@@ -84,13 +84,13 @@ public class If extends Expression {
 	}
 
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
-		d=cond.compute(d, bindings);
+	public Environment interpret(Environment d, IPersistentMap bindings) {
+		d=cond.interpret(d, bindings);
 		if (d.isExiting()) return d;
 		if (KissUtils.truthy(d.getResult())) {
-			return doThen.compute(d, bindings);
+			return doThen.interpret(d, bindings);
 		} else {
-			return doElse.compute(d, bindings);
+			return doElse.interpret(d, bindings);
 		}
 	}
 	

@@ -36,7 +36,7 @@ public class LambdaFn extends KFn {
 		for (int i=0; i<arity; i++) {
 			bindings=bindings.assoc(params[i], args[i]);
 		}
-		Environment e=body.compute(env, bindings);
+		Environment e=body.interpret(env, bindings);
 		
 		// handle recursion
 		while (true) {
@@ -47,7 +47,7 @@ public class LambdaFn extends KFn {
 			for (int i=0; i<arity; i++) {
 				bindings=bindings.assoc(params[i], re.values[i]);
 			}
-			e=body.compute(e,bindings);
+			e=body.interpret(e,bindings);
 		}
 		return e.getResult();
 	}

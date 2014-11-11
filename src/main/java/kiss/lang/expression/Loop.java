@@ -67,16 +67,16 @@ public class Loop extends Expression {
 	}
 	
 	@Override
-	public Environment compute(Environment d, IPersistentMap bindings) {
+	public Environment interpret(Environment d, IPersistentMap bindings) {
 		int n=syms.length;
 		for (int i=0; i<n; i++) {
-			d=initials[i].compute(d, bindings);
+			d=initials[i].interpret(d, bindings);
 			if (d.isExiting()) return d;
 			Object result=d.getResult();
 			bindings=bindings.assoc(syms[i], result);
 		}
 		while (true) {
-			d=body.compute(d, bindings);
+			d=body.interpret(d, bindings);
 			Object ro=d.getResult();
 			if (!(ro instanceof RecurResult)) {
 				return d;
