@@ -1,6 +1,7 @@
 (ns kiss.core
   (:require [kiss.compiler :as compiler])
-  (:import [kiss.lang Environment Analyser Expression])
+  (:refer-clojure :exclude [compile])
+  (:import [kiss.lang Environment Analyser Expression KFn])
   (:use [mikera.cljutils error]))
 
 (set! *warn-on-reflection* true)
@@ -22,10 +23,10 @@
   (^Expression [^Environment env form]
     (Analyser/analyse env form)))
 
-(defn optimise
-  ([form]
-    (optimise Environment/EMPTY form))
-  ([^Environment env form]
+(defn compile
+  (^KFn [form]
+    (compile Environment/EMPTY form))
+  (^KFn [^Environment env form]
     (let [ex (analyse env form)]
       (kiss.lang.Compiler/compile env ex))))
 
@@ -37,7 +38,7 @@
     `(environment Environment/EMPTY ~mappings))
   ([env mappings]
     `(reduce 
-       (fn [^Environment e# [^Symbol k# v#]] (.define e# k# (optimise v#))) 
+       (fn [^Environment e# [^Symbol k# v#]] (.define e# k# (analyse v#))) 
        ~env 
        (quote ~mappings))))
 
@@ -61,29 +62,25 @@
        (kiss env# ~body)))
   ([env body]
     `(let [env# ~env
-           ex# (optimise (quote ~body))]
-       (.eval ex# env#))))
+           ex# (compile env# (quote ~body))]
+       (ex#))))
 
 (defmacro kisst
   "Returns the type of a given expression, without executing it."
   ([body]
-    `(let [ex# (optimise (quote ~body))]
-       (.getType ex#)))
+    `(kisst Environment/EMPTY ~body))
   ([env body]
     `(let [env# ~env
-           ex# (optimise (quote ~body))
-           ex# (.substitute ex# env#)]
-       (.getType ex#)))) 
+           ex# (compile env# (quote ~body))]
+       (.getReturnType ex#)))) 
 
 (defmacro kisse
   "Compiles and executes Kiss code in the given Environment, returning the updated Environment.
 
    The last result can be accessed if needed via the 'result' function."
   ([body]
-    `(let [env# Environment/EMPTY
-           ex# (optimise (quote ~body))]
-       (.compute ex# env#)))
+    `(kisse Environment/EMPTY ~body))
   ([env body]
     `(let [env# ~env
-           ex# (optimise (quote ~body))]
+           ex# (analyse env# (quote ~body))]
        (.compute ex# env#))))

@@ -117,6 +117,17 @@ public class ExpressionTests {
 	}
 	
 	@Test
+	public void testReturn() {
+		assertEquals(4L, KissUtils.eval("((fn [] (do (return 4) 3)))"));
+	}
+	
+	@Test
+	public void testRecur() {
+		assertEquals(1L, KissUtils.eval("(loop [] 1)"));
+		assertEquals(4L, KissUtils.eval("(loop [i 1] (if (clojure.core/= i 3) 4 (recur (clojure.core/inc i))))"));
+	}
+	
+	@Test
 	public void testInstanceOf() {
 		assertTrue(Analyser.analyse(Environment.EMPTY,KissUtils.read("(instance? Integer 2)")).isConstant());
 		assertEquals("foo", KissUtils.eval("(if (instance? Long 3) \"foo\" \"bar\")"));

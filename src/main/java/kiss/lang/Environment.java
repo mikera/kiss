@@ -199,7 +199,6 @@ public final class Environment extends APersistentMap {
 		return (Mapping)map.valAt(key);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<?> iterator() {
 		return new EnvioronmentIterator(map.iterator());

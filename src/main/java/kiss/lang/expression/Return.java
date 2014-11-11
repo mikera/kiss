@@ -52,7 +52,8 @@ public class Return<T> extends Expression {
 		d=value.compute(d, bindings);
 		if (d.isExiting()) return d;
 		Object o=d.getResult();
-		return d.withResult(new ReturnResult(o));
+		Environment re = d.withResult(new ReturnResult(o));
+		return re;
 	}
 
 	@Override

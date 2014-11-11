@@ -28,8 +28,8 @@ public class KissUtils {
 		Environment env=Environment.EMPTY;
 		
 		Expression ex=Analyser.analyse(env,form);
-		Expression compiled=Compiler.compile(env,ex); 
-		return compiled.eval();
+		KFn compiled=Compiler.compile(env,ex); 
+		return compiled.invoke();
 	}
 	
 	public static IPersistentVector expectVector(Object x) {
