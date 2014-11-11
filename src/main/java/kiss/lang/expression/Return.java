@@ -44,7 +44,7 @@ public class Return<T> extends Expression {
 
 	@Override
 	public Object eval(Environment e) {
-		throw new KissException("Can't evaluate reurn");
+		throw new KissException("Can't evaluate return");
 	}
 
 	@Override
