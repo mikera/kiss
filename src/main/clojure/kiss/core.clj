@@ -74,6 +74,11 @@
            ex# (compile env# (quote ~body))]
        (.getReturnType ex#)))) 
 
+(defn kisse* 
+  ([^Environment env form]
+    (let [body (analyse env form)]
+      (.interpret body env))))
+
 (defmacro kisse
   "Compiles and executes Kiss code in the given Environment, returning the updated Environment.
 
@@ -82,5 +87,15 @@
     `(kisse Environment/EMPTY ~body))
   ([env body]
     `(let [env# ~env
-           ex# (analyse env# (quote ~body))]
-       (.interpret ex# env#))))
+           body# (quote ~body)]
+       (kisse* env# body#))))
+
+(def kiss-repl-env (atom Environment/EMPTY))
+
+(defn kissify 
+  "TODO: figure out how to hack the REPL"
+  ([]
+    (alter-var-root #'clojure.core/eval 
+                  (fn [form] 
+                    (swap! kiss-repl-env (fn [env] (kisse* env form)))
+                    (.getResult ^Environment @kiss-repl-env)))))
