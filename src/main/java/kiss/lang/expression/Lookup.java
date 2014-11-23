@@ -37,12 +37,13 @@ public class Lookup extends Expression {
 		return Anything.INSTANCE;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Environment interpret(Environment e, IPersistentMap bindings) {
-		Entry<Symbol, ?> lb=bindings.entryAt(sym);
+		Entry<Symbol, ?> lb=(Entry<Symbol, ?>)bindings.entryAt(sym);
 		if (lb!=null) return e.withResult(lb.getValue());
 
-		Entry<Symbol, ?> o=e.entryAt(sym);
+		Entry<Symbol, ?> o=(Entry<Symbol, ?>)e.entryAt(sym);
 		if (o!=null) return e.withResult(o.getValue());
 		
 		throw new KissException("Cannot lookup symbol "+sym+" in environment");
