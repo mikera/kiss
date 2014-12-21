@@ -79,10 +79,10 @@ public class Analyser {
 	}
 	
 	private static Type analyseTypeSymbol(Symbol sym) {
-		if (sym.equals(Symbols.ANY)) return Anything.INSTANCE;
-		if (sym.equals(Symbols.NOTHING)) return Nothing.INSTANCE;
-		if (sym.equals(Symbols.NIL)) return Null.INSTANCE;
-		if (sym.equals(Symbols.TYPE)) return JavaType.KISS_TYPE;
+		if (sym.equals(Symbols.ANY)) return Types.ANYTHING;
+		if (sym.equals(Symbols.NOTHING)) return Types.NOTHING;
+		if (sym.equals(Symbols.NIL)) return Types.NULL;
+		if (sym.equals(Symbols.TYPE)) return Types.TYPE;
 		if (sym.equals(Symbols.SYMBOL_TYPE)) return JavaType.SYMBOL;
 		if (sym.equals(Symbols.KEYWORD_TYPE)) return JavaType.KEYWORD;
 		

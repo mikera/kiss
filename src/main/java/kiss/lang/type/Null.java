@@ -11,7 +11,7 @@ import kiss.lang.impl.KissException;
  */
 public class Null extends Type {
 
-	public static final Type INSTANCE = new Null();
+	public static final Null INSTANCE = new Null();
 	
 	private Null() {
 		// nothing to do

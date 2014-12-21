@@ -7,6 +7,7 @@ import kiss.lang.Type;
 import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
+import kiss.lang.type.AFunctionType;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.Reference;
 import clojure.lang.ArraySeq;
@@ -81,8 +82,8 @@ public class Application extends Expression {
 	@Override
 	public Type getType() {
 		Type ft=func.getType();
-		if (ft instanceof FunctionType) {
-			return ((FunctionType)ft).getReturnType();
+		if (ft instanceof AFunctionType) {
+			return ((AFunctionType)ft).getReturnType();
 		}
 		return Reference.INSTANCE;
 	}

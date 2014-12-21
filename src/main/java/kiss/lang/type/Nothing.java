@@ -11,7 +11,7 @@ import kiss.lang.impl.KissException;
  */
 public class Nothing extends Type {
 
-	public static final Type INSTANCE = new Nothing();
+	public static final Nothing INSTANCE = new Nothing();
 	
 	private Nothing() {
 		// nothing to do, this is a singleton

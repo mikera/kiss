@@ -13,12 +13,13 @@ import clojure.lang.Symbol;
 public class JavaType<T> extends Type {
 	final Class<T> klass;
 	
-	public static final Type BOOLEAN=create(Boolean.class);
-	public static final Type KISS_TYPE = create(Type.class);
-	public static final Type SYMBOL = create(Symbol.class);
-	public static final Type KEYWORD = create(Keyword.class);
-	public static final Type NUMBER = create(Number.class);
-	public static final Type OBJECT = create(Object.class);
+	public static final JavaType<Boolean> BOOLEAN=create(Boolean.class);
+	public static final JavaType<Type> KISS_TYPE = create(Type.class);
+	public static final JavaType<Symbol> SYMBOL = create(Symbol.class);
+	public static final JavaType<Keyword> KEYWORD = create(Keyword.class);
+	public static final JavaType<Number> NUMBER = create(Number.class);
+	public static final JavaType<Object> OBJECT = create(Object.class);
+	public static final JavaType<String> STRING = create(String.class);
 	
 	public JavaType(Class<T> c) {
 		klass=c;
