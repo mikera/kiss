@@ -4,9 +4,9 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
+import kiss.lang.Result;
 
 /**
  * Intermediate lambda representation
@@ -37,20 +37,19 @@ public class LambdaFn extends KFn {
 		for (int i=0; i<arity; i++) {
 			bindings=bindings.assoc(params[i], args[i]);
 		}
-		EvalResult e=body.interpret(env, bindings);
+		Result r=body.interpret(env, bindings);
 		
 		// handle recursion
 		while (true) {
-			Object ro=e.getResult();
-			if (ro instanceof ReturnResult) return ((ReturnResult) ro).value;
-			if (!(ro instanceof RecurResult)) break;
-			RecurResult re=(RecurResult) ro;
+			if (r instanceof ReturnResult) return ((ReturnResult) r).value;
+			if (!(r instanceof RecurResult)) break;
+			RecurResult re=(RecurResult) r;
 			for (int i=0; i<arity; i++) {
 				bindings=bindings.assoc(params[i], re.values[i]);
 			}
-			e=body.interpret(e.getEnvironment(),bindings);
+			r=body.interpret(r.getEnvironment(),bindings);
 		}
-		return e.getResult();
+		return r.getResult();
 	}
 
 	public Object invoke() {

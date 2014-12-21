@@ -1,9 +1,10 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
+import kiss.lang.Result;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.ReturnResult;
 import kiss.lang.type.Nothing;
@@ -49,12 +50,10 @@ public class Return<T> extends Expression {
 	}
 
 	@Override
-	public EvalResult interpret(Environment d, IPersistentMap bindings) {
-		EvalResult r=value.interpret(d, bindings);
+	public Result interpret(Environment d, IPersistentMap bindings) {
+		Result r=value.interpret(d, bindings);
 		if (r.isExiting()) return r;
-		Object o=r.getResult();
-		EvalResult re = r.withResult(new ReturnResult(o));
-		return re;
+		return new ReturnResult(r.getEnvironment(),r.getResult());
 	}
 
 	@Override

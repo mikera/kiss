@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.LambdaFn;
 import kiss.lang.type.Anything;
 import kiss.lang.type.FunctionType;

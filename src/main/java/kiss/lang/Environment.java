@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import kiss.lang.expression.Constant;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.IExitResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.Mapping;
@@ -95,7 +96,7 @@ public final class Environment extends APersistentMap {
 		}
 		
 		if (unbound.count()==0) {
-			EvalResult res=body.interpret(this, bindings);
+			Result res=body.interpret(this, bindings);
 			Object value=res.getResult();
 			Environment newEnv= new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),tempDependencies,tempDependents);
 			

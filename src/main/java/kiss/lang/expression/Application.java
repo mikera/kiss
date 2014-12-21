@@ -1,9 +1,10 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
+import kiss.lang.Result;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.FunctionType;
@@ -87,8 +88,9 @@ public class Application extends Expression {
 	}
 
 	@Override
-	public EvalResult interpret(Environment d, IPersistentMap bindings) {
-		EvalResult r=func.interpret(d, bindings);
+	public Result interpret(Environment d, IPersistentMap bindings) {
+		Result r=func.interpret(d, bindings);
+		if (r.isExiting()) return r;
 		Object o=r.getResult();
 		if (!(o instanceof IFn)) throw new KissException("Not a function: "+o);
 		IFn fn=(IFn)o;

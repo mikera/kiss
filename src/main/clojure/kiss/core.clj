@@ -1,7 +1,7 @@
 (ns kiss.core
   (:require [kiss.compiler :as compiler])
   (:refer-clojure :exclude [compile])
-  (:import [kiss.lang Environment Analyser Expression KFn EvalResult])
+  (:import [kiss.lang Environment Analyser Expression KFn Result])
   (:use [mikera.cljutils error]))
 
 (set! *warn-on-reflection* true)
@@ -52,7 +52,7 @@
 
 (defn result 
   "Returns the latest evaluation result from a given Kiss Environment"
-  ([^EvalResult e]
+  ([^Result e]
     (.getResult e)))
 
 (defmacro kiss

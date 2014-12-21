@@ -3,9 +3,10 @@ package kiss.lang.expression;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
+import kiss.lang.Result;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;
 
@@ -62,8 +63,8 @@ public class InstanceOf extends Expression {
 	}
 
 	@Override
-	public EvalResult interpret(Environment d, IPersistentMap bindings) {
-		EvalResult r=body.interpret(d, bindings);
+	public Result interpret(Environment d, IPersistentMap bindings) {
+		Result r=body.interpret(d, bindings);
 		if (r.isExiting()) return r;
 		return r.withResult(type.checkInstance(r.getResult()));
 	}

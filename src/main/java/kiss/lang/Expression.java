@@ -1,5 +1,6 @@
 package kiss.lang;
 
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
@@ -78,7 +79,7 @@ public abstract class Expression {
 	 * Compute the effect of this expression, returning a new Environment
 	 * @param bindings TODO
 	 */
-	public abstract EvalResult interpret(Environment d, IPersistentMap bindings);
+	public abstract Result interpret(Environment d, IPersistentMap bindings);
 
 	/**
 	 * Computes the result of this expression in a given Environment. 
@@ -88,7 +89,7 @@ public abstract class Expression {
 	 * @param e
 	 * @return
 	 */
-	public final EvalResult interpret(Environment e) {
+	public final Result interpret(Environment e) {
 		return interpret(KissUtils.ret1(e,e=null),PersistentHashMap.EMPTY);
 	}
 	
@@ -97,7 +98,7 @@ public abstract class Expression {
 	 * 
 	 * The old evaluation result is discarded
 	 */
-	public final EvalResult interpret(EvalResult e) {
+	public final Result interpret(Result e) {
 		return interpret(e.getEnvironment());
 	}
 	

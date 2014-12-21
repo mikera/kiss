@@ -1,15 +1,18 @@
 package kiss.lang.impl;
 
+import kiss.lang.Environment;
+
 /**
  * Class representing a return statement result.
  * 
  * @author Mike
  *
  */
-public class ReturnResult implements IExitResult {
+public class ReturnResult extends ExitResult {
 	public Object value;
 	
-	public ReturnResult(Object value) {
+	public ReturnResult(Environment env, Object value) {
+		super(env);
 		this.value=value;
 	}
 

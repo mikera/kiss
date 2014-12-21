@@ -1,9 +1,9 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.type.Null;
 import kiss.lang.type.Value;

@@ -4,9 +4,9 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 
 /**
  * A kiss "def" expression.

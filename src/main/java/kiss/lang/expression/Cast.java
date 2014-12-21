@@ -3,9 +3,10 @@ package kiss.lang.expression;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
+import kiss.lang.Result;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.JavaType;
@@ -47,8 +48,8 @@ public class Cast extends Expression {
 	}
 	
 	@Override
-	public EvalResult interpret(Environment d, IPersistentMap bindings) {
-		EvalResult ev= body.interpret(d, bindings);
+	public Result interpret(Environment d, IPersistentMap bindings) {
+		Result ev= body.interpret(d, bindings);
 		if (ev.isExiting()) return ev;
 		Object result=ev.getResult();
 		if (type.checkInstance(result)) {

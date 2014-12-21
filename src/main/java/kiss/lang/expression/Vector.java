@@ -8,9 +8,10 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentVector;
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
+import kiss.lang.Result;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.type.JavaType;
 
@@ -70,10 +71,10 @@ public class Vector extends Expression {
 	}
 
 	@Override
-	public EvalResult interpret(Environment d, IPersistentMap bindings) {
+	public Result interpret(Environment d, IPersistentMap bindings) {
 		ArrayList<Object> al=new ArrayList<Object>(length);
 		for (int i=0; i<length; i++) {
-			EvalResult t=vals.get(i).interpret(d, bindings);
+			Result t=vals.get(i).interpret(d, bindings);
 			if (t.isExiting()) return t;
 			d=t.getEnvironment();
 			al.add(t.getResult());

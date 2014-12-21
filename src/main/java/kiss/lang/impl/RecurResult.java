@@ -2,14 +2,18 @@ package kiss.lang.impl;
 
 import java.util.Arrays;
 
-public class RecurResult implements IExitResult {
+import kiss.lang.Environment;
+
+public class RecurResult extends ExitResult {
 	public Object[] values;
 	
-	public RecurResult(Object[] values) {
+	public RecurResult(Environment env, Object[] values) {
+		super(env);
 		this.values=values;
 	}
 
 	public String toString() {
 		return "(RecurResult "+Arrays.toString(values)+")";
 	}
+
 }

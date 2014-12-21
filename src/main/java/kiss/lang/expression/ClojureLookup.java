@@ -1,10 +1,10 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Keywords;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;

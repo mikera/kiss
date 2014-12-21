@@ -1,6 +1,7 @@
-package kiss.lang;
+package kiss.lang.impl;
 
-import kiss.lang.impl.IExitResult;
+import kiss.lang.Environment;
+import kiss.lang.Result;
 
 /**
  * Base class for evaluation result types
@@ -26,17 +27,13 @@ public final class EvalResult extends Result {
 	 * 
 	 * @return
 	 */
+	@Override
 	public boolean isExiting() {
 		return value instanceof IExitResult;
 	}
 	
-	
+	@Override
 	public Object getResult() {
 		return value;
 	}
-
-	public EvalResult withResult(Object a) {
-		return new EvalResult(env,a);
-	}
-
 }

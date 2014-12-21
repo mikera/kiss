@@ -3,9 +3,10 @@ package kiss.lang.expression;
 import java.util.Arrays;
 
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
+import kiss.lang.Result;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.type.Nothing;
 import clojure.lang.IPersistentMap;
@@ -102,9 +103,9 @@ public class Do extends kiss.lang.Expression {
 	}
 
 	@Override
-	public EvalResult interpret(Environment e, IPersistentMap bindings) {
+	public Result interpret(Environment e, IPersistentMap bindings) {
 		if (length==0) return new EvalResult(e);
-		EvalResult r=null;
+		Result r=null;
 		for (int i=0; i<length; i++) {
 			r=exps[i].interpret(e,bindings);
 			e=r.getEnvironment();

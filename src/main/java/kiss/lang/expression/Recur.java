@@ -1,9 +1,10 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
-import kiss.lang.EvalResult;
 import kiss.lang.Expression;
+import kiss.lang.Result;
 import kiss.lang.Type;
+import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.RecurResult;
 import kiss.lang.type.Nothing;
@@ -47,14 +48,16 @@ public class Recur<T> extends Expression {
 	}
 
 	@Override
-	public EvalResult interpret(Environment d, IPersistentMap bindings) {
+	public Result interpret(Environment d, IPersistentMap bindings) {
 		int n=values.length;
 		Object[] rs=new Object[n];
 		for (int i=0; i<n; i++) {
-			EvalResult t=values[i].interpret(d, bindings);
+			Result t=values[i].interpret(d, bindings);
+			if (t.isExiting()) return t;
+			d=t.getEnvironment();
 			rs[i]=t.getResult();
 		}
-		return d.withResult(new RecurResult(rs));
+		return new RecurResult(d,rs);
 	}
 
 	@Override
