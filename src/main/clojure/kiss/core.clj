@@ -11,30 +11,6 @@
 ;;
 ;; Don't rely on any of this stuff being here in the future
 
-(defn empty-environment
-  "Returns an empty Kiss Environment"
-  ([]
-    Environment/EMPTY))
-
-(defn new-environment
-  "Returns an empty Kiss Environment"
-  ([]
-    RT/ENVIRONMENT))
-
-(defn analyse
-  "Analyse a form, resulting a Kiss Expression AST"
-  (^Expression [form]
-    (analyse RT/ENVIRONMENT form))
-  (^Expression [^Environment env form]
-    (Analyser/analyse env form)))
-
-(defn compile
-  (^KFn [form]
-    (compile RT/ENVIRONMENT form))
-  (^KFn [^Environment env form]
-    (let [ex (analyse env form)]
-      (kiss.lang.Compiler/compile env ex))))
-
 (defmacro environment
   "Creates an Environment with the given Symbol -> Expression mappings."
   ([]
@@ -46,6 +22,32 @@
        (fn [^Environment e# [^Symbol k# v#]] (.define e# k# (analyse v#))) 
        ~env 
        (quote ~mappings))))
+
+(defn empty-environment
+  "Returns an empty Kiss Environment"
+  ([]
+    Environment/EMPTY))
+
+(defn new-environment
+  "Returns an empty Kiss Environment"
+  ([]
+    (environment)))
+
+(defn analyse
+  "Analyse a form, resulting a Kiss Expression AST"
+  (^Expression [form]
+    (analyse (environment) form))
+  (^Expression [^Environment env form]
+    (Analyser/analyse env form)))
+
+(defn compile
+  (^KFn [form]
+    (compile (environment) form))
+  (^KFn [^Environment env form]
+    (let [ex (analyse env form)]
+      (kiss.lang.Compiler/compile env ex))))
+
+
 
 
 (defn kmerge
@@ -73,7 +75,7 @@
 (defmacro kisst
   "Returns the type of a given expression, without executing it."
   ([body]
-    `(kisst RT/ENVIRONMENT ~body))
+    `(kisst (environment) ~body))
   ([env body]
     `(let [env# ~env
            ex# (compile env# (quote ~body))]
@@ -87,13 +89,13 @@
 (defmacro kisse
   "Compiles and executes Kiss code in the given Environment, returning the new Environment."
   ([body]
-    `(kisse RT/ENVIRONMENT ~body))
+    `(kisse (environment) ~body))
   ([env body]
     `(let [env# ~env
            body# (quote ~body)]
        (kisse* env# body#))))
 
-(def kiss-repl-env (atom RT/ENVIRONMENT))
+(def kiss-repl-env (atom (environment)))
 
 (defn kissify 
   "TODO: figure out how to hack the REPL"
