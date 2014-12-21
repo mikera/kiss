@@ -52,16 +52,13 @@
 (deftest test-def
   (let [e (kisse (def kiss.core/a 1))]
     (is (instance? Environment e))
-    (is (= 1 (result e)))
     (is (= 1 (e 'kiss.core/a))))
   (let [e (kisse (do (def kiss.core/a 1) (def kiss.core/b 2)))]
     (is (instance? Environment e))
-    (is (= 2 (result e)))
     (is (= 1 (e 'kiss.core/a)))
     (is (= 2 (e 'kiss.core/b))))
   (let [e (kisse (let [foo 2] (def kiss.core/a (clojure.core/+ foo 1))))]
     (is (instance? Environment e))
-    (is (= 3 (result e)))
     (is (= 3 (e 'kiss.core/a)))))
 
 (deftest test-merge

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
 import kiss.lang.Type;
@@ -55,7 +56,7 @@ public class Lambda extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
 		if (compiled!=null) return d.withResult(compiled);
 		
 		// TODO is this sensible? capture the dynamic environment at exact point of lambda creation?

@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
@@ -48,11 +49,11 @@ public class Return<T> extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
-		d=value.interpret(d, bindings);
-		if (d.isExiting()) return d;
-		Object o=d.getResult();
-		Environment re = d.withResult(new ReturnResult(o));
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
+		EvalResult r=value.interpret(d, bindings);
+		if (r.isExiting()) return r;
+		Object o=r.getResult();
+		EvalResult re = r.withResult(new ReturnResult(o));
 		return re;
 	}
 

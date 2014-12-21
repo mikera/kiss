@@ -6,6 +6,7 @@ import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 
@@ -64,11 +65,11 @@ public class Let extends Expression {
 	}
 	
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
-		d=value.interpret(d, bindings);
-		if (d.isExiting()) return d;
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
+		EvalResult r=value.interpret(d, bindings);
+		if (r.isExiting()) return r;
 		
-		Object result=d.getResult();
+		Object result=r.getResult();
 		bindings=bindings.assoc(sym, result);
 		return body.interpret(d, bindings);
 	}

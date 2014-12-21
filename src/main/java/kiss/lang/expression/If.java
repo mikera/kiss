@@ -3,6 +3,7 @@ package kiss.lang.expression;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissUtils;
@@ -84,10 +85,10 @@ public class If extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
-		d=cond.interpret(d, bindings);
-		if (d.isExiting()) return d;
-		if (KissUtils.truthy(d.getResult())) {
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
+		EvalResult r=cond.interpret(d, bindings);
+		if (r.isExiting()) return r;
+		if (KissUtils.truthy(r.getResult())) {
 			return doThen.interpret(d, bindings);
 		} else {
 			return doElse.interpret(d, bindings);

@@ -3,6 +3,7 @@ package kiss.lang.expression;
 import java.util.Map.Entry;
 
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
@@ -39,7 +40,7 @@ public class Lookup extends Expression {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Environment interpret(Environment e, IPersistentMap bindings) {
+	public EvalResult interpret(Environment e, IPersistentMap bindings) {
 		Entry<Symbol, ?> lb=(Entry<Symbol, ?>)bindings.entryAt(sym);
 		if (lb!=null) return e.withResult(lb.getValue());
 

@@ -4,6 +4,7 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.KFn;
 
@@ -36,7 +37,7 @@ public class LambdaFn extends KFn {
 		for (int i=0; i<arity; i++) {
 			bindings=bindings.assoc(params[i], args[i]);
 		}
-		Environment e=body.interpret(env, bindings);
+		EvalResult e=body.interpret(env, bindings);
 		
 		// handle recursion
 		while (true) {
@@ -47,7 +48,7 @@ public class LambdaFn extends KFn {
 			for (int i=0; i<arity; i++) {
 				bindings=bindings.assoc(params[i], re.values[i]);
 			}
-			e=body.interpret(e,bindings);
+			e=body.interpret(e.getEnvironment(),bindings);
 		}
 		return e.getResult();
 	}

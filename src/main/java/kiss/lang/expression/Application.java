@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
@@ -86,21 +87,21 @@ public class Application extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
-		d=func.interpret(d, bindings);
-		Object o=d.getResult();
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
+		EvalResult r=func.interpret(d, bindings);
+		Object o=r.getResult();
 		if (!(o instanceof IFn)) throw new KissException("Not a function: "+o);
 		IFn fn=(IFn)o;
 		
 		int n=params.length;
 		Object[] args=new Object[n];
 		for (int i=0; i<n; i++) {
-			d=params[i].interpret(d, bindings);
-			if (d.isExiting()) return d;
-			args[i]=d.getResult();
+			r=params[i].interpret(d, bindings);
+			if (r.isExiting()) return r;
+			args[i]=r.getResult();
 		}
 		
-		return d.withResult(fn.applyTo(ArraySeq.create(args)));
+		return r.withResult(fn.applyTo(ArraySeq.create(args)));
 	}
 	
 	@Override

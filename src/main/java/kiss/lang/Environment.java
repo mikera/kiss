@@ -38,22 +38,19 @@ public final class Environment extends APersistentMap {
 	public final IPersistentMap map; // Symbol -> Mapping 
 	public final IPersistentMap dependencies; // Symbol -> set of Symbols
 	public final IPersistentMap dependents; // Symbol -> set of Symbols
-	public final Object result;
 
 	private Environment() {
-		this(PersistentHashMap.EMPTY,PersistentHashMap.EMPTY,PersistentHashMap.EMPTY,null);
+		this(PersistentHashMap.EMPTY,PersistentHashMap.EMPTY,PersistentHashMap.EMPTY);
 	}
 	
-	private Environment(IPersistentMap map, IPersistentMap deps, IPersistentMap backDeps, Object result) {
+	private Environment(IPersistentMap map, IPersistentMap deps, IPersistentMap backDeps) {
 		this.map=map;
-		this.result=result;
 		this.dependencies=deps;
 		this.dependents=backDeps;
 	}
 	
-	public Environment withResult(Object value) {
-		if (value==result) return this;
-		return new Environment(map,dependencies,dependents,value);
+	public EvalResult withResult(Object value) {
+		return new EvalResult(this,value);
 	}
 	
 	/**
@@ -98,15 +95,15 @@ public final class Environment extends APersistentMap {
 		}
 		
 		if (unbound.count()==0) {
-			Environment newEnv=body.interpret(this, bindings);
-			Object value=newEnv.getResult();
-			newEnv = new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),tempDependencies,tempDependents,value);
+			EvalResult res=body.interpret(this, bindings);
+			Object value=res.getResult();
+			Environment newEnv= new Environment(map.assoc(key, Mapping.createExpression(body, value, null)),tempDependencies,tempDependents);
 			
 			newEnv=updateDependents(newEnv,key);
 			
 			return newEnv;
 		} else {
-			return new Environment(map.assoc(key, Mapping.createExpression(body, null, unbound)),tempDependencies,tempDependents,null);	
+			return new Environment(map.assoc(key, Mapping.createExpression(body, null, unbound)),tempDependencies,tempDependents);	
 		}
 	}
 	
@@ -181,7 +178,7 @@ public final class Environment extends APersistentMap {
 	public IPersistentMap without(Object key) {
 		Mapping m=getMapping(key);
 		if (m==null) return this;
-		return new Environment(map.without(key),dependencies,dependents, result);
+		return new Environment(map.without(key),dependencies,dependents);
 	}
 	
 	@Override
@@ -287,14 +284,6 @@ public final class Environment extends APersistentMap {
 		return m.getValue();
 	}
 
-	/**
-	 * Returns the current result in the environment.
-	 * @return
-	 */
-	public Object getResult() {
-		return result;
-	}
-
 	@SuppressWarnings("unchecked")
 	public void validate() {
 		for (Object o : map) {
@@ -324,14 +313,5 @@ public final class Environment extends APersistentMap {
 				if (!bs.contains(key)) throw new KissException("Missing back dependency from "+sym+"=>"+key);
 			}
 		}
-	}
-
-	/**
-	 * Returns true if the current result is an exit condition. This includes recur and return conditions.
-	 * 
-	 * @return
-	 */
-	public boolean isExiting() {
-		return result instanceof IExitResult;
 	}
 }

@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
@@ -74,7 +75,7 @@ public class Constant<T> extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
 		return d.withResult(value);
 	}
 

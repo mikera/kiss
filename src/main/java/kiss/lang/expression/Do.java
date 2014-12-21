@@ -3,6 +3,7 @@ package kiss.lang.expression;
 import java.util.Arrays;
 
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
@@ -101,12 +102,15 @@ public class Do extends kiss.lang.Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment e, IPersistentMap bindings) {
+	public EvalResult interpret(Environment e, IPersistentMap bindings) {
+		if (length==0) return new EvalResult(e);
+		EvalResult r=null;
 		for (int i=0; i<length; i++) {
-			e=exps[i].interpret(e,bindings);
-			if (e.isExiting()) return e;
+			r=exps[i].interpret(e,bindings);
+			e=r.getEnvironment();
+			if (r.isExiting()) return r;
 		}
-		return e;
+		return r;
 	}
 
 	@Override

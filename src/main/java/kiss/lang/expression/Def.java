@@ -4,6 +4,7 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 
@@ -49,8 +50,8 @@ public class Def extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
-		return d.define(sym,body,bindings);
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
+		return new EvalResult(d.define(sym,body,bindings));
 	}
 	
 	@Override

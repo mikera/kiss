@@ -2,6 +2,7 @@ package kiss.test;
 
 import static org.junit.Assert.*;
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.expression.Constant;
 import kiss.lang.expression.Def;
@@ -17,13 +18,14 @@ public class EnvironmentTests {
 		Expression x=Def.create(Symbol.intern("foo"),Constant.create(1));
 		Environment e=Environment.EMPTY;
 		
-		Environment e2=x.interpret(e);
+		EvalResult r=x.interpret(e);
+		Environment e2=r.getEnvironment();
 		assertEquals(1,e2.get(Symbol.intern("foo")));
-		assertEquals(1,e2.getResult());
+		assertEquals(null,r.getResult());
 	}
 	
 	@Test public void testValidity() {
-		Environment e=Environment.EMPTY;
+		EvalResult e=new EvalResult();
 		e.validate();
 		
 		e=Def.create(Symbol.intern("foo"),Constant.create(1)).interpret(e);

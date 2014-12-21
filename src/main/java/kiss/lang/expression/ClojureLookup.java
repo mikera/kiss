@@ -1,6 +1,7 @@
 package kiss.lang.expression;
 
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Keywords;
 import kiss.lang.Type;
@@ -45,7 +46,7 @@ public class ClojureLookup extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment e, IPersistentMap bindings) {
+	public EvalResult interpret(Environment e, IPersistentMap bindings) {
 		try {
 			Var v=RT.var(sym.getNamespace(),sym.getName());
 			if (v!=null) return e.withResult(v.deref());

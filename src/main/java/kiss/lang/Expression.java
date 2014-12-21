@@ -78,7 +78,7 @@ public abstract class Expression {
 	 * Compute the effect of this expression, returning a new Environment
 	 * @param bindings TODO
 	 */
-	public abstract Environment interpret(Environment d, IPersistentMap bindings);
+	public abstract EvalResult interpret(Environment d, IPersistentMap bindings);
 
 	/**
 	 * Computes the result of this expression in a given Environment. 
@@ -88,8 +88,17 @@ public abstract class Expression {
 	 * @param e
 	 * @return
 	 */
-	public final Environment interpret(Environment e) {
+	public final EvalResult interpret(Environment e) {
 		return interpret(KissUtils.ret1(e,e=null),PersistentHashMap.EMPTY);
+	}
+	
+	/**
+	 * Computes the result of the expression in the environmnet contained by a previous EvalResult
+	 * 
+	 * The old evaluation result is discarded
+	 */
+	public final EvalResult interpret(EvalResult e) {
+		return interpret(e.getEnvironment());
 	}
 	
 	/**

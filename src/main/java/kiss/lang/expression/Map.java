@@ -10,6 +10,7 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentHashMap;
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.KissException;
@@ -97,17 +98,17 @@ public class Map extends Expression {
 	}
 
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
 		HashMap<Object,Object> hm=new HashMap<Object,Object>();
 		for (int i=0; i<length; i++) {
-			d=keys.get(i).interpret(d, bindings);
-			if (d.isExiting()) return d;
+			EvalResult t=keys.get(i).interpret(d, bindings);
+			if (t.isExiting()) return t;
 			
-			Object k=d.getResult();
-			d=vals.get(i).interpret(d, bindings);
-			if (d.isExiting()) return d;
+			Object k=t.getResult();
+			t=vals.get(i).interpret(d, bindings);
+			if (t.isExiting()) return t;
 			
-			Object v=d.getResult();
+			Object v=t.getResult();
 			hm.put(k, v);
 		}
 		return d.withResult(PersistentHashMap.create(hm));

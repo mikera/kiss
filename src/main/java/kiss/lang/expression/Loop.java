@@ -4,6 +4,7 @@ import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.Symbol;
 import kiss.lang.Environment;
+import kiss.lang.EvalResult;
 import kiss.lang.Expression;
 import kiss.lang.Type;
 import kiss.lang.impl.RecurResult;
@@ -67,19 +68,19 @@ public class Loop extends Expression {
 	}
 	
 	@Override
-	public Environment interpret(Environment d, IPersistentMap bindings) {
+	public EvalResult interpret(Environment d, IPersistentMap bindings) {
 		int n=syms.length;
 		for (int i=0; i<n; i++) {
-			d=initials[i].interpret(d, bindings);
-			if (d.isExiting()) return d;
-			Object result=d.getResult();
+			EvalResult t=initials[i].interpret(d, bindings);
+			if (t.isExiting()) return t;
+			Object result=t.getResult();
 			bindings=bindings.assoc(syms[i], result);
 		}
 		while (true) {
-			d=body.interpret(d, bindings);
-			Object ro=d.getResult();
+			EvalResult r=body.interpret(d, bindings);
+			Object ro=r.getResult();
 			if (!(ro instanceof RecurResult)) {
-				return d;
+				return r;
 			}
 			
 			RecurResult rr=(RecurResult) ro;
