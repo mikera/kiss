@@ -15,20 +15,22 @@ import clojure.lang.IFn;
  * @author Mike
  *
  */
-public class FunctionType extends Type {
+public class FunctionType extends AFunctionType {
 
 	private final Type returnType;
 	private final Type[] paramTypes;
-	private final int arity;
+	private final int minArity;
+	private final boolean variadic;
 	
 	private FunctionType(Type returnType) {
-		this(returnType,Type.EMPTY_TYPE_ARRAY);
+		this(returnType,Type.EMPTY_TYPE_ARRAY,true);
 	}
 	
-	private FunctionType(Type returnType, Type[] paramTypes) {
+	private FunctionType(Type returnType, Type[] paramTypes, boolean variadic) {
 		this.returnType=returnType;
 		this.paramTypes=paramTypes;
-		this.arity=paramTypes.length;
+		this.variadic=variadic;
+		this.minArity=paramTypes.length - (variadic?1:0);
 	}
 	
 	public static FunctionType create(Type returnType, Mapping[] params) {
@@ -37,7 +39,7 @@ public class FunctionType extends Type {
 		for (int i=0; i<n; i++) {
 			ptypes[i]=params[i].getType();
 		}
-		return new FunctionType(returnType,ptypes);
+		return new FunctionType(returnType,ptypes,false);
 	}
 	
 	public static FunctionType create(Type returnType, Type... types) {
@@ -46,16 +48,19 @@ public class FunctionType extends Type {
 		for (int i=0; i<n; i++) {
 			ptypes[i]=types[i];
 		}
-		return new FunctionType(returnType,ptypes);
+		return new FunctionType(returnType,ptypes,false);
 	}
 	
 	public boolean hasArity(int n) {
-		// TODO: think about multi-arity?
-		return n==arity;
+		if (variadic) {
+			return n>=minArity;
+		} else {
+			return n==minArity;
+		}
 	}
 	
 	public int getArity() {
-		return arity;
+		return minArity;
 	}
 	
 	public Type getReturnType() {
@@ -67,7 +72,7 @@ public class FunctionType extends Type {
 		if (o instanceof KFn) {
 			KFn fn=(KFn)o;
 			if (!returnType.contains(fn.getReturnType())) return false; // covariance on return type
-			for (int i=0; i<arity; i++) {
+			for (int i=0; i<minArity; i++) {
 				if (!fn.getParamType(i).contains(paramTypes[i])) return false; // contravariance on parameter type				
 			}
 			return true;
@@ -92,6 +97,7 @@ public class FunctionType extends Type {
 		if (t instanceof FunctionType) {
 			FunctionType ft=(FunctionType)t;
 			
+			// TODO: handle variable arity
 			int n=getArity();
 			if (ft.getArity()!=n) return false;
 					
@@ -112,6 +118,7 @@ public class FunctionType extends Type {
 		
 		if (t instanceof FunctionType) {
 			FunctionType ft=(FunctionType)t;
+			// TODO: handle variable arity
 			int n=getArity();
 			if (ft.getArity()!=n) return Nothing.INSTANCE;
 			
@@ -175,7 +182,28 @@ public class FunctionType extends Type {
 
 	@Override
 	public void validate() {
-		if (arity!=paramTypes.length) throw new KissException("Mismatched arity count");
+		if (variadic) {
+			if (minArity!=paramTypes.length-1) throw new KissException("Mismatched arity count (variadic)");
+		} else {
+			if (minArity!=paramTypes.length) throw new KissException("Mismatched arity count (non-variadic)");
+		}
+		
+	}
+
+	@Override
+	public Type getParamType(int i) {
+		if (variadic&&i>=minArity) i=minArity;
+		return paramTypes[i];
+	}
+
+	@Override
+	public boolean isVariadic() {
+		return variadic;
+	}
+
+	@Override
+	protected int getMinArity() {
+		return minArity;
 	}
 
 }

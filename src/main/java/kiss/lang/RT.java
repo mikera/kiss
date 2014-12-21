@@ -19,6 +19,9 @@ public class RT {
 		Var cv=Clojure.var(name);
 		if (cv==null) throw new IllegalArgumentException("Can't import Clojure var: "+name);
 		Object value=cv.deref();
+		if (t instanceof FunctionType) {
+			
+		}
 		ENVIRONMENT=ENVIRONMENT.define(Symbol.create(name), Constant.create(t, value));
 	}
 	

@@ -1,6 +1,7 @@
 package kiss.lang.impl;
 
 import kiss.lang.Type;
+import kiss.lang.type.AFunctionType;
 import clojure.lang.IFn;
 import clojure.lang.RT;
 
@@ -9,6 +10,11 @@ public class WrappedFn extends ATypedFn {
 	
 	public WrappedFn(IFn fn, Type returnType, Type... paramTypes) {
 		super(returnType,paramTypes);
+		this.fn=fn;
+	}
+	
+	public WrappedFn(IFn fn, AFunctionType t) {
+		super(t.getReturnType(),t.getParamTypes());
 		this.fn=fn;
 	}
 
