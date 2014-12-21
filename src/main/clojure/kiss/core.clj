@@ -96,4 +96,4 @@
     (alter-var-root #'clojure.core/eval 
                   (fn [form] 
                     (swap! kiss-repl-env (fn [env] (kisse* env form)))
-                    (.getResult ^Environment @kiss-repl-env)))))
+                    (.getResult ^Result @kiss-repl-env)))))
