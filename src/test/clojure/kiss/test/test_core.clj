@@ -5,7 +5,7 @@
   (:import [kiss.lang Expression Environment] ))
 
 (deftest environment-tests
-  (let [e (environment)]
+  (let [e (empty-environment)]
     (is (empty? (seq e)))
     (let [e (assoc e 'foo 1)]
       (is (== 1 (e 'foo)))))
