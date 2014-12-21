@@ -2,12 +2,14 @@ package kiss.lang;
 
 import kiss.lang.impl.IExitResult;
 
-public final class EvalResult {
-	protected final Environment env;
+/**
+ * Base class for evaluation result types
+ */
+public final class EvalResult extends Result {
 	protected final Object value;
 
 	public EvalResult(Environment env, Object value) {
-		this.env=env;
+		super(env);
 		this.value=value;
 	}
 	
@@ -37,11 +39,4 @@ public final class EvalResult {
 		return new EvalResult(env,a);
 	}
 
-	public Environment getEnvironment() {
-		return env;
-	}
-
-	public void validate() {
-		env.validate();
-	}
 }
