@@ -40,6 +40,11 @@ public class Maybe extends Type {
 	public Class<?> getJavaClass() {
 		return type.getJavaClass();
 	}
+	
+	@Override
+	public Type getReturnType() {
+		return type.getReturnType();
+	}
 
 	@Override
 	public boolean contains(Type t) {

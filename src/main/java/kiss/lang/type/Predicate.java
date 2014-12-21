@@ -36,6 +36,11 @@ public class Predicate extends Type {
 	public Class<?> getJavaClass() {
 		return Object.class;
 	}
+	
+	@Override
+	public Type getReturnType() {
+		return pred.getReturnType();
+	}
 
 	@Override
 	public boolean canBeNull() {

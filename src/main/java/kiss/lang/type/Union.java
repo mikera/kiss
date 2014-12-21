@@ -86,6 +86,15 @@ public class Union extends ACompoundType {
 		}
 		return c;
 	}
+	
+	@Override
+	public Type getReturnType() {
+		Type t=types[0].getReturnType();
+		for (int i=1; i<types.length; i++) {
+			t=t.union(types[i].getReturnType());
+		}
+		return t;
+	}
 
 	@Override
 	public boolean canBeNull() {

@@ -32,6 +32,11 @@ public class Null extends Type {
 	public Class<?> getJavaClass() {
 		return Void.TYPE;
 	}
+	
+	@Override
+	public Type getReturnType() {
+		return Nothing.INSTANCE;
+	}
 
 	@Override
 	public boolean contains(Type t) {

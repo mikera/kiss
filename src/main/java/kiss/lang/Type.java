@@ -4,6 +4,7 @@ import kiss.lang.impl.KissUtils;
 import kiss.lang.type.Anything;
 import kiss.lang.type.Intersection;
 import kiss.lang.type.JavaType;
+import kiss.lang.type.Nothing;
 import kiss.lang.type.Union;
 import clojure.lang.Symbol;
 
@@ -24,7 +25,7 @@ public abstract class Type extends KFn {
 	}
 	
 	/**
-	 * Check if an object is an instance of this type
+	 * Performs a runtime check if an object is an instance of this type
 	 * 
 	 * @param o
 	 * @return
@@ -103,6 +104,10 @@ public abstract class Type extends KFn {
 		return Anything.INSTANCE;
 	}
 
+	/**
+	 * Returns true if this type can be proven to equal another type.
+	 * 
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o==this) return true;
@@ -118,7 +123,7 @@ public abstract class Type extends KFn {
 	
 	@Override
 	public Type getReturnType() {
-		return this;
+		return Anything.INSTANCE;
 	}
 	
 	public Object cast(Object a) {

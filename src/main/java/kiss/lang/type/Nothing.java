@@ -28,6 +28,12 @@ public class Nothing extends Type {
 		// TODO figure out if this is correct?
 		return Void.TYPE;
 	}
+	
+	@Override
+	public Type getReturnType() {
+		// not a function, so can't return anything
+		return Nothing.INSTANCE;
+	}
 
 	@Override
 	public boolean contains(Type t) {

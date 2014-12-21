@@ -56,6 +56,15 @@ public class Intersection extends ACompoundType {
 		}
 		return c;
 	}
+	
+	@Override
+	public Type getReturnType() {
+		Type t=types[0].getReturnType();
+		for (int i=1; i<types.length; i++) {
+			t=t.intersection(types[i].getReturnType());
+		}
+		return t;
+	}
 
 	@Override
 	public boolean canBeNull() {
