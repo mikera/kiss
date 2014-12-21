@@ -13,7 +13,7 @@ public abstract class AFunctionType extends Type {
 		if (isVariadic()) n++;
 		Type[] ts=new Type[n];
 		for (int i=0; i<n; i++) {
-			ts[i]=getParamType(n);
+			ts[i]=getParamType(i);
 		}
 		return ts;
 	}

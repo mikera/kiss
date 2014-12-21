@@ -1,9 +1,12 @@
 package kiss.lang;
 
+import clojure.lang.IFn;
 import clojure.lang.Symbol;
 import clojure.lang.Var;
 import mikera.cljutils.Clojure;
 import kiss.lang.expression.Constant;
+import kiss.lang.impl.WrappedFn;
+import kiss.lang.type.AFunctionType;
 import kiss.lang.type.FunctionType;
 import kiss.lang.type.JavaType;
 
@@ -19,14 +22,14 @@ public class RT {
 		Var cv=Clojure.var(name);
 		if (cv==null) throw new IllegalArgumentException("Can't import Clojure var: "+name);
 		Object value=cv.deref();
-		if (t instanceof FunctionType) {
-			
+		if (t instanceof AFunctionType) {
+			value=new WrappedFn((IFn)value,(AFunctionType)t);
 		}
 		ENVIRONMENT=ENVIRONMENT.define(Symbol.create(name), Constant.create(t, value));
 	}
 	
 	static {
-		importClojure ("+", FunctionType.create(type(Number.class), type(Number.class), type(Number.class)));
+		importClojure ("+", FunctionType.createVariadic(Types.NUMBER, Types.NUMBER));
 	}
 
 }

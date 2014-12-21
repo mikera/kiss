@@ -5,6 +5,11 @@ import kiss.lang.type.AFunctionType;
 import clojure.lang.IFn;
 import clojure.lang.RT;
 
+/**
+ * Wrapped for Clojure functions that adds a Kiss type
+ * @author Mike
+ *
+ */
 public class WrappedFn extends ATypedFn {
 	private final IFn fn;
 	
@@ -14,7 +19,7 @@ public class WrappedFn extends ATypedFn {
 	}
 	
 	public WrappedFn(IFn fn, AFunctionType t) {
-		super(t.getReturnType(),t.getParamTypes());
+		super(t.getReturnType(),t.getParamTypes(),t.isVariadic());
 		this.fn=fn;
 	}
 

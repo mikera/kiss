@@ -51,16 +51,21 @@ public class FunctionType extends AFunctionType {
 		return new FunctionType(returnType,ptypes,false);
 	}
 	
+	public static FunctionType createVariadic(Type returnType, Type... types) {
+		int n=types.length;
+		Type[] ptypes=new Type[n];
+		for (int i=0; i<n; i++) {
+			ptypes[i]=types[i];
+		}
+		return new FunctionType(returnType,ptypes,true);
+	}
+	
 	public boolean hasArity(int n) {
 		if (variadic) {
 			return n>=minArity;
 		} else {
 			return n==minArity;
 		}
-	}
-	
-	public int getArity() {
-		return minArity;
 	}
 	
 	public Type getReturnType() {
@@ -98,8 +103,8 @@ public class FunctionType extends AFunctionType {
 			FunctionType ft=(FunctionType)t;
 			
 			// TODO: handle variable arity
-			int n=getArity();
-			if (ft.getArity()!=n) return false;
+			int n=getMinArity();
+			if (ft.getMinArity()!=n) return false;
 					
 			if (!returnType.contains(ft.returnType)) return false;
 			
@@ -119,8 +124,8 @@ public class FunctionType extends AFunctionType {
 		if (t instanceof FunctionType) {
 			FunctionType ft=(FunctionType)t;
 			// TODO: handle variable arity
-			int n=getArity();
-			if (ft.getArity()!=n) return Nothing.INSTANCE;
+			int n=getMinArity();
+			if (ft.getMinArity()!=n) return Nothing.INSTANCE;
 			
 			Type rt=getReturnType().intersection(ft.returnType);
 			if (rt instanceof Nothing) return Nothing.INSTANCE;
@@ -202,7 +207,7 @@ public class FunctionType extends AFunctionType {
 	}
 
 	@Override
-	protected int getMinArity() {
+	public int getMinArity() {
 		return minArity;
 	}
 

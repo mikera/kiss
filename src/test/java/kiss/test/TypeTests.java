@@ -50,10 +50,21 @@ public class TypeTests {
 
 	@Test public void testFnType() {
 		FunctionType t=FunctionType.create(Null.INSTANCE,JavaType.create(Integer.class));
-		assertEquals(1,t.getArity());
+		assertEquals(1,t.getMinArity());
+		assertFalse(t.isVariadic());
+		assertEquals(1,t.getParamTypes().length);
 		
 		assertTrue(t.contains(FunctionType.create(Null.INSTANCE,JavaType.create(Number.class))));
 		assertFalse(t.contains(FunctionType.create(Null.INSTANCE,JavaType.create(String.class))));
+	}
+	
+	@Test public void testVariadic() {
+		Type nt=JavaType.create(Number.class);
+		FunctionType t=FunctionType.createVariadic(nt,new Type[] {nt});
+		t.validate();
+		assertTrue(t.isVariadic());
+		assertEquals(0,t.getMinArity());
+		assertEquals(1,t.getParamTypes().length);
 	}
 	
 	@Test public void testExactValue() {
