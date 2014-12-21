@@ -215,6 +215,7 @@ public final class Environment extends APersistentMap {
 			return source.hasNext();
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public Entry<Symbol,Mapping> next() {
 			Entry<Symbol,Mapping> entry=source.next();
