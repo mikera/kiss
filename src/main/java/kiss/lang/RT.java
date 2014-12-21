@@ -30,6 +30,7 @@ public class RT {
 	
 	static {
 		importClojure ("+", FunctionType.createVariadic(Types.NUMBER, Types.NUMBER));
+		importClojure ("-", FunctionType.createVariadic(Types.NUMBER, Types.NUMBER, Types.NUMBER));
 	}
 
 }
