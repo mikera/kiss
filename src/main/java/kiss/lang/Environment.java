@@ -3,11 +3,6 @@ package kiss.lang;
 import java.util.Iterator;
 import java.util.Map;
 
-import kiss.lang.expression.Constant;
-import kiss.lang.impl.EvalResult;
-import kiss.lang.impl.IExitResult;
-import kiss.lang.impl.KissException;
-import kiss.lang.impl.Mapping;
 import clojure.lang.APersistentMap;
 import clojure.lang.IMapEntry;
 import clojure.lang.IPersistentMap;
@@ -17,6 +12,10 @@ import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
 import clojure.lang.RT;
 import clojure.lang.Symbol;
+import kiss.lang.expression.Constant;
+import kiss.lang.impl.EvalResult;
+import kiss.lang.impl.KissException;
+import kiss.lang.impl.Mapping;
 
 /**
  * This is the immutable environment used by the Kiss compiler

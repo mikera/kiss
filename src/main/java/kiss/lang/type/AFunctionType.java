@@ -4,6 +4,7 @@ import kiss.lang.Type;
 
 public abstract class AFunctionType extends Type {
 	
+	@Override
 	public abstract Type getParamType(int i);
 	
 	public abstract boolean isVariadic();

@@ -1,11 +1,10 @@
 package kiss.lang;
 
-import kiss.lang.impl.EvalResult;
-import kiss.lang.impl.KissUtils;
 import clojure.lang.IPersistentMap;
 import clojure.lang.IPersistentSet;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentHashSet;
+import kiss.lang.impl.KissUtils;
 
 /**
  * Abstract base class for immutable Kiss Expression nodes

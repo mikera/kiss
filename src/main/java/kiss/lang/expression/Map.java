@@ -13,7 +13,6 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Result;
 import kiss.lang.Type;
-import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.type.JavaType;
 

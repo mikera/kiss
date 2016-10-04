@@ -68,6 +68,7 @@ public class FunctionType extends AFunctionType {
 		}
 	}
 	
+	@Override
 	public Type getReturnType() {
 		return returnType;
 	}

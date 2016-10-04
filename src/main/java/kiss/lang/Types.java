@@ -1,6 +1,5 @@
 package kiss.lang;
 
-import clojure.lang.Symbol;
 import kiss.lang.type.Anything;
 import kiss.lang.type.JavaType;
 import kiss.lang.type.Nothing;

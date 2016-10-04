@@ -19,6 +19,7 @@ public class MapEntry implements IMapEntry {
 		return new MapEntry(sym,o);
 	}
 
+	@Override
 	public Symbol getKey() {
 		return key;
 	}
@@ -27,10 +28,12 @@ public class MapEntry implements IMapEntry {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Object getValue() {
 		return value;
 	}
 
+	@Override
 	public Object setValue(Object value) {
 		throw new UnsupportedOperationException();
 	}

@@ -9,7 +9,6 @@ import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Result;
 import kiss.lang.Type;
-import kiss.lang.impl.EvalResult;
 
 /**
  * A let expression, creates a local lexical binding

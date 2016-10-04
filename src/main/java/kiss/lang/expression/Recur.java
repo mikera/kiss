@@ -1,15 +1,14 @@
 package kiss.lang.expression;
 
+import clojure.lang.IPersistentMap;
+import clojure.lang.IPersistentSet;
 import kiss.lang.Environment;
 import kiss.lang.Expression;
 import kiss.lang.Result;
 import kiss.lang.Type;
-import kiss.lang.impl.EvalResult;
 import kiss.lang.impl.KissException;
 import kiss.lang.impl.RecurResult;
 import kiss.lang.type.Nothing;
-import clojure.lang.IPersistentMap;
-import clojure.lang.IPersistentSet;
 
 /**
  * A recursion in tail position

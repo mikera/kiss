@@ -16,6 +16,7 @@ public class ReturnResult extends ExitResult {
 		this.value=value;
 	}
 
+	@Override
 	public String toString() {
 		return "(ReturnResult "+value.toString()+")";
 	}

@@ -22,6 +22,7 @@ import clojure.lang.RT;
  * @author Mike
  *
  */
+@SuppressWarnings("unused")
 public class Application extends Expression {
 	private final Expression func;
 	private final Expression[] params;
@@ -45,6 +46,7 @@ public class Application extends Expression {
 		return this;
 	}
 	
+	@Override
 	public Expression optimise() {
 		Expression nFunc=func.optimise();
 		
