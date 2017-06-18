@@ -1,4 +1,4 @@
-## Deprecation Notice:
+## Merging with Magic
 
 Kiss development has been merged into Magic (https://github.com/mikera/magic). Magic incorporates all of the key ideas developed in Kiss, but starts afresh with a much more solid implementation. If you are interested in Kiss, please join the Magic community going forwards, thanks!
 
